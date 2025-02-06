@@ -1,0 +1,33 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "chat-escuela",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "chatRoomId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "chat-escuela",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ChatRoomId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
