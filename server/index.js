@@ -1,8 +1,6 @@
 // server/index.js
 require('dotenv').config(); 
-
 console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY);
-
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
@@ -10,9 +8,6 @@ const path = require('path');
 const fs = require('fs');
 const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Stripe SDK
-
-
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -275,6 +270,35 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
         console.error('Error al subir el curso:', error);
         res.status(500).json({ error: 'Error interno del servidor al subir el curso.' });
     }
+});
+
+// Nueva carpeta para imágenes de la junta directiva
+const juntaUploadsDir = path.join(__dirname, 'uploads/junta');
+
+// Crear carpeta si no existe
+if (!fs.existsSync(juntaUploadsDir)) {
+    fs.mkdirSync(juntaUploadsDir, { recursive: true });
+}
+
+// Configurar Multer para almacenar imágenes en "uploads/junta"
+const juntaStorage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, juntaUploadsDir),
+    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+});
+
+const juntaUpload = multer({ storage: juntaStorage });
+
+// Servir imágenes de la junta directiva desde "/uploads/junta/"
+app.use('/uploads/junta', express.static(juntaUploadsDir));
+
+// Nueva ruta para subir imágenes de la junta
+app.post('/upload/junta', juntaUpload.single('file'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No se subió ningún archivo." });
+    }
+
+    const fileUrl = `http://localhost:5000/uploads/junta/${req.file.filename}`;
+    res.status(200).json({ fileUrl });
 });
 
 
