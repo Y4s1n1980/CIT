@@ -302,6 +302,24 @@ app.post('/upload/junta', juntaUpload.single('file'), (req, res) => {
 });
 
 
+// Endpoint para subir imágenes
+app.post('/upload-image', upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No se subió ningún archivo' });
+        }
+
+        const imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+        res.status(200).json({ imageUrl });
+    } catch (error) {
+        console.error('Error al subir la imagen:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+// Servir imágenes desde la carpeta "uploads"
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, '../client/build')));
