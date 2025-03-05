@@ -1,11 +1,22 @@
-// server/cloudinaryConfig.js
-const cloudinary = require('cloudinary').v2;
+const admin = require("firebase-admin"); 
+const serviceAccount = require("../config/serviceAccountKey.json"); 
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,  // Tu cloud_name de Cloudinary
-  api_key: process.env.CLOUDINARY_API_KEY,        // Tu api_key de Cloudinary
-  api_secret: process.env.CLOUDINARY_API_SECRET,  // Tu api_secret de Cloudinary
-});
+// Inicializa Firebase Admin 
+console.log('Inicializando Firebase Admin con el bucket:', serviceAccount.project_id);
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: "maqueta-proyecto", 
+  });
+}
 
-module.exports = cloudinary;
+// Inicializar bucket de almacenamiento
+const bucket = admin.storage().bucket();
+console.log('Bucket configurado:', bucket.name);
+
+// Inicializar Firestore
+const db = admin.firestore();
+
+module.exports = { admin, bucket, db };
+
 
