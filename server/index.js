@@ -1,35 +1,37 @@
 // server/index.js
-require('dotenv').config(); 
+require('dotenv').config();
 console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY);
+
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Stripe SDK
+const { db } = require('./firebaseAdmin'); // Se sigue usando Firestore para almacenar datos
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const cloudinary = require('./cloudinaryConfig'); // Usamos la configuración de Cloudinary
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000', // Cambiar si el frontend está en otro dominio
+    origin: 'http://localhost:3000', // Cambia según donde esté alojado tu frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 }));
 app.use(express.json());
 
-// **ENDPOINT: Crear PaymentIntent para donaciones**
+// Endpoint: Crear PaymentIntent para donaciones
 app.post('/create-payment-intent', async (req, res) => {
-    const { amount } = req.body; // Monto enviado desde el frontend
+    const { amount } = req.body;
     try {
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(amount * 100), // Convertir monto a centavos
-            currency: 'usd', // Cambiar si se necesita otra moneda
+            amount: Math.round(amount * 100), // Se convierte el monto a centavos
+            currency: 'usd',
             automatic_payment_methods: { enabled: true },
         });
-
         res.status(200).json({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
         console.error('Error al crear PaymentIntent:', error);
@@ -37,66 +39,49 @@ app.post('/create-payment-intent', async (req, res) => {
     }
 });
 
-// Crear directorio `uploads` si no existe
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads');
-    console.log('Carpeta "uploads" creada.');
-}
-
-// Configuración de multer para subir archivos
+// Configuración de multer para almacenar archivos de forma temporal
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
 const fileFilter = (req, file, cb) => {
     const allowedTypes = {
-        // Imágenes
-        'image/jpeg': 5 * 1024 * 1024, // 5 MB
+        'image/jpeg': 5 * 1024 * 1024,
         'image/png': 5 * 1024 * 1024,
         'image/webp': 5 * 1024 * 1024,
         'image/gif': 5 * 1024 * 1024,
         'image/bmp': 5 * 1024 * 1024,
         'image/tiff': 5 * 1024 * 1024,
-        // Audio
-        'audio/mpeg': 10 * 1024 * 1024, // 10 MB
+        'audio/mpeg': 10 * 1024 * 1024,
         'audio/ogg': 10 * 1024 * 1024,
         'audio/wav': 10 * 1024 * 1024,
-        // Video
-        'video/mp4': 50 * 1024 * 1024, // 50 MB
+        'video/mp4': 50 * 1024 * 1024,
         'video/webm': 50 * 1024 * 1024,
         'video/ogg': 50 * 1024 * 1024,
-        // Documentos
-        'application/pdf': 10 * 1024 * 1024, // 10 MB
-        'application/msword': 5 * 1024 * 1024, // 5 MB
+        'application/pdf': 10 * 1024 * 1024,
+        'application/msword': 5 * 1024 * 1024,
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 5 * 1024 * 1024,
         'application/vnd.ms-excel': 5 * 1024 * 1024,
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 5 * 1024 * 1024,
     };
 
-    // Verificar si el tipo de archivo está permitido
     if (!allowedTypes[file.mimetype]) {
         console.error('Intento de subir archivo no permitido:', file.mimetype);
         return cb(new Error('Tipo de archivo no permitido.'));
     }
 
-    // Verificar si el tamaño del archivo es válido
     if (file.size > allowedTypes[file.mimetype]) {
         console.error(`Archivo demasiado grande. Límite para ${file.mimetype}: ${allowedTypes[file.mimetype] / (1024 * 1024)} MB.`);
         return cb(new Error(`Archivo demasiado grande. Límite: ${allowedTypes[file.mimetype] / (1024 * 1024)} MB.`));
     }
 
-    cb(null, true); // Archivo permitido
+    cb(null, true);
 };
 
 const upload = multer({ storage, fileFilter });
 const uploadFields = upload.fields([{ name: 'file', maxCount: 1 }, { name: 'imagen', maxCount: 1 }]);
 
-module.exports = { upload, uploadFields };
-
-
-
-
-// **ENDPOINT: Guardar datos de donación en Firestore**
+// Endpoint: Guardar datos de donación en Firestore (sin cambios)
 app.post('/donations', async (req, res) => {
     const { donante_nombre, donante_email, monto, fecha_donacion, estado, referencia_transaccion, comentarios } = req.body;
 
@@ -125,203 +110,175 @@ app.post('/donations', async (req, res) => {
     }
 });
 
-// Endpoint específico para subir noticias
+// Endpoint: Subir noticias usando Cloudinary
 app.post('/upload-news', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
 
-        // Subir el archivo al bucket
+        // Subir el archivo a Cloudinary
         const file = req.file;
-        const fileDestination = `noticias/${file.filename}`; // Ruta específica para las noticias
-        const [uploadedFile] = await bucket.upload(file.path, {
-            destination: fileDestination,
-            metadata: { cacheControl: 'public, max-age=31536000' },
+        const result = await cloudinary.uploader.upload(file.path, {
+            folder: 'noticias',
+            transformation: { quality: "auto", fetch_format: "auto" },
         });
-        const imageUrl = `https://storage.googleapis.com/${bucket.name}/${fileDestination}`; // URL para guardar en `imagenUrl`
+        const imageUrl = result.secure_url;
 
-        // Eliminar archivo local temporal
+        // Eliminar archivo temporal
         fs.unlinkSync(file.path);
 
-        // Datos enviados desde el frontend
+        // Recoger datos del frontend
         const { titulo, descripcion, contenidoCompleto, estado, autorNombre, autorEmail } = req.body;
 
-        // Validar los datos obligatorios
         if (!titulo || !descripcion || !contenidoCompleto) {
             return res.status(400).json({ error: 'Faltan campos obligatorios.' });
         }
 
-        // Crear el documento en Firestore
         const documento = {
             titulo,
             descripcion,
             contenidoCompleto,
-            estado: estado === 'true', // Convertir a booleano
+            estado: estado === 'true',
             autorNombre: autorNombre || 'Autor desconocido',
             autorEmail: autorEmail || 'Email desconocido',
-            imagenUrl: imageUrl, // Guardar URL de la imagen en `imagenUrl`
+            imagenUrl: imageUrl,
             fechaCreacion: new Date(),
         };
 
         const noticiasRef = db.collection('noticias');
         const docRef = await noticiasRef.add(documento);
 
-        // Enviar respuesta al cliente
         res.status(200).json({
             message: 'Noticia subida y guardada con éxito.',
             docId: docRef.id,
             imagenUrl: imageUrl,
         });
     } catch (error) {
-        console.error('Error al subir la noticia:', error);
+        console.error('Error al subir la noticia a Cloudinary:', error);
         res.status(500).json({ error: 'Error interno del servidor al subir la noticia.' });
     }
 });
 
-
-
-
-// Endpoint general para subir multimedia al bucket de Google Cloud
+// Endpoint: Subida general de archivos usando Cloudinary
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
 
-        // Subir el archivo al bucket
         const file = req.file;
-        const fileDestination = `uploads/${file.filename}`; 
-        const [uploadedFile] = await bucket.upload(file.path, {
-            destination: fileDestination,
-            metadata: { cacheControl: 'public, max-age=31536000' },
+        const result = await cloudinary.uploader.upload(file.path, {
+            folder: 'uploads',
+            transformation: { quality: "auto", fetch_format: "auto" },
         });
-        const fileUrl = `https://storage.googleapis.com/${bucket.name}/${fileDestination}`; // URL del archivo subido
+        const fileUrl = result.secure_url;
 
-        // Eliminar archivo local temporal
         fs.unlinkSync(file.path);
 
-        // Enviar respuesta al cliente con la URL del archivo subido
         res.status(200).json({
             message: 'Archivo subido con éxito.',
             fileUrl,
         });
     } catch (error) {
-        console.error('Error al subir el archivo:', error);
+        console.error('Error al subir el archivo a Cloudinary:', error);
         res.status(500).json({ error: 'Error interno del servidor al subir el archivo.' });
     }
 });
 
-
-// Endpoint específico para subir cursos
+// Endpoint: Subir cursos usando Cloudinary
 app.post('/upload-course', upload.single('imagen'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ninguna imagen.' });
         }
 
-        // Subir el archivo al bucket
         const file = req.file;
-        const fileDestination = `cursos/${file.filename}`; // Ruta específica para los cursos
-        const [uploadedFile] = await bucket.upload(file.path, {
-            destination: fileDestination,
-            metadata: { cacheControl: 'public, max-age=31536000' },
+        const result = await cloudinary.uploader.upload(file.path, {
+            folder: 'cursos',
+            transformation: { quality: "auto", fetch_format: "auto" },
         });
+        const imagenUrl = result.secure_url;
 
-        // Generar la URL pública del archivo subido
-        const imagenUrl = `https://storage.googleapis.com/${bucket.name}/${fileDestination}`;
+        fs.unlinkSync(file.path);
 
-        // Eliminar archivo local temporal
-        try {
-            fs.unlinkSync(file.path);
-        } catch (unlinkError) {
-            console.error('Error al eliminar archivo temporal:', unlinkError);
-        }  
+        const { titulo, descripcion, autorNombre, autorEmail } = req.body;
 
-        // Datos enviados desde el frontend
-        const { titulo, descripcion } = req.body;
-
-        // Validar los datos obligatorios
         if (!titulo || !descripcion) {
             return res.status(400).json({ error: 'Faltan campos obligatorios.' });
         }
 
-        // Crear el documento en Firestore
         const cursoData = {
             titulo,
             descripcion,
-            autorNombre,
-            autorEmail,
+            autorNombre: autorNombre || 'Autor desconocido',
+            autorEmail: autorEmail || 'Email desconocido',
             estado: true,
-            imagenUrl: imagenUrl, 
+            imagenUrl: imagenUrl,
             fechaCreacion: new Date(),
         };
 
         const cursosRef = db.collection('cursos');
         const docRef = await cursosRef.add(cursoData);
 
-        // Enviar respuesta al cliente
         res.status(200).json({
             message: 'Curso subido y guardado con éxito.',
             docId: docRef.id,
             imagenUrl: imagenUrl,
         });
     } catch (error) {
-        console.error('Error al subir el curso:', error);
+        console.error('Error al subir el curso a Cloudinary:', error);
         res.status(500).json({ error: 'Error interno del servidor al subir el curso.' });
     }
 });
 
-// Nueva carpeta para imágenes de la junta directiva
-const juntaUploadsDir = path.join(__dirname, 'uploads/junta');
+// Endpoint: Subir imágenes de la junta usando Cloudinary
+app.post('/upload/junta', upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: "No se subió ningún archivo." });
+        }
 
-// Crear carpeta si no existe
-if (!fs.existsSync(juntaUploadsDir)) {
-    fs.mkdirSync(juntaUploadsDir, { recursive: true });
-}
+        const file = req.file;
+        const result = await cloudinary.uploader.upload(file.path, {
+            folder: 'junta',
+            transformation: { quality: "auto", fetch_format: "auto" },
+        });
+        const fileUrl = result.secure_url;
 
-// Configurar Multer para almacenar imágenes en "uploads/junta"
-const juntaStorage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, juntaUploadsDir),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
-});
+        fs.unlinkSync(file.path);
 
-const juntaUpload = multer({ storage: juntaStorage });
-
-// Servir imágenes de la junta directiva desde "/uploads/junta/"
-app.use('/uploads/junta', express.static(juntaUploadsDir));
-
-// Nueva ruta para subir imágenes de la junta
-app.post('/upload/junta', juntaUpload.single('file'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: "No se subió ningún archivo." });
+        res.status(200).json({ fileUrl });
+    } catch (error) {
+        console.error('Error al subir la imagen de la junta a Cloudinary:', error);
+        res.status(500).json({ error: 'Error interno del servidor al subir la imagen de la junta.' });
     }
-
-    const fileUrl = `http://localhost:5000/uploads/junta/${req.file.filename}`;
-    res.status(200).json({ fileUrl });
 });
 
-
-// Endpoint para subir imágenes
+// Endpoint: Subir imágenes (general) usando Cloudinary
 app.post('/upload-image', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo' });
         }
 
-        const imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+        const file = req.file;
+        const result = await cloudinary.uploader.upload(file.path, {
+            folder: 'images',
+            transformation: { quality: "auto", fetch_format: "auto" },
+        });
+        const imageUrl = result.secure_url;
+
+        fs.unlinkSync(file.path);
+
         res.status(200).json({ imageUrl });
     } catch (error) {
-        console.error('Error al subir la imagen:', error);
+        console.error('Error al subir la imagen a Cloudinary:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
 
-// Servir imágenes desde la carpeta "uploads"
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
-// Servir archivos estáticos
+// Servir archivos estáticos para el frontend
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
 
