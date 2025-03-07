@@ -1,0 +1,143 @@
+.eventos{
+    margin-top: 150px;
+}
+
+.evento-detalles {
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;
+    
+}
+
+.evento-detalles .evento-imagen {
+    width: 100%; 
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0; 
+    background-color: #f5f5f5; 
+    margin-top: 150px;
+}
+
+.evento-detalles .evento-info {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    word-break: break-word; /* Ajustar textos largos */
+    overflow-wrap: break-word;
+}
+
+.evento-detalles .evento-info h1 {
+    font-size: 2rem;
+    color: #2c3e50; /* Azul oscuro */
+    font-weight: bold;
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.evento-detalles .evento-info p {
+    font-size: 1.1rem;
+    color: #555555; /* Gris intermedio */
+    line-height: 1.8;
+    margin: 5px 0;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.evento-detalles .evento-info p strong {
+    color: #1abc9c; /* Verde suave para destacar texto */
+    font-weight: bold;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .evento-detalles {
+        max-width: 95%;
+        margin: 40px auto;
+    }
+
+    .evento-detalles .evento-info {
+        padding: 25px;
+    }
+
+    .evento-detalles .evento-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .evento-detalles .evento-info p {
+        font-size: 1rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; 
+        margin-top: 300px;
+    }
+
+    .eventos{
+        margin-top: 150px;
+    }
+
+    .evento-card{
+        align-items: center;
+    }
+    
+    .evento-detalles {
+        max-width: 90%;
+        margin: 30px auto;
+        gap: 15px;
+    }
+
+    .evento-detalles .evento-imagen {
+        max-height: 300px;
+    }
+
+    .evento-detalles .evento-info {
+        padding: 20px;
+    }
+
+    .evento-detalles .evento-info h1 {
+        font-size: 1.6rem;
+    }
+
+    .evento-detalles .evento-info p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .evento-detalles {
+        max-width: 95%;
+        margin: 20px auto;
+    }
+
+    .evento-detalles .evento-imagen {
+        max-height: 250px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .evento-detalles .evento-info {
+        padding: 15px;
+    }
+
+    .evento-detalles .evento-info h1 {
+        font-size: 1.4rem;
+    }
+
+    .evento-detalles .evento-info p {
+        font-size: 0.9rem;
+    }
+}
+

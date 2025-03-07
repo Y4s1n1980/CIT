@@ -1,0 +1,118 @@
+/* Contenedor principal del componente */
+.program-weekly-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Título principal */
+.program-weekly-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de tarjetas */
+.program-weekly-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Tarjeta individual */
+.program-weekly-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Paginación */
+.program-weekly-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.program-weekly-pagination button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.program-weekly-pagination button:disabled {
+    background-color: #ccc;
+}
+
+/* Botón de cierre */
+.program-weekly-close-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Efecto hover en botones */
+.program-weekly-container button:hover {
+    background-color: #0056b3; /* Cambia a tu preferencia */
+}
+
+/* Media Queries para responsividad */
+
+/* Móviles pequeños (max-width: 480px) */
+@media (max-width: 480px) {
+    .program-weekly-container {
+        width: 95%;
+        padding: 15px;
+    }
+    .program-weekly-card {
+        max-width: 100%;
+    }
+    .program-weekly-pagination {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* Móviles medianos (max-width: 600px) */
+@media (max-width: 600px) {
+    .program-weekly-container {
+        width: 95%;
+        padding: 15px;
+    }
+    .program-weekly-container button {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* Tablets (max-width: 900px) */
+@media (max-width: 900px) {
+    .program-weekly-container {
+        width: 85%;
+    }
+}
+
+/* Escritorio grande (min-width: 1200px) */
+@media (min-width: 1200px) {
+    .program-weekly-container {
+        max-width: 1000px;
+    }
+}

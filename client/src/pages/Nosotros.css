@@ -1,0 +1,627 @@
+/* src/pages/Nosotros.css */
+
+.nosotros {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #e0e5ec;
+}
+
+.hero {
+  background-image: url('/public/mezquita-tordera-interior.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+    
+
+/* Sección Historia */
+.about-history-section {
+  background-image: url('/public/general9.jpeg');
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 30px;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    animation: fadeIn 1s ease-in-out;
+}
+
+  
+  @keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
+  
+  .about-history-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+  }
+  
+  .history-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .history-text {
+    flex: 1;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .text-container {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 90px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  }
+  
+  .text-container h2 {
+    color: yellow;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  
+  .text-container p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: white;
+    margin-bottom: 10;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .history-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .history-image img {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+    max-width: 500px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .history-image img:hover {
+    transform: scale(1.20);
+  }
+  
+
+  .text-container button {
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    font-size: 1em; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+.text-container button:hover {
+    background-color: #0056b3; 
+    transform: translateY(-2px); 
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.text-container button:focus {
+    outline: none; 
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.6);
+     } 
+
+
+
+/* Junta Directiva Section */
+.junta-directiva {
+    text-align: center;
+    margin-bottom: 120px;
+}
+.junta-directiva h2 {
+    font-size: 3em;
+    color: #333;
+    margin-bottom: 110px;
+    margin-top: 90px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.miembros {
+    display: flex;
+    justify-content: center;
+    gap: 90px;
+}
+.miembro {
+    text-align: center;
+    cursor: pointer;
+}
+.miembro img {
+    width: 280px;
+    height: 280px;
+    border-radius: 3%;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+}
+.miembro p {
+    margin: 5px 0;
+    font-weight: 600;
+    color: #555;
+    font-size: 25px;
+}
+
+/* Misión Section */
+.mision {
+    text-align: center;
+    padding: 40px 0;
+    background-image: url('/public/general9.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .mision h2 {
+    font-size: 2.5em;
+    color: black;
+    margin-bottom: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  }
+  
+  .mision p {
+    font-size: 1.2em;
+    color: black;
+    margin-bottom: 40px;
+  }
+  
+  /* Tarjetas */
+  .mision-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .mision-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Contenido de las tarjetas */
+  .card-content-mision {
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .card-content-mision h3 {
+    font-size: 1.9em;
+    margin-bottom: 10px;
+    color: #ffdd57;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  }
+  
+  .card-content-mision p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #f0f0f0;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  
+  .mision-card.multimedia {
+    background-image: url('/public/gallery-image9.jpg');
+  }
+  
+  .mision-card {
+    background-image: url('/public/gallery-image10.jpg');
+  }
+  
+  .mision-card.blog {
+    background-image: url('/public/gallery-image8.jpg');
+  }
+  
+  .mision-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-content-mision button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra moderna */
+    align-self: center; /* Centrar botón horizontalmente */
+  }
+  
+  .card-content-mision button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+  }
+
+
+/* redes sociales miembros junta */
+
+.redes-sociales {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.redes-sociales a {
+  color: #0073b1; /* Puedes ajustar el color según la red social */
+  transition: color 0.3s ease;
+}
+
+.redes-sociales a:hover {
+  color: #005582; /* Cambia el color al pasar el ratón */
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .hero {
+      height: 50vh;
+  }
+
+  .hero h1 {
+      font-size: 2em;
+  }
+
+  .hero p {
+      font-size: 1em;
+  }
+
+  .history-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .history-text {
+      margin-right: 0;
+  }
+
+  .text-container {
+      padding: 50px;
+  }
+
+  .history-image img {
+      max-width: 400px;
+  }
+
+  .miembros {
+      flex-wrap: wrap;
+      gap: 50px;
+  }
+
+  .mision h2 {
+      font-size: 2em;
+  }
+
+  .mision p {
+      font-size: 1.1em;
+  }
+}
+
+/* Móviles (768px y menos) */
+@media (max-width: 768px) {
+  .hero {
+      height: 40vh;
+      margin-top: 140px !important;
+  }
+
+  .hero h1 {
+      font-size: 1.8em;
+      margin-top: 50px;
+  }
+
+  .hero p {
+      font-size: 0.9em;
+  }
+
+  .history-container {
+      flex-direction: column;
+  }
+
+  .text-container {
+      padding: 30px;
+  }
+
+  .history-image img {
+      max-width: 300px;
+  }
+
+  .miembros {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+  }
+
+  .miembro img {
+      width: 200px;
+      height: 200px;
+  }
+
+  .miembro p {
+      font-size: 1.2em;
+  }
+
+  .mision h2 {
+      font-size: 1.8em;
+  }
+
+  .mision p {
+      font-size: 1em;
+  }
+
+  .mision-cards {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* Teléfonos pequeños (480px y menos) */
+@media (max-width: 480px) {
+  .hero {
+      height: 35vh;
+  }
+
+  .hero h1 {
+      font-size: 1.5em;
+  }
+
+  .hero p {
+      font-size: 0.8em;
+  }
+
+  .text-container {
+      padding: 20px;
+  }
+
+  .history-image img {
+      max-width: 250px;
+  }
+
+  .miembro img {
+      width: 180px;
+      height: 180px;
+  }
+
+  .miembro p {
+      font-size: 1em;
+  }
+
+  .mision h2 {
+      font-size: 1.5em;
+  }
+
+  .mision p {
+      font-size: 0.9em;
+  }
+
+  .mision-cards {
+      grid-template-columns: 1fr;
+  }
+
+  .card-content h3 {
+      font-size: 1.5em;
+  }
+
+  .card-content p {
+      font-size: 0.9em;
+  }
+
+  .card-content button {
+      font-size: 0.9em;
+      padding: 8px 16px;
+  }
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .hero {
+      height: 50vh;
+  }
+
+  .hero h1 {
+      font-size: 2em;
+  }
+
+  .hero p {
+      font-size: 1em;
+  }
+
+  .history-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .history-text {
+      margin-right: 0;
+  }
+
+  .text-container {
+      padding: 50px;
+  }
+
+  .history-image img {
+      max-width: 400px;
+  }
+
+  .miembros {
+      flex-wrap: wrap;
+      gap: 50px;
+  }
+
+  .mision h2 {
+      font-size: 2em;
+  }
+
+  .mision p {
+      font-size: 1.1em;
+  }
+}
+
+/* Móviles (768px y menos) */
+@media (max-width: 768px) {
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+  .hero {
+      height: 40vh;
+  }
+
+  .hero h1 {
+      font-size: 1.8em;
+  }
+
+  .hero p {
+      font-size: 0.9em;
+  }
+
+  .history-container {
+      flex-direction: column;
+  }
+
+  .text-container {
+      padding: 30px;
+  }
+
+  .history-image img {
+      max-width: 300px;
+  }
+
+  .miembros {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+  }
+
+  .miembro img {
+      width: 200px;
+      height: 200px;
+  }
+
+  .miembro p {
+      font-size: 1.2em;
+  }
+
+  .mision h2 {
+      font-size: 1.8em;
+  }
+
+  .mision p {
+      font-size: 1em;
+  }
+
+  .mision-cards {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* Teléfonos pequeños (480px y menos) */
+@media (max-width: 480px) {
+  .hero {
+      height: 35vh;
+  }
+
+  .hero h1 {
+      font-size: 1.5em;
+  }
+
+  .hero p {
+      font-size: 0.8em;
+  }
+
+  .text-container {
+      padding: 20px;
+  }
+
+  .history-image img {
+      max-width: 250px;
+  }
+
+  .miembro img {
+      width: 180px;
+      height: 180px;
+  }
+
+  .miembro p {
+      font-size: 1em;
+  }
+
+  .mision h2 {
+      font-size: 1.5em;
+  }
+
+  .mision p {
+      font-size: 0.9em;
+  }
+
+  .mision-cards {
+      grid-template-columns: 1fr;
+  }
+
+  .card-content h3 {
+      font-size: 1.5em;
+  }
+
+  .card-content p {
+      font-size: 0.9em;
+  }
+
+  .card-content button {
+      font-size: 0.9em;
+      padding: 8px 16px;
+  }
+}

@@ -1,0 +1,235 @@
+/* Contenedor principal de la sección */
+.article-management {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-management h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilos de la tabla */
+.article-management table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.article-management th,
+.article-management td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    word-wrap: break-word; /* Permitir saltos de línea */
+    white-space: pre-wrap; /* Romper palabras largas */
+}
+
+.article-management th {
+    background-color: #333;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: bold;
+}
+
+.article-management td {
+    background-color: #fff;
+    color: #555;
+}
+
+/* Resaltar fila al pasar el mouse */
+.article-management tr:hover td {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Botones de acción */
+.article-management button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #fff; /* Texto blanco */
+    margin-right: 5px;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.article-management button:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón Aprobar */
+.article-management button:first-child {
+    background-color: #28a745; /* Verde */
+}
+
+.article-management button:first-child:hover {
+    background-color: #218838; /* Verde más oscuro */
+    transform: scale(1.05);
+}
+
+/* Botón Editar */
+.article-management button:nth-child(2) {
+    background-color: #007bff; /* Azul */
+}
+
+.article-management button:nth-child(2):hover {
+    background-color: #0056b3; /* Azul más oscuro */
+    transform: scale(1.05);
+}
+
+/* Botón Desactivar */
+.article-management button:nth-child(3) {
+    background-color: #ffc107; /* Amarillo */
+    color: #333;
+}
+
+.article-management button:nth-child(3):hover {
+    background-color: #e0a800; /* Amarillo más oscuro */
+    transform: scale(1.05);
+}
+
+/* Botón Eliminar */
+.article-management button:last-child {
+    background-color: #dc3545; /* Rojo */
+}
+
+.article-management button:last-child:hover {
+    background-color: #c82333; /* Rojo más oscuro */
+    transform: scale(1.05);
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination .active {
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bold;
+    cursor: default;
+}
+
+@media (max-width: 1024px) {
+    .article-management {
+      padding: 15px;
+    }
+  
+    .article-management h2 {
+      font-size: 1.8rem;
+    }
+  
+    .article-management th,
+    .article-management td {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  
+    .article-management button {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+  
+    .pagination button {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .article-management {
+      padding: 10px;
+    }
+  
+    .article-management h2 {
+      font-size: 1.6rem;
+    }
+  
+    .article-management table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .article-management th,
+    .article-management td {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    .article-management button {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+    }
+  
+    .pagination {
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+  
+    .pagination button {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .article-management h2 {
+      font-size: 1.4rem;
+    }
+  
+    .article-management th,
+    .article-management td {
+      font-size: 0.8rem;
+      padding: 6px;
+    }
+  
+    .article-management button {
+      padding: 4px 6px;
+      font-size: 0.75rem;
+    }
+  
+    .pagination {
+      gap: 3px;
+    }
+  
+    .pagination button {
+      padding: 5px 8px;
+      font-size: 0.75rem;
+    }
+  }
+  

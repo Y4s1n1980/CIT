@@ -1,0 +1,175 @@
+.financial-users table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed; /* Ajuste automático de las columnas */
+  }
+  
+  .financial-users th,
+  .financial-users td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-break: break-word; /* Romper palabras largas */
+    overflow-wrap: break-word; /* Ajustar el texto */
+    white-space: nowrap; /* No permitir salto de línea */
+    overflow: hidden; /* Esconder el texto que sobrepase */
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto es muy largo */
+  }
+  
+  .financial-users th {
+    background-color: #e9ecef;
+    color: #555;
+  }
+  
+  .financial-users td {
+    white-space: normal; /* Ajuste de texto dentro de las celdas */
+  }
+  
+  /* Formulario */
+  .financial-users .form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px; /* Agrega un margen inferior */
+  }
+  
+  .financial-users input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 150px;
+  }
+  
+  .financial-users button {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .financial-users button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Paginación */
+  .pagination-usuarios {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-usuarios button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .pagination-usuarios button.active {
+    background-color: #0056b3;
+    font-weight: bold;
+  }
+  
+  .pagination-usuarios button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Botón de editar */
+.edit-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+/* Botón de eliminar */
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+  
+  @media (max-width: 1024px) {
+    .financial-users th,
+    .financial-users td {
+      padding: 10px;
+      font-size: 0.9em;
+    }
+  
+    .financial-users input {
+      font-size: 13px;
+      padding: 8px;
+    }
+  
+    .financial-users button {
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .financial-users table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .financial-users th,
+    .financial-users td {
+      font-size: 0.85em;
+      padding: 8px;
+    }
+
+    .financial-users .form {
+      flex-direction: column;
+      margin-bottom: 20px; /* Mantiene el margen inferior */
+  }
+  
+  
+    .financial-users input {
+      width: 100%;
+    }
+  
+    .financial-users button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .financial-users th,
+    .financial-users td {
+      font-size: 0.8em;
+      padding: 6px;
+    }
+  
+    .pagination-usuarios button {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  }
+  

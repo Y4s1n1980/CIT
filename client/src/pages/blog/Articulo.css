@@ -1,0 +1,195 @@
+/* src/pages/Articulo.css */
+
+.articulo-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 120px;
+}
+
+.articulo-page h1 {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 2.5em;                  
+    color: #28a745;                     
+    font-weight: 700;                  
+    text-align: center;                 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+    margin-bottom: 20px;               
+  }
+  
+
+.articulo-page p {
+    overflow-wrap: break-word;   
+    word-break: break-word;      
+    white-space: pre-wrap;       
+  }
+  
+
+.articulo-page img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.comments-section {
+    margin-top: 30px;
+}
+
+.comments-section h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.user-comment {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.user-comment p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-form textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.comment-form button {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.comment-form button:hover {
+    background-color: #218838;
+}
+
+/* Para tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .articulo-page {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .articulo-page h1 {
+        font-size: 1.8em;
+    }
+
+    .comments-section h3 {
+        font-size: 1.4em;
+    }
+
+    .user-comment {
+        padding: 8px;
+    }
+
+    .comment-form textarea {
+        font-size: 0.9rem;
+    }
+
+    .comment-form button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; 
+    }
+    
+    .articulo-page {
+        margin-top: 180px !important;
+        padding: 10px;
+    }
+
+    .articulo-page h1 {
+        font-size: 1.6em;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .articulo-page img {
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+
+    .comments-section {
+        margin-top: 20px;
+    }
+
+    .comments-section h3 {
+        font-size: 1.3em;
+        text-align: center;
+    }
+
+    .user-comment {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .comment-form textarea {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .comment-form button {
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+    }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .articulo-page {
+        margin-top: 80px;
+        padding: 8px;
+    }
+
+    .articulo-page h1 {
+        font-size: 1.4em;
+    }
+
+    .comments-section h3 {
+        font-size: 1.2em;
+    }
+
+    .user-comment {
+        font-size: 0.85rem;
+    }
+
+    .comment-form textarea {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+
+    .comment-form button {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}

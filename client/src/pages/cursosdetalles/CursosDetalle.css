@@ -1,0 +1,207 @@
+.curso-detalle {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 90px;
+}
+
+.curso-imagen {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.curso-titulo {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.curso-titulo::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #3498db;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.curso-descripcion {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.curso-contenido {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.curso-contenido h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.curso-contenido p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background: #3498db;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.back-button:hover {
+    background: #1d6fa5;
+}
+
+/* Mensaje de error */
+.curso-detalle-error {
+    text-align: center;
+    padding: 40px;
+}
+
+.curso-detalle-error p {
+    font-size: 1.2rem;
+    color: #e74c3c;
+}
+
+.loading-message {
+    font-size: 1.5rem;
+    color: #3498db;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .curso-titulo {
+        font-size: 2.2rem;
+    }
+
+    .curso-descripcion {
+        font-size: 1.1rem;
+    }
+
+    .curso-contenido h2 {
+        font-size: 1.6rem;
+    }
+
+    .curso-contenido p {
+        font-size: 0.95rem;
+    }
+
+    .curso-imagen {
+        max-height: 350px;
+    }
+
+    .back-button {
+        font-size: 0.95rem;
+        padding: 9px 18px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .curso-detalle {
+        padding: 30px 15px;
+        margin-top: 70px;
+    }
+
+    .curso-imagen {
+        max-height: 300px;
+    }
+
+    .curso-titulo {
+        font-size: 2rem;
+    }
+
+    .curso-titulo::after {
+        width: 60px;
+    }
+
+    .curso-descripcion {
+        font-size: 1rem;
+    }
+
+    .curso-contenido h2 {
+        font-size: 1.4rem;
+    }
+
+    .curso-contenido p {
+        font-size: 0.9rem;
+    }
+
+    .back-button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .curso-detalle {
+        padding: 25px 10px;
+        margin-top: 60px;
+    }
+
+    .curso-imagen {
+        max-height: 250px;
+    }
+
+    .curso-titulo {
+        font-size: 1.8rem;
+    }
+
+    .curso-titulo::after {
+        width: 50px;
+        height: 3px;
+    }
+
+    .curso-descripcion {
+        font-size: 0.95rem;
+    }
+
+    .curso-contenido h2 {
+        font-size: 1.3rem;
+    }
+
+    .curso-contenido p {
+        font-size: 0.85rem;
+    }
+
+    .back-button {
+        font-size: 0.85rem;
+        padding: 7px 14px;
+    }
+
+    .loading-message {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,332 @@
+/* Estilo principal */
+.noticia-detalle {
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    margin-top: 50px;
+}
+
+/* Encabezado de la noticia */
+.noticia-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.noticia-header:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.noticia-imagen {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.noticia-titulo {
+    font-size: 2.8em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    position: relative;
+    display: inline-block;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Línea decorativa debajo del título */
+.noticia-titulo::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #3498db;
+    margin: 10px auto 0;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.noticia-titulo:hover::after {
+    width: 100px;
+}
+
+.noticia-autor {
+    font-size: 1.1em;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+    transition: color 0.3s ease;
+}
+
+.noticia-autor:hover {
+    color: #3498db;
+}
+
+
+
+/* Contenido de la noticia */
+.noticia-contenido {
+    font-size: 1.2em;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+/* Sección de comentarios */
+.comentarios-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.comentarios-section h2 {
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 3px solid #3498db;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Formulario de comentarios */
+.comentario-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comentario-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 1em;
+    background: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+.comentario-form textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    background: #fff;
+}
+
+.comentario-form button {
+    align-self: flex-end;
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.comentario-form button:hover {
+    background-color: #1d72b8;
+    transform: translateY(-2px);
+}
+
+/* Lista de comentarios */
+.comentarios-lista {
+    margin-top: 30px;
+}
+
+.comentario-card {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #3498db;
+    display: flex;
+    flex-direction: column;
+}
+
+.comentario-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 1em;
+}
+
+.comentario-card strong {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Botón agregar comentario */
+.comentario-form button {
+    background-color: #007bff;
+}
+
+.comentario-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .noticia-detalle {
+        padding: 30px 15px;
+    }
+
+    .noticia-titulo {
+        font-size: 2.2em;
+    }
+
+    .noticia-autor {
+        font-size: 1em;
+    }
+
+    .noticia-contenido {
+        font-size: 1.1em;
+        padding: 15px;
+    }
+
+    .comentarios-section h2 {
+        font-size: 1.8em;
+    }
+
+    .comentario-form textarea {
+        padding: 12px;
+        font-size: 0.95em;
+    }
+
+    .comentario-form button {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .noticia-detalle {
+        padding: 20px 10px;
+    }
+
+    .noticia-header {
+        padding: 15px;
+        margin-top: 100px;
+    }
+
+    .noticia-titulo {
+        font-size: 1.8em;
+    }
+
+    .noticia-titulo::after {
+        width: 50px;
+    }
+
+    .noticia-autor {
+        font-size: 0.9em;
+    }
+
+    .noticia-contenido {
+        font-size: 1em;
+        padding: 12px;
+    }
+
+    .comentarios-section {
+        padding: 15px;
+    }
+
+    .comentarios-section h2 {
+        font-size: 1.6em;
+    }
+
+    .comentario-card {
+        padding: 12px 15px;
+    }
+
+    .comentario-card p {
+        font-size: 0.9em;
+    }
+
+    .comentario-form textarea {
+        font-size: 0.9em;
+    }
+
+    .comentario-form button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .noticia-detalle {
+        padding: 15px 5px;
+    }
+
+    .noticia-titulo {
+        font-size: 1.5em;
+    }
+
+    .noticia-titulo::after {
+        width: 40px;
+    }
+
+    .noticia-autor {
+        font-size: 0.85em;
+    }
+
+    .noticia-contenido {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+
+    .comentarios-section {
+        padding: 10px;
+    }
+
+    .comentarios-section h2 {
+        font-size: 1.4em;
+    }
+
+    .comentario-card {
+        padding: 10px;
+    }
+
+    .comentario-card p {
+        font-size: 0.85em;
+    }
+
+    .comentario-form textarea {
+        font-size: 0.85em;
+    }
+
+    .comentario-form button {
+        font-size: 0.85em;
+        padding: 7px 14px;
+    }
+}
+

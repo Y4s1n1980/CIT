@@ -1,0 +1,248 @@
+.eventos {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 60px auto;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: linear-gradient(to left, #d4a017, #f8e48b);
+}
+
+.eventos h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4b2e83;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+.eventos p{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+
+
+.eventos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+    
+}
+
+.evento-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, hsl(42, 85%, 55%), hsl(42, 85%, 45%));
+    border-bottom: 2px solid #e0e0e0;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.evento-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.evento-date {
+    text-align: center;
+    margin-right: 20px;
+    color:  hsl(43, 88%, 32%);
+    font-size: 1.5rem;
+}
+
+.evento-date span {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.evento-info {
+    flex: 1;
+}
+
+.evento-info h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.6);
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+
+.evento-info p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    color: black;
+}
+
+.evento-button {
+    background-color: hsl(43, 68%, 33%);
+    color: hwb(0 100% 0%);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.evento-button:hover {
+    background-color: #b38913;
+}
+
+/* Agrega esto a tu archivo Eventos.css */
+.ver-mas-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.ver-mas-button {
+    background-color: hsl(245, 49%, 53%);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.ver-mas-button:hover {
+    background-color: hsl(107, 61%, 39%);
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .eventos {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .eventos h1 {
+        font-size: 2rem;
+    }
+
+    .eventos p {
+        font-size: 1.5rem;
+    }
+
+    .evento-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .evento-date {
+        font-size: 1.2rem;
+        margin-right: 0;
+    }
+
+    .evento-info h2 {
+        font-size: 1.3rem;
+    }
+
+    .evento-info p {
+        font-size: 1rem;
+    }
+
+    .evento-button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 100px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .eventos {
+        padding: 10px;
+        max-width: 95%;
+    }
+
+    .eventos-list {
+        align-items: center; /* centrado horizontal */
+      }
+
+      .evento-card {
+        max-width: 500px;
+        width: 100%;
+      }
+    
+
+    .eventos h1 {
+        font-size: 1.8rem;
+    }
+
+    .eventos p {
+        font-size: 1.3rem;
+    }
+
+    .evento-date {
+        font-size: 1rem;
+    }
+
+    .evento-info h2 {
+        font-size: 1.2rem;
+    }
+
+    .evento-info p {
+        font-size: 0.9rem;
+    }
+
+    .evento-button {
+        padding: 7px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .eventos {
+        padding: 5px;
+        max-width: 98%;
+    }
+
+    .eventos h1 {
+        font-size: 1.5rem;
+    }
+
+    .eventos p {
+        font-size: 1.1rem;
+    }
+
+    .evento-card {
+        padding: 10px;
+    }
+
+    .evento-date {
+        font-size: 0.9rem;
+    }
+
+    .evento-info h2 {
+        font-size: 1rem;
+    }
+
+    .evento-info p {
+        font-size: 0.85rem;
+    }
+
+    .evento-button {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+}

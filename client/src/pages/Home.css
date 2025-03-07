@@ -1,0 +1,567 @@
+/* src/pages/Home.css */
+.home {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.hero-home {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    animation: backgroundSlide 50s infinite ease-in-out;
+    margin-top: 90px;
+}
+
+/* Animación para el cambio de fondo */
+@keyframes backgroundSlide {
+    0% {
+        background-image: url('/public/gallery-image9.jpg');background-size: 120%;}
+    25% { background-image: url('/public/gallery-image10.jpg');background-size: 100%;}
+    50% {background-image: url('/public/mezquita-tordera-interior.png');background-size: 120%;}
+    75% {background-image: url('/public/gallery-image2.jpg');background-size: 100%;}
+    100% {background-image: url('/public/fachada-masjid-tordera.jpeg');background-size: 120%;}
+}
+
+/* Animación de humo para el texto */
+@keyframes smokeEffect {
+    0%, 25%, 50%, 75%, 100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+    12.5%, 37.5%, 62.5%, 87.5% {
+        opacity: 0;
+        transform: translateY(-20px);
+        filter: blur(6px); /* Ajusta el valor de blur para el efecto de humo */
+    }
+}
+
+/* Aplicamos la animación al hero */
+.hero-home {
+    animation: backgroundSlide 30s infinite ease-in-out; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Overlay oscuro para hacer el texto legible */
+.hero-home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Ajusta la opacidad según sea necesario */
+    z-index: 1;
+    border-radius: 10px;
+}
+
+/* Estilos para el texto */
+.hero-text-home {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInOut 50s infinite ease-in-out;
+}
+
+/* Efecto de entrada y salida de texto */
+@keyframes fadeInOut {
+    0%, 25%, 50%, 75%, 100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    12.5%, 37.5%, 62.5%, 87.5% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.hero-home h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3.5em;
+    margin-bottom: 30px;
+    color: hsl(168, 36%, 84%);
+    position: relative;
+    z-index: 2;
+    animation: smokeEffect 30s infinite ease-in-out;
+}
+
+.hero-home p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.6em;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+    animation: smokeEffect 30s infinite ease-in-out;
+}
+
+/* Botón estilo CTA */
+.cta-button-home {
+    display: inline-block;
+    padding: 15px 50px;
+    background: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 3px 3px 8px #00000026;
+    font-size: 1em;
+    margin-top: 100px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-button:hover {
+    background: #218838;
+}
+
+
+
+/* Servicios Section */
+.services-section {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-image: url('/public/general18.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+}
+
+.services-section h2 {
+    font-size: 3em;
+    color: #1a0a0a;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.services-section p {
+    color: #180505;
+    margin-bottom: 30px;
+    font-size: 1.5em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.services-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 25px;
+    justify-content: center;
+}
+
+.service-card {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    padding: 30px 20px;
+    min-height: 290px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden; 
+}
+
+/* Overlay oscuro */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/* Asegura que el contenido esté sobre el overlay */
+.service-card h3,
+.service-card p,
+.service-card .service-button {
+    position: relative;
+    z-index: 2;
+}
+
+.service-card h3,
+.service-card p,
+.service-card .service-button {
+    position: relative;
+    z-index: 2;
+}
+
+
+.service-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+.service-card h3::after {
+    content: "";
+    display: block;
+    width: 50%; 
+    height: 3px; 
+    background-color: #28a745; 
+    margin: 8px auto 0; 
+    border-radius: 2px;
+}
+
+.service-card p {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1em;
+    color: white;
+}
+
+
+
+.service-button {
+    display: inline-block;
+    padding: 8px 18px;
+    margin-top: 10px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.service-button:hover {
+    background: #0056b3;
+}
+
+
+/* About and Schedule Section */
+.about-schedule-section {
+    
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* About Section for Nosotros */
+.about-section-nosotros {
+    flex: 1;
+    padding: 40px 20px; 
+    background: hwb(199 30% 18% / 0.418);
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.about-section-nosotros h2 {
+    margin-top: 0;
+    margin-bottom: 55px;
+}
+
+.about-section-nosotros p {
+    margin-bottom: auto; 
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    bottom: 20px; 
+    font-size: 0.9em; 
+}
+
+.cta-button:hover {
+    background: #218838;
+}
+
+
+.schedule-section-horarios{
+    flex: 1;
+    padding: 20px;
+    background: hwb(69 32% 15%);
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.schedule-section iframe {
+    width: 100%;
+    height: 360px;
+    border-radius: 5px;
+}
+
+/* Testimonials Section */
+.testimonials-preview {
+    background-image: linear-gradient(to right , rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)), url('/public/fachada-masjid-tordera.jpeg');
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover; /* Ajusta la imagen para cubrir toda la sección */
+    background-position: center; /* Centra la imagen */
+    text-align: center;
+    padding: 70px;
+    margin-bottom: 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1900px;
+    margin: 40px auto; /* Centra el contenedor */
+}
+
+
+.testimonials-preview h2 {
+    font-size: 3em;
+    color: #007bff; /* Azul vibrante */
+    margin-bottom: 30px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.testimonials-preview h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #007bff;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Contenedor de testimonios */
+.testimonials-preview .testimonial {
+    font-size: 1.4em;
+    color: #444;
+    margin: 40px auto;
+    font-style: italic;
+    padding: 30px;
+    max-width: 800px;
+    background: linear-gradient(135deg, #f9f9f9, #f0f0f0);
+    border-left: 5px solid #007bff; /* Barra de color a la izquierda */
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    line-height: 1.8;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Efecto al pasar el mouse */
+.testimonials-preview .testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+
+.testimonials-preview .testimonial p {
+    margin: 0;
+}
+
+.testimonials-preview .testimonial p:first-child {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.testimonials-preview .read-more-button {
+    font-size: 1em;
+    background-color: #ffaa00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.testimonials-preview .read-more-button:hover {
+    background-color: #e09e00;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Donations Section */
+.donations-section { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding: 40px;
+    height: 60vh;
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url('/public/clases-22.jpeg');
+    background-size:  100% auto; 
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.donations-section h2 {
+    font-size: 4.5em;
+    margin-bottom: 30px;
+}
+
+.donations-section p {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.cta-button-donaciones {
+    display: inline-block;
+    padding: 15px 30px; 
+    background: #28a745;
+    color: #fff;
+    border-radius: 8px; 
+    text-decoration: none;
+    font-size: 1.2em; 
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+.cta-button-donaciones:hover {
+    background: #218838;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .hero-home h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-home p {
+        font-size: 1.4em;
+    }
+
+    .services-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-schedule-section {
+        flex-direction: column;
+    }
+
+    .about-section-nosotros, 
+    .schedule-section-horarios {
+        width: 100%;
+    }
+
+    .donations-section h2 {
+        font-size: 3.5em;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+
+    .hero-home {
+        height: 50vh;
+        margin-top: 130px;
+    }
+
+    .hero-home h1 {
+        font-size: 2em;
+    }
+
+    .hero-home p {
+        font-size: 1.2em;
+    }
+
+    .cta-button-home {
+        padding: 12px 40px;
+        font-size: 0.9em;
+    }
+
+    .services-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-preview {
+        padding: 40px;
+    }
+
+    .donations-section {
+        padding: 30px;
+    }
+
+    .donations-section h2 {
+        font-size: 2.8em;
+    }
+
+    .donations-section p {
+        font-size: 1.1em;
+    }
+
+    .cta-button-donaciones {
+        font-size: 1em;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .hero-home {
+        height: 45vh;
+    }
+
+    .hero-home h1 {
+        font-size: 1.8em;
+    }
+
+    .hero-home p {
+        font-size: 1em;
+    }
+
+    .services-section h2 {
+        font-size: 2em;
+    }
+
+    .services-section p {
+        font-size: 1.2em;
+    }
+
+    .testimonials-preview {
+        padding: 30px;
+    }
+
+    .testimonials-preview h2 {
+        font-size: 2em;
+    }
+
+    .donations-section h2 {
+        font-size: 2.5em;
+    }
+
+    .cta-button-home,
+    .cta-button-donaciones {
+        padding: 10px 30px;
+        font-size: 0.9em;
+    }
+}

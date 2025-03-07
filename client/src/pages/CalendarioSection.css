@@ -1,0 +1,58 @@
+.calendario-section {
+    padding: 20px;
+}
+
+.fc .fc-daygrid-event {
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+
+.fc .fc-daygrid-event:hover {
+    background-color: #0056b3;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .calendario-section {
+        padding: 15px;
+    }
+
+    .fc .fc-daygrid-event {
+        font-size: 0.9em;
+        padding: 2px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .calendario-section {
+        padding: 10px;
+    }
+
+    .fc .fc-daygrid-event {
+        font-size: 0.8em;
+        padding: 1px;
+        border-radius: 3px;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .calendario-section {
+        padding: 5px;
+    }
+
+    .fc .fc-daygrid-event {
+        font-size: 0.75em;
+        padding: 1px;
+        border-radius: 2px;
+    }
+}
+
