@@ -18,3 +18,5 @@ console.log('Bucket configurado:', bucket.name);
 const db = admin.firestore();
 
 module.exports = { admin, bucket, db };
+
+
