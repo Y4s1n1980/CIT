@@ -1,0 +1,160 @@
+/* src/pages/Auth.css */
+.auth {
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    margin-top: 120px;
+}
+
+.auth h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.auth form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth button {
+    padding: 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.auth button:hover {
+    background-color: #0056b3;
+}
+
+.reset-password {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.reset-password:hover {
+    color: #0056b3;
+}
+
+.toggle-auth {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.toggle-auth:hover {
+    color: #0056b3;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.message {
+    color: green;
+    margin-top: 10px;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .auth {
+        max-width: 350px;
+        margin-top: 100px;
+    }
+
+    .auth h2 {
+        font-size: 1.5em;
+    }
+
+    .auth input {
+        font-size: 0.95em;
+        padding: 8px;
+    }
+
+    .auth button {
+        font-size: 0.95em;
+        padding: 8px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .auth {
+        max-width: 90%;
+        margin-top: 80px;
+    }
+
+    .auth h2 {
+        font-size: 1.3em;
+        margin-top: 80px;
+    }
+
+    .auth input {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .auth button {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .toggle-auth,
+    .reset-password {
+        font-size: 0.9em;
+        max-width: 70%;
+        margin-bottom: 30px;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .auth {
+        max-width: 95%;
+        margin-top: 60px;
+    }
+
+    .auth h2 {
+        font-size: 1.2em;
+    }
+
+    .auth input {
+        font-size: 0.85em;
+        padding: 7px;
+    }
+
+    .auth button {
+        font-size: 0.85em;
+        padding: 7px;
+    }
+
+    .toggle-auth,
+    .reset-password {
+        font-size: 0.85em;
+    }
+}

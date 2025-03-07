@@ -1,0 +1,163 @@
+.financial-socios {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: none;
+  }
+  
+  .financial-socios h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .financial-socios table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+  }
+  
+  .financial-socios th,
+  .financial-socios td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    color: #333;
+  }
+  
+  .financial-socios th {
+    background-color: #e9ecef;
+    font-weight: bold;
+  }
+  
+  .financial-socios .total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+  }
+  
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .add-row-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Botón de editar */
+.edit-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+  
+  .pagination-socios {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .pagination-socios button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .pagination-socios button.active {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 1024px) {
+    .financial-socios {
+      padding: 15px;
+    }
+  
+    .financial-socios h2 {
+      font-size: 1.8em;
+    }
+  
+    .financial-socios th,
+    .financial-socios td {
+      padding: 10px;
+      font-size: 0.9em;
+    }
+  
+    .add-row-button {
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .financial-socios {
+      margin: 10px auto;
+      padding: 10px;
+    }
+  
+    .financial-socios h2 {
+      font-size: 1.5em;
+    }
+  
+    .financial-socios table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .financial-socios th,
+    .financial-socios td {
+      padding: 8px;
+      font-size: 0.85em;
+    }
+  
+    .form {
+      flex-direction: column;
+    }
+  
+    .add-row-button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .financial-socios {
+      padding: 5px;
+    }
+  
+    .financial-socios h2 {
+      font-size: 1.2em;
+    }
+  
+    .financial-socios th,
+    .financial-socios td {
+      font-size: 0.8em;
+      padding: 6px;
+    }
+  
+    .pagination-socios button {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  }
+  

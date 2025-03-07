@@ -1,0 +1,201 @@
+.cursos-page {
+    padding: 40px 20px;
+    background: #f9f9f9;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.cursos-title {
+    font-size: 2.8rem;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    position: relative;
+    margin-top: 50px;
+}
+
+.cursos-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #3498db;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.cursos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.curso-card {
+    display: flex;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 800px;
+    width: 100%;
+    height: 250px;
+}
+
+.curso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.curso-image {
+    width: 40%; /* Imagen ocupa el 40% */
+    height: 100%;
+    object-fit: cover;
+}
+
+.curso-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1;
+    text-align: left;
+}
+
+.curso-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.curso-description {
+    font-size: 1rem;
+    color: #7a7a7a;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.curso-more-info {
+    background: #3498db;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.curso-more-info:hover {
+    background: #1d6fa5;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .cursos-title {
+        font-size: 2.4rem;
+    }
+
+    .curso-card {
+        flex-direction: column;
+        height: auto;
+        max-width: 600px;
+    }
+
+    .curso-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .curso-content {
+        text-align: center;
+        align-items: center;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .cursos-title {
+        font-size: 2rem;
+    }
+
+    .cursos-title::after {
+        width: 60px;
+    }
+
+    .curso-card {
+        flex-direction: column;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .curso-image {
+        width: 100%;
+        height: 180px;
+    }
+
+    .curso-content {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .curso-title {
+        font-size: 1.3rem;
+    }
+
+    .curso-description {
+        font-size: 0.95rem;
+    }
+
+    .curso-more-info {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .cursos-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .cursos-title::after {
+        width: 50px;
+        height: 3px;
+    }
+
+    .curso-card {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .curso-image {
+        height: 150px;
+    }
+
+    .curso-content {
+        padding: 10px;
+    }
+
+    .curso-title {
+        font-size: 1.2rem;
+    }
+
+    .curso-description {
+        font-size: 0.85rem;
+    }
+
+    .curso-more-info {
+        font-size: 0.85rem;
+        padding: 7px 14px;
+    }
+}

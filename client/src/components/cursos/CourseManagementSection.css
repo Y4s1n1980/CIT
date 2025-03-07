@@ -1,0 +1,148 @@
+/* Estilos para la tabla */
+.courses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.courses-table th,
+.courses-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.courses-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.courses-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.courses-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botones de acción */
+.toggle-status,
+.delete-course {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.toggle-status {
+    background-color: #28a745;
+    color: white;
+}
+
+.toggle-status:hover {
+    background-color: #218838;
+}
+
+.delete-course {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-course:hover {
+    background-color: #c82333;
+}
+
+/* Paginación */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button.active {
+    background-color: #0056b3;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 1024px) {
+    .courses-table th,
+    .courses-table td {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  
+    .toggle-status,
+    .delete-course {
+      padding: 6px 10px;
+      font-size: 0.9rem;
+    }
+  
+    .pagination button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+
+    body {
+      padding-top: 80px; /* Aumentamos el espacio en móviles */
+  }
+  
+    .courses-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .courses-table th,
+    .courses-table td {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    .toggle-status,
+    .delete-course {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .pagination button {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .courses-table th,
+    .courses-table td {
+      font-size: 0.8rem;
+      padding: 6px;
+    }
+  
+    .toggle-status,
+    .delete-course {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+    }
+  
+    .pagination button {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+    }
+  }
+  

@@ -1,0 +1,189 @@
+.financial-dashboard {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 120px;
+  }
+  
+  .financial-dashboard h2 {
+    font-size: 2.5em;
+    font-family: 'Poppins', sans-serif; /* Fuente moderna y clara */
+    color: #2c3e50; /* Azul oscuro elegante */
+    font-weight: 700; /* Más grosor para destacar */
+    text-transform: uppercase; /* Letras en mayúsculas */
+    text-align: center; /* Centrado */
+    position: relative;
+    letter-spacing: 1.2px; /* Espaciado para modernidad */
+    margin-bottom: 30px;
+}
+
+/* Línea decorativa debajo del título */
+.financial-dashboard h2::after {
+    content: '';
+    display: block;
+    width: 80px; /* Ancho de la línea */
+    height: 4px; /* Grosor de la línea */
+    background-color: #3498db; /* Azul moderno */
+    margin: 10px auto 0; /* Centrado debajo del texto */
+    border-radius: 2px; /* Bordes redondeados */
+}
+
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .financial-card {
+    background: #f5f5f5;
+    box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .financial-card:hover {
+    transform: scale(1.05);
+    box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
+  }
+  
+  .financial-card h3 {
+    font-size: 1.4em; /* Un poco más grande para mejor legibilidad */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna y clara */
+    color: #2c3e50; /* Azul oscuro elegante */
+    font-weight: 700; /* Más grosor para destacar */
+    text-align: center; /* Centrado */
+    text-transform: uppercase; /* Mayúsculas para resaltar */
+    letter-spacing: 1.1px; /* Espaciado para modernidad */
+    margin-bottom: 15px;
+    position: relative;
+}
+
+/* Línea decorativa debajo del título */
+.financial-card h3::after {
+    content: '';
+    display: block;
+    width: 60px; /* Ancho de la línea */
+    height: 3px; /* Grosor de la línea */
+    background-color: #3498db; /* Azul moderno */
+    margin: 8px auto 0; /* Centrado debajo del texto */
+    border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Estilización del párrafo */
+.financial-card p {
+    font-size: 1em; /* Tamaño de letra óptimo */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    color: #555; /* Tono gris oscuro para mejor lectura */
+    line-height: 1.6; /* Espaciado para mayor claridad */
+    text-align: center; /* Alineación centrada */
+    max-width: 90%; /* No se extiende demasiado */
+    margin: 0 auto; /* Centrado automático */
+}
+
+  
+  .financial-section {
+    margin-top: 30px;
+  }
+  
+  .financial-section > div {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+    padding: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  @media (max-width: 1024px) {
+    .financial-dashboard {
+      padding: 15px;
+      margin-top: 100px;
+    }
+  
+    .financial-dashboard h2 {
+      font-size: 2em;
+    }
+  
+    .card-container {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+  
+    .financial-card {
+      padding: 15px;
+    }
+  
+    .financial-card h3 {
+      font-size: 1.3em;
+    }
+  
+    .financial-card p {
+      font-size: 0.9em;
+    }
+  }
+  
+  @media (max-width: 768px) {
+
+    body {
+      padding-top: 80px; 
+  }
+  
+    .financial-dashboard {
+      margin-top: 110px;
+      text-align: center;
+    }
+  
+    .financial-dashboard h2 {
+      font-size: 1.8em;
+      margin-top: 50px;
+    }
+  
+    .card-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 15px;
+    }
+  
+    .financial-card {
+      padding: 12px;
+      margin: 10px;
+    }
+  
+    .financial-card h3 {
+      font-size: 1.2em;
+    }
+  
+    .financial-card p {
+      font-size: 0.85em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .financial-dashboard {
+      padding: 10px;
+      margin-top: 110px;
+    }
+  
+    .financial-dashboard h2 {
+      font-size: 1.5em;
+    }
+  
+    .card-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .financial-card {
+      padding: 10px;
+    }
+  
+    .financial-card h3 {
+      font-size: 1.1em;
+    }
+  
+    .financial-card p {
+      font-size: 0.8em;
+    }
+  }
+  

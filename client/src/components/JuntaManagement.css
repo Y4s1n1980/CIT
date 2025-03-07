@@ -1,0 +1,182 @@
+.junta-management {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+}
+
+/* Contenedor de la lista de miembros con Grid */
+.miembros-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive */
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Tarjeta de cada miembro */
+.miembro-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.miembro-card:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen dentro de la tarjeta */
+.miembro-card img {
+    width: 100%;  /* Ajuste dinámico */
+    max-height: 250px;  /* Control de altura */
+    object-fit: cover;  /* Recorte inteligente */
+    border-radius: 10px;
+}
+
+/* Texto en la tarjeta */
+.miembro-card h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.miembro-card p {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Botón de eliminar */
+.miembro-card .btn-eliminar {
+    background: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.miembro-card .btn-eliminar:hover {
+    background: darkred;
+}
+
+/* Botón de editar */
+.miembro-card .btn-editar {
+    background: green;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.miembro-card .btn-editar:hover {
+    background: darkgreen;
+}
+
+
+/* Formulario de agregar miembros */
+.form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Campos de entrada */
+.form input, .form textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* Botón de agregar */
+.form button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.form button:hover {
+    background: darkgreen;
+}
+
+/* Estilo de redes sociales */
+.redes-sociales {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.redes-sociales a {
+    color: #555;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+}
+
+.redes-sociales a:hover {
+    color: #007bff; /* Azul para el hover */
+}
+
+
+/* 🔹 Estilos Responsivos */
+@media (max-width: 768px) {
+    .miembros-list {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .miembro-card img {
+        max-height: 200px;
+    }
+
+    .miembro-card h3 {
+        font-size: 1rem;
+    }
+
+    .miembro-card p {
+        font-size: 0.8rem;
+    }
+
+    .form {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .miembros-list {
+        grid-template-columns: 1fr;
+    }
+
+    .miembro-card img {
+        max-height: 180px;
+    }
+
+    .miembro-card button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+
+    .form button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

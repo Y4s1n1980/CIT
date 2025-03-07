@@ -1,0 +1,229 @@
+.financial-donaciones {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%; /* Hace que ocupe todo el ancho disponible */
+    max-width: none; /* Elimina la restricción de ancho máximo */
+  }
+  
+  .financial-donaciones h2 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Tabla */
+  .financial-donaciones table {
+    width: 100%; /* Garantiza que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: auto; /* Permite ajustar automáticamente el tamaño de las columnas */
+  }
+  
+  .financial-donaciones th,
+  .financial-donaciones td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: nowrap; /* Evita saltos de línea */
+    overflow: hidden; /* Oculta el contenido que se desborde */
+    text-overflow: ellipsis; /* Puntos suspensivos si se desborda */
+  }
+  
+  .financial-donaciones th {
+    background-color: #f0f0f0;
+    color: #555;
+  }
+  
+  .financial-donaciones tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Total Monto */
+  .financial-donaciones .total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    text-align: right;
+  }
+  
+  /* Formulario */
+  .financial-donaciones .form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .financial-donaciones input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 150px;
+  }
+  
+  .financial-donaciones .add-row-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .financial-donaciones .add-row-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Paginación */
+  .pagination-donaciones {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-donaciones button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .pagination-donaciones button.active {
+    background-color: #0056b3;
+    font-weight: bold;
+  }
+  
+  .pagination-donaciones button:hover:not(.active) {
+    background-color: #0056b3;
+  }
+  
+  .pagination-donaciones button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+
+  /* Botón de editar */
+.edit-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+/* Botón de eliminar */
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+  
+  @media (max-width: 1024px) {
+    .financial-donaciones {
+      padding: 15px;
+    }
+  
+    .financial-donaciones h2 {
+      font-size: 1.8em;
+    }
+  
+    .financial-donaciones th,
+    .financial-donaciones td {
+      padding: 10px;
+      font-size: 0.9em;
+    }
+  
+    .financial-donaciones input {
+      font-size: 13px;
+    }
+  
+    .financial-donaciones .add-row-button {
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .financial-donaciones {
+      margin: 10px auto;
+      padding: 10px;
+    }
+  
+    .financial-donaciones h2 {
+      font-size: 1.5em;
+    }
+  
+    .financial-donaciones table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .financial-donaciones th,
+    .financial-donaciones td {
+      padding: 8px;
+      font-size: 0.85em;
+    }
+  
+    .financial-donaciones .form {
+      flex-direction: column;
+    }
+  
+    .financial-donaciones input {
+      width: 100%;
+    }
+  
+    .financial-donaciones .add-row-button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .financial-donaciones {
+      padding: 5px;
+    }
+  
+    .financial-donaciones h2 {
+      font-size: 1.2em;
+    }
+  
+    .financial-donaciones th,
+    .financial-donaciones td {
+      font-size: 0.8em;
+      padding: 6px;
+    }
+  
+    .financial-donaciones .pagination-donaciones button {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  }
+  

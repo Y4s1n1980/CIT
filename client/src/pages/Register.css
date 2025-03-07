@@ -1,0 +1,94 @@
+/* src/pages/Register.css */
+.register {
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.register h2 {
+    text-align: center;
+    color: #333;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.register input {
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register button {
+    padding: 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+/* 📱 Tablets y pantallas medianas (768px y menos) */
+@media (max-width: 768px) {
+    body {
+        padding-top: 80px; 
+        
+    }
+    
+    .register {
+        max-width: 90%; 
+        padding: 15px;
+    }
+
+    .register h2 {
+        font-size: 1.8em; 
+        
+    }
+
+    .register input {
+        padding: 10px; 
+        
+    }
+
+    .register button {
+        padding: 12px;
+        font-size: 1.1em;
+    }
+}
+
+/* 📱 Teléfonos pequeños (480px y menos) */
+@media (max-width: 480px) {
+    .register {
+        max-width: 100%; /* Usa el ancho completo */
+        padding: 10px;
+    }
+
+    .register h2 {
+        font-size: 1.5em;
+    }
+
+    .register input {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .register button {
+        font-size: 1em;
+        padding: 10px;
+    }
+}
+

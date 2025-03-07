@@ -1,0 +1,318 @@
+/* General styling for the page */
+.historia-page {
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(231, 221, 221);
+    text-align: center;
+}
+
+/* Estilos para el título */
+.historia-title {
+    font-size: 3em; 
+    color: #2c3e50; 
+    margin-bottom: 20px;
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; /* Espaciado entre letras */
+    margin-top: 50px;
+    text-align: center; 
+    font-weight: bold; /* Resalta el título */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    position: relative;
+}
+
+/* Línea decorativa debajo del título */
+.historia-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #3498db; /* Color azul moderno */
+    margin: 10px auto 0; /* Centrado debajo del título */
+    border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Estilos para el párrafo */
+.historia-description {
+    font-size: 1.2em; /* Tamaño del texto cómodo para lectura */
+    color: #555; /* Color suave para facilitar la lectura */
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.8; 
+    text-align: justify; /* Justifica el texto para un acabado más limpio */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    padding: 0 15px; /* Añade un pequeño margen interno en pantallas pequeñas */
+}
+
+/* Gallery grid styling */
+.historia-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Card styling for each image */
+.historia-gallery-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.historia-gallery-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling within the cards */
+.historia-gallery-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.historia-gallery-card:hover .historia-gallery-image {
+    opacity: 0.9;
+}
+
+/* Button for loading more images */
+.historia-load-more-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.historia-load-more-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Modal overlay */
+.historia-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px; /* Añade espacio alrededor del modal */
+}
+
+/* Modal content */
+.historia-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 80%; /* Limita el ancho del modal */
+    max-height: 90%; /* Limita la altura del modal */
+    overflow: hidden;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* Modal image styling */
+.historia-modal-image {
+    width: auto;
+    height: auto;
+    max-width: 100%; /* Ajusta la imagen al ancho del modal */
+    max-height: 100%; /* Ajusta la imagen a la altura del modal */
+    border-radius: 10px;
+    object-fit: contain; /* Mantiene la proporción de la imagen */
+    display: block;
+}
+
+/* Close button */
+.historia-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8em;
+    color: #e74c3c;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.3s;
+}
+
+.historia-close-button:hover {
+    color: #c0392b;
+}
+
+
+/* Sección de historia comunidad */
+.historia-comunidad {
+    background-color: #f0f8ff; /* Fondo azul claro para contraste */
+    padding: 50px 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes suaves */
+    margin: 40px auto; /* Separación con otras secciones */
+    text-align: center; /* Centrar contenido */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    max-width: 1200px; /* Limitar ancho máximo */
+}
+
+/* Título de historia comunidad */
+.historia-title-comunidad {
+    font-size: 2.5em; /* Tamaño grande */
+    color: #34495e; /* Azul elegante */
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1.2px; /* Espaciado moderno */
+    font-weight: bold; /* Resaltar título */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    position: relative;
+}
+
+/* Línea decorativa debajo del título */
+.historia-title-comunidad::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 3px;
+    background: #2980b9; /* Azul intenso */
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Descripción de historia comunidad */
+.historia-description-comunidad {
+    font-size: 1.2em; /* Tamaño cómodo para leer */
+    color: #555; /* Color suave */
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8; /* Espaciado entre líneas */
+    text-align: justify; /* Justifica texto */
+    font-family: 'Poppins', sans-serif; /* Fuente consistente */
+    padding: 0 15px; /* Margen interno para pantallas pequeñas */
+}
+
+/* Hover en toda la sección para interactividad */
+.historia-comunidad:hover {
+    background-color: #e6f7ff; /* Fondo más claro al pasar el mouse */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Animation for modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .historia-title {
+      font-size: 2.5em;
+    }
+  
+    .historia-description {
+      font-size: 1.1em;
+    }
+  
+    .historia-gallery {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  
+    .historia-modal-content {
+      max-width: 90%;
+      max-height: 85%;
+    }
+  
+    .historia-title-comunidad {
+      font-size: 2.2em;
+    }
+  
+    .historia-description-comunidad {
+      font-size: 1.1em;
+    }
+  }
+  
+  /* Móviles */
+  @media (max-width: 768px) {
+
+    body {
+      padding-top: 80px; 
+  }
+    .historia-title {
+      font-size: 2em;
+      margin-top: 120px;
+    }
+  
+    .historia-description {
+      font-size: 1em;
+    }
+  
+    .historia-gallery {
+      grid-template-columns: 1fr;
+    }
+  
+    .historia-modal-content {
+      max-width: 95%;
+      max-height: 80%;
+    }
+  
+    .historia-title-comunidad {
+      font-size: 1.8em;
+    }
+  
+    .historia-description-comunidad {
+      font-size: 1em;
+      padding: 0 10px;
+    }
+  }
+  
+  /* Pantallas muy pequeñas (menos de 480px) */
+  @media (max-width: 480px) {
+    .historia-title {
+      font-size: 1.8em;
+    }
+  
+    .historia-description {
+      font-size: 0.9em;
+      padding: 0 10px;
+    }
+  
+    .historia-title-comunidad {
+      font-size: 1.6em;
+    }
+  
+    .historia-description-comunidad {
+      font-size: 0.9em;
+    }
+  
+    .historia-load-more-button {
+      font-size: 0.9em;
+      padding: 10px 20px;
+    }
+  
+    .historia-modal-content {
+      padding: 10px;
+    }
+  }
+  

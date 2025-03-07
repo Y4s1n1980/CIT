@@ -1,0 +1,233 @@
+.task-submissions {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-submissions h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.task-submissions table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0; /* Espaciado entre bordes */
+    margin: 20px 0;
+    background-color: #fff;
+    border: 2px solid #ddd; /* Borde exterior para toda la tabla */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.task-submissions th,
+.task-submissions td {
+    text-align: left;
+    padding: 12px 15px;
+    border: 1px solid #ddd; /* Líneas verticales y horizontales entre celdas */
+    color: #555;
+}
+
+.task-submissions th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.task-submissions td {
+    background-color: #fff;
+    word-break: break-word; /* Permite saltos en palabras largas */
+}
+
+.task-submissions tr:hover td {
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.task-submissions button.download {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.task-submissions button.download:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.task-submissions button.downloaded {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: not-allowed;
+}
+
+.task-submissions button.delete {
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.task-submissions button.delete:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Estilo para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.pagination button.active {
+    background-color: #ffc107;
+    color: #333;
+    cursor: default;
+}
+
+.pagination button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+
+/* Para tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .task-submissions {
+        padding: 15px;
+    }
+
+    .task-submissions h2 {
+        font-size: 1.5rem;
+    }
+
+    .task-submissions table {
+        font-size: 0.9rem;
+    }
+
+    .task-submissions th,
+    .task-submissions td {
+        padding: 10px;
+    }
+
+    .pagination button {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .task-submissions {
+        overflow-x: auto; /* Permite desplazamiento horizontal */
+    }
+
+    .task-submissions table {
+        font-size: 0.85rem;
+        border: none;
+        display: block;
+    }
+
+    .task-submissions thead {
+        display: none; /* Oculta los encabezados en pantallas pequeñas */
+    }
+
+    .task-submissions tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-submissions tbody td {
+        display: block;
+        text-align: right;
+        padding: 8px;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .task-submissions tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #007bff;
+    }
+
+    .task-submissions tbody td:last-child {
+        border-bottom: none;
+    }
+
+    /* Botones con ancho completo en móviles */
+    .task-submissions button {
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .task-submissions {
+        padding: 10px;
+    }
+
+    .task-submissions h2 {
+        font-size: 1.4rem;
+    }
+
+    .task-submissions tbody td {
+        padding: 6px;
+    }
+
+    .task-submissions table button {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+}

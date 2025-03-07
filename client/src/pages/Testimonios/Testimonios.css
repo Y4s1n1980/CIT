@@ -1,0 +1,238 @@
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
+
+/* Sección de testimonios */
+.testimonios-section {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(to bottom right, #f9f9f9, #e3e3e3);
+    margin-top: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Título estilizado */
+.testimonios-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+}
+
+/* Línea decorativa debajo del título */
+.testimonios-title::after {
+    content: "";
+    width: 90px;
+    height: 4px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+}
+
+.testimonios-title:hover::after {
+    width: 120px;
+}
+
+/* Tarjeta de testimonio */
+.testimonio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 50%;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.testimonio-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenido del testimonio */
+.testimonio-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Nombre del testimonio */
+.testimonio-name {
+    font-size: 22px;
+    color: #222;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Texto del testimonio */
+.testimonio-text {
+    font-size: 18px;
+    color: #555;
+    margin-top: 30px;
+    max-width: 85%;
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.6;
+}
+
+/* Formulario de testimonios */
+.testimonio-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    margin-top: 60px;
+}
+
+/* Inputs y textarea con estilo */
+.testimonio-form input,
+.testimonio-form textarea {
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+    background-color: #f5f5f5;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonio-form input:focus,
+.testimonio-form textarea:focus {
+    border-color: #ffaa00;
+    box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+    outline: none;
+}
+
+/* Botón de envío */
+.submit-testimonio-button {
+    font-size: 18px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(255, 126, 95, 0.3);
+    font-family: "Poppins", sans-serif;
+}
+
+.submit-testimonio-button:hover {
+    background: linear-gradient(to right, #e86c5a, #ff9f82);
+    transform: translateY(-3px);
+}
+
+.submit-testimonio-button:active {
+    transform: translateY(0);
+}
+
+/* Responsividad */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .testimonio-container {
+        width: 70%;
+        padding: 50px;
+    }
+
+    .testimonios-title {
+        font-size: 2.2rem;
+    }
+
+    .testimonio-text {
+        font-size: 16px;
+    }
+
+    .testimonio-form {
+        gap: 25px;
+        margin-top: 40px;
+    }
+
+    .testimonio-form input,
+    .testimonio-form textarea {
+        font-size: 15px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+    .testimonios-section {
+        padding: 40px 15px;
+    }
+
+    .testimonio-container {
+        width: 85%;
+        padding: 40px;
+    }
+
+    .testimonios-title {
+        font-size: 1.8rem;
+        margin-top: 100px;
+    }
+
+    .testimonio-name {
+        font-size: 18px;
+    }
+
+    .testimonio-text {
+        font-size: 14px;
+    }
+
+    .testimonio-form input,
+    .testimonio-form textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .submit-testimonio-button {
+        font-size: 16px;
+        padding: 10px 25px;
+    }
+}
+
+/* Teléfonos pequeños */
+@media (max-width: 480px) {
+    .testimonio-container {
+        width: 95%;
+        padding: 30px;
+    }
+
+    .testimonios-title {
+        font-size: 1.6rem;
+    }
+
+    .testimonio-name {
+        font-size: 16px;
+    }
+
+    .testimonio-text {
+        font-size: 13px;
+        max-width: 100%;
+    }
+
+    .testimonio-form input,
+    .testimonio-form textarea {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .submit-testimonio-button {
+        font-size: 14px;
+        padding: 8px 20px;
+    }
+}

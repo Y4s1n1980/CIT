@@ -1,0 +1,560 @@
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    height: 50vh;
+    background-image: url('/public/hero1.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 70px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 0;
+}
+
+.hero-content {
+    color: #ffffff; 
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 90%;
+    padding: 0 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Sombra para mejorar visibilidad */
+}
+
+/* Estilos para el h2 */
+.hero h2 {
+    font-size: 3em; /* Texto más grande */
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase; /* Siempre en mayúsculas */
+    letter-spacing: 2px; /* Espaciado moderno entre letras */
+    color: #ffdd57; /* Amarillo para destacar */
+    position: relative;
+}
+
+/* Línea decorativa debajo del h2 */
+.hero h2::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 4px;
+    background: #ffdd57; /* Amarillo para contraste */
+    margin: 10px auto 0;
+    border-radius: 2px; /* Bordes redondeados */
+}
+
+
+.hero p {
+    font-size: 1.5em; /* Texto más grande */
+    line-height: 1.8;
+    color: #ffffff; /* Texto blanco */
+    font-weight: 300; /* Peso ligero para balancear */
+    margin-top: 10px;
+}
+
+
+
+/* Sección de Servicios */
+.servicios {
+    padding: 40px;
+    background-color: #f0f0f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.servicios h1 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.servicios-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Tres columnas flexibles */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+/* Tarjetas de servicios */
+
+.servicio-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.08), -6px -6px 20px rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 450px; /* 🔹 Todas las tarjetas tendrán la misma altura */
+    max-width: 350px;
+    margin: auto;
+    border: 2px solid transparent;
+    overflow: hidden;
+}
+
+/* Efecto hover */
+.servicio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.1), -12px -12px 25px rgba(255, 255, 255, 0.9);
+    border-color: #ffdd57;
+}
+
+/* Imagen dentro de la tarjeta */
+.servicio-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Zoom en hover */
+.servicio-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Título */
+.servicio-card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 700;
+    margin-top: 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Línea decorativa debajo del título */
+.servicio-card h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #ffdd57;
+    margin: 8px auto 0;
+    border-radius: 2px;
+}
+
+/*  Descripción con límite de altura */
+
+.servicio-card p {
+    font-size: 1rem;
+    color: #666;
+    flex-grow: 1;
+    line-height: 1.6;
+    max-height: 70px; /* 🔹 Se establece una altura máxima */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    line-clamp: 3; /* 🔹 Propiedad estándar */
+    white-space: normal; 
+}
+
+
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: auto; /* Permite scroll general */
+}
+
+/* Bloquea el scroll del body cuando el modal está abierto */
+body.modal-open {
+    overflow: hidden;
+}
+
+.modal-content {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    background: #8c7d7d6e !important;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 80vh;
+    
+}
+
+
+.modal-content img {
+    width: auto;
+    max-width: 100%; /* Ajusta la anchura */
+    max-height: 40vh; /* Limita la altura */
+    object-fit: contain; /* Mantén las proporciones */
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+/* Ajusta el texto del modal */
+.modal-content h2 {
+    font-size: 1.9em;
+    margin-top: 20px;
+    color: #ffdd57; 
+    text-transform: uppercase; 
+    text-align: center; 
+    font-family: 'Arial', sans-serif; 
+    position: relative;
+}
+
+/* Subrayado moderno */
+.modal-content h2::after {
+    content: ''; /* Línea decorativa */
+    position: absolute;
+    bottom: -10px; /* Espaciado debajo del texto */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%; /* Ancho de la línea */
+    height: 3px; /* Grosor de la línea */
+    background: #ffdd57; /* Mismo color que el texto */
+    border-radius: 2px; /* Bordes redondeados */
+}
+
+
+.modal-content p {
+    font-size: 1em;
+    line-height: 1.5; /* Mejor separación */
+    margin-top: 10px; 
+    color: white;
+}
+
+/* Botón de cerrar */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.8em;
+    color: #ff6b6b; 
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.close-button:hover {
+    color: #ff4949;
+}
+
+/* Animación para el modal */
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Placeholder para imágenes */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 200px; /* Altura fija para mantener el diseño consistente */
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder {
+    font-size: 14px;
+    color: #aaa;
+}
+
+.servicio-imagen {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+/* Estilo para imágenes en tarjetas */
+.servicio-imagen {
+    width: 100%;
+    min-height: 150px; 
+    max-height: 200px; /* Limita la altura máxima */
+    object-fit: cover; /* Recorta sin deformar la imagen */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Estilo para imágenes en el modal */
+.modal-content img {
+    width: auto !important;
+    max-width: 100% !important; 
+    max-height: 60vh !important; 
+    object-fit: contain !important; 
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+
+/* Ajuste del texto para evitar solapamientos */
+.modal-content p {
+    margin-top: 20px;
+    font-size: 1em;
+    line-height: 1.6; /* Mejor separación entre líneas */
+    color: white !important;
+}
+
+/* Nueva sección para Explorar Servicios */
+.explorar-servicios {
+    width: 100%;
+    padding: 60px 20px;
+    background-image: url('/public/gallery-image10.jpg'); 
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.explorar-servicios::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 0;
+}
+
+.explorar-servicios-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+}
+
+.explorar-servicios h2 {
+    font-size: 2.5rem;
+    color: #ffdd57;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.explorar-servicios p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.explorar-servicios button {
+    background-color: #ffdd57;
+    color: #000;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.explorar-servicios button:hover {
+    background-color: #e6c200;
+    transform: scale(1.05);
+}
+
+/* PAGINACIÓN ESTILIZADA */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 8px;
+}
+
+.pagination button {
+    background-color: #ffffff;
+    color: #555;
+    padding: 10px 18px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 45px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Efecto hover */
+.pagination button:hover {
+    background-color: #ffdd57;
+    color: #000;
+    border-color: #ffdd57;
+    transform: scale(1.1);
+}
+
+/* Botón de página activa */
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bold;
+    transform: scale(1.15);
+}
+
+/* Botones deshabilitados */
+.pagination button:disabled {
+    background-color: #f0f0f5;
+    color: #aaa;
+    cursor: not-allowed;
+    border-color: #ddd;
+    box-shadow: none;
+}
+
+/* 📱 Tablets y pantallas medianas (768px y menos) */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    .hero {
+        height: 40vh; /* Reduce la altura del hero */
+    }
+
+    .hero h2 {
+        font-size: 2.2em;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+    }
+
+    .servicio-card {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .servicio-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .servicio-card img {
+        height: 180px;
+    }
+
+    .servicios-list {
+        grid-template-columns: repeat(2, 1fr); /* Reduce a dos columnas */
+        gap: 20px;
+    }
+
+    .modal-content {
+        width: 90%; /* Asegura que el modal sea más accesible */
+    }
+
+    .modal-content img {
+        max-height: 50vh; /* Ajusta la imagen dentro del modal */
+    }
+
+    .explorar-servicios h2 {
+        font-size: 2rem;
+    }
+    .explorar-servicios p {
+        font-size: 1.1rem;
+    }
+    .explorar-servicios button {
+        font-size: 1rem;
+    }
+
+    .pagination {
+        gap: 5px;
+    }
+
+    .pagination button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 📱 Teléfonos pequeños (480px y menos) */
+@media (max-width: 480px) {
+    .hero {
+        height: 30vh; /* Reduce aún más la altura */
+    }
+
+    .hero h2 {
+        font-size: 1.8em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .servicios-list {
+        grid-template-columns: 1fr; /* Una sola columna */
+    }
+
+    .servicio-card {
+        padding: 15px;
+        height: auto; /* Permite que el contenido defina la altura */
+    }
+
+    .modal-content {
+        max-height: 80vh; /* Asegura que el modal no cubra toda la pantalla */
+    }
+
+    .modal-content img {
+        max-height: 40vh; /* Ajusta la imagen en móviles */
+    }
+
+    .servicio-card {
+        height: 380px;
+    }
+    .pagination {
+        gap: 5px;
+    }
+}
+
+

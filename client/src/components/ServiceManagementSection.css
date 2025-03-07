@@ -1,0 +1,296 @@
+/* Contenedor principal */
+.service-management {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Asegura que el contenido no sobresalga */
+}
+
+/* Título de la sección */
+.service-management h2 {
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+.service-management .service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.service-management .service-form input,
+.service-management .service-form textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.service-management .service-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.service-management .service-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Tabla */
+.service-management table {
+    width: 100%;
+    border-collapse: collapse; /* Colapsar bordes */
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden; /* Asegura que el contenido no sobresalga */
+    table-layout: fixed; /* Ajusta las celdas automáticamente */
+    word-wrap: break-word; /* Permitir saltos de línea */
+}
+
+.service-management th,
+.service-management td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd; /* Líneas claras entre celdas */
+    white-space: pre-wrap; /* Permitir saltos de línea */
+}
+
+.service-management th {
+    background-color: #333;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.service-management td {
+    color: #555;
+    background-color: #fff;
+}
+
+.service-management tr:nth-child(even) td {
+    background-color: #f9f9f9; /* Color de fondo para filas pares */
+}
+
+.service-management tr:hover td {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Botones */
+.service-management table button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.service-management table .toggle-button {
+    background-color: #ffc107; /* Amarillo */
+}
+
+.service-management table .toggle-button:hover {
+    background-color: #e0a800; /* Amarillo oscuro */
+}
+
+.service-management table .edit-button {
+    background-color: #007bff; /* Azul */
+}
+
+.service-management table .edit-button:hover {
+    background-color: #0056b3; /* Azul oscuro */
+}
+
+.service-management table .delete-button {
+    background-color: #dc3545; /* Rojo */
+}
+
+.service-management table .delete-button:hover {
+    background-color: #c82333; /* Rojo oscuro */
+}
+
+/* Paginación */
+.service-management .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.service-management .pagination button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.service-management .pagination button:hover {
+    background-color: #0056b3;
+}
+
+.service-management .pagination .active {
+    background-color: #ffc107;
+    color: #000;
+}
+
+/* Para tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .service-management {
+        padding: 15px;
+    }
+
+    .service-management h2 {
+        font-size: 1.6rem;
+    }
+
+    .service-management .service-form input,
+    .service-management .service-form textarea {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .service-management table {
+        font-size: 0.9rem;
+    }
+
+    .service-management th,
+    .service-management td {
+        padding: 10px;
+    }
+
+    .service-management table button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    
+    .service-management {
+        padding: 10px;
+    }
+
+    .service-management h2 {
+        font-size: 1.4rem;
+    }
+
+    .service-management .service-form {
+        gap: 10px;
+    }
+
+    .service-management .service-form input,
+    .service-management .service-form textarea {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+
+    .service-management .service-form button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    /* Ocultar encabezados y reestructurar tabla */
+    .service-management table {
+        font-size: 0.8rem;
+    }
+
+    .service-management thead {
+        display: none;
+    }
+
+    .service-management tbody tr {
+        display: block;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #ddd;
+        padding: 10px;
+    }
+
+    .service-management tbody td {
+        display: block;
+        text-align: right;
+        padding: 8px;
+        position: relative;
+    }
+
+    .service-management tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #007bff;
+    }
+
+    /* Botones */
+    .service-management table button {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .service-management .pagination {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .service-management h2 {
+        font-size: 1.2rem;
+    }
+
+    .service-management .service-form input,
+    .service-management .service-form textarea {
+        font-size: 0.8rem;
+        padding: 5px;
+    }
+
+    .service-management .service-form button {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+
+    .service-management table {
+        font-size: 0.75rem;
+    }
+
+    .service-management tbody td {
+        padding: 6px;
+    }
+
+    .service-management table button {
+        font-size: 0.75rem;
+        padding: 5px;
+    }
+
+    .service-management .pagination button {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}

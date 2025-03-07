@@ -1,0 +1,203 @@
+/* 🌟 Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Contenedor principal */
+.miembro-detalle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 100px 50px 50px; 
+    gap: 50px;
+    max-width: 1200px;
+    margin: auto;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in-out forwards;
+    background-image: url('/public/general17.jpeg');
+    margin-top: 100px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+}
+
+/* Información del miembro */
+.info {
+    max-width: 500px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 💡 Título del miembro con estilo moderno */
+.info h2 {
+    font-size: 2.8rem;
+    color: #222;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* 🔹 Línea decorativa con degradado */
+.info h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #1877f2, #ff0000);
+    margin: 10px auto 0;
+    border-radius: 5px;
+}
+
+/* Información detallada */
+.info p {
+    font-size: 1.2rem;
+    margin: 14px 0;
+    color: #444;
+    line-height: 1.7;
+}
+
+/* Teléfono con efecto al hacer clic */
+.whatsapp-link {
+    color: #25d366;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.whatsapp-link:hover {
+    color: #1ebe5d;
+}
+
+/* 🌟 Imagen con animación y efecto hover */
+.imagen img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.imagen img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Redes Sociales */
+.redes-sociales {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* 🔹 Botones con colores personalizados */
+.redes-sociales a {
+    font-size: 22px;
+    padding: 12px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover con efecto de elevación */
+.redes-sociales a:hover {
+    transform: scale(1.15);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 🎨 Colores específicos para cada red */
+.redes-sociales .facebook {
+    background-color: #1877f2;
+}
+
+.redes-sociales .youtube {
+    background-color: #ff0000;
+}
+
+.redes-sociales .linkedin {
+    background-color: #0a66c2;
+}
+
+.redes-sociales .instagram {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.redes-sociales .tiktok {
+    background-color: #000;
+}
+
+/* 🔹 Diseño Responsivo */
+@media (max-width: 768px) {
+    .miembro-detalle {
+        flex-direction: column;
+        text-align: center;
+        padding: 120px 20px 50px;
+    }
+
+    .imagen img {
+        max-width: 250px;
+    }
+
+    .info h2 {
+        font-size: 2.4rem;
+    }
+
+    .info p {
+        font-size: 1.1rem;
+    }
+
+    .redes-sociales a {
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .miembro-detalle {
+        padding: 140px 15px 40px;
+    }
+
+    .imagen img {
+        max-width: 200px;
+    }
+
+    .info h2 {
+        font-size: 2rem;
+    }
+
+    .info h2::after {
+        width: 70px;
+        height: 4px;
+    }
+
+    .info p {
+        font-size: 1rem;
+    }
+
+    .redes-sociales a {
+        font-size: 18px;
+        width: 35px;
+        height: 35px;
+    }
+}

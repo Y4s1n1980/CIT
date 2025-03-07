@@ -1,0 +1,126 @@
+/* Contenedor principal con diseño mejorado */
+.legal-container {
+    max-width: 900px;
+    margin: 0 auto; /* Centrado */
+    padding: 30px;
+    padding-top: 30px; /* Espaciado superior para evitar que quede pegado al navbar */
+    background: #ffffff;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    line-height: 1.8;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+    margin-top: 120px;
+    margin-bottom: 30px;
+}
+
+/* Título principal */
+.legal-container h1 {
+    color: #007bff;
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    position: relative;
+}
+
+/* Subrayado decorativo */
+.legal-container h1::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: #007bff;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Subtítulos */
+.legal-container h2 {
+    color: #444;
+    font-size: 1.8em;
+    margin-top: 30px;
+    font-weight: 600;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* Párrafos */
+.legal-container p {
+    line-height: 1.8;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+/* Enlaces */
+.legal-container a {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.legal-container a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .legal-container {
+        max-width: 90%;
+        padding: 20px;
+        padding-top: 60px; /* Ajuste para pantallas más pequeñas */
+        
+    }
+    .legal-container h1 {
+        font-size: 2.4em;
+    }
+    .legal-container h2 {
+        font-size: 1.6em;
+    }
+    .legal-container p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 80px; /* Aumentamos el espacio en móviles */
+    }
+    .legal-container {
+        padding: 15px;
+        padding-top: 60px; /* Mayor espaciado para evitar superposición */
+    }
+    .legal-container h1 {
+        font-size: 2.2em;
+    }
+    .legal-container h2 {
+        font-size: 1.4em;
+    }
+    .legal-container p {
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 480px) {
+    .legal-container {
+        padding: 10px;
+        padding-top: 60px; /* Asegurar espaciado suficiente en móviles */
+    }
+    .legal-container h1 {
+        font-size: 2em;
+    }
+    .legal-container h2 {
+        font-size: 1.3em;
+    }
+    .legal-container p {
+        font-size: 0.9em;
+    }
+}

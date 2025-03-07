@@ -1,0 +1,804 @@
+/*********************************
+ * 1. VARIABLES Y AJUSTES GLOBALES
+ *********************************/
+ :root {
+  /* Colores principales */
+  --primary-color: #4A90E2;      /* Azul principal */
+  --primary-color-dark: #0056b3; /* Azul oscuro para hover */
+  --secondary-color: #50E3C2;    /* Verde/azul de acento */
+  --success-color: #28a745;      /* Para botones "éxito" */
+  --success-color-dark: #218838; /* Hover para éxito */
+
+  /* Fondo y tarjetas */
+  --background-light: #F7F9FC;   
+  --card-background: #FFFFFF;    
+
+  /* Texto */
+  --text-color: #333;            /* Texto principal */
+  --subtext-color: #777;         /* Texto secundario */
+  
+  /* Sombras */
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+}
+
+/* body */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  background-color: #fff; 
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. CLASES GENÉRICAS Y UTILITARIAS*/
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Sombras suaves para tarjetas */
+.card {
+  background: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+}
+
+/* Efecto hover en tarjetas */
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 16px var(--shadow-medium);
+}
+
+/*********************************
+ * 3. SECCIÓN ESCUELA GENERAL
+ *********************************/
+.escuela {
+  padding: 20px;
+}
+
+/*********************************
+ * 4. HERO ESCUELA
+ *********************************/
+.hero-escuela {
+  background-image: url('/public/clases-2.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 90px;
+  margin-bottom: 60px;
+}
+
+.hero-escuela h1 {
+  font-size: 2.8em;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.hero-escuela p {
+  font-size: 1.4em;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/*********************************
+ * 5. NAVEGACIÓN ESCUELA
+ *********************************/
+.escuela-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Para móviles */
+}
+
+.escuela-nav button {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.escuela-nav button:hover {
+  background-color: var(--primary-color-dark);
+  transform: scale(1.05);
+}
+
+/* Contenedor principal de contenido en la página escuela */
+.escuela-content {
+  padding: 20px;
+}
+
+/*********************************
+ * 6. SECCIÓN DE DOCUMENTOS
+ *********************************/
+.documentos-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: var(--background-light);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow-light);
+}
+
+/* Título principal en documentos */
+.documentos-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 15px;
+  position: relative;
+}
+
+.documentos-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--secondary-color);
+  border-radius: 2px;
+}
+
+/* Grid de documentos */
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Tarjeta de documento */
+.documento-card {
+  background: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.documento-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 16px var(--shadow-medium);
+}
+
+.documento-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.6em;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.documento-card p {
+  margin: 8px 0;
+  font-size: 1em;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.documento-card a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.95em;
+  color: var(--secondary-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.documento-card a:hover {
+  color: var(--primary-color);
+}
+
+/* Tarjeta expandida (cuando se hace clic) */
+.documento-card.expanded {
+  grid-column: span 3; /* Ocupar toda la fila */
+  background-color: var(--background-light);
+}
+
+/* Contenido adicional dentro de la expansión */
+.expanded-content {
+  margin-top: 16px;
+  font-size: 0.9em;
+  color: var(--subtext-color);
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+/*********************************
+ * 7. PAGINACIÓN
+ *********************************/
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.pagination-controls button {
+  padding: 8px 12px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.pagination-controls button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-weight: bold;
+}
+
+/*********************************
+ * 8. SECCIÓN PROGRAMA SEMANAL
+ *********************************/
+.programa-semanal-section {
+  background: var(--background-light);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  margin-top: 40px;
+}
+
+.programa-semanal-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.programa-semanal-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--secondary-color);
+  border-radius: 2px;
+}
+
+/* Ítem individual del programa */
+.programa-semanal-item {
+  background: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  padding: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.programa-semanal-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 16px var(--shadow-medium);
+}
+
+.programa-semanal-item p {
+  margin: 8px 0;
+  font-size: 1em;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.programa-semanal-item.expanded {
+  grid-column: span 3;
+  background: var(--background-light);
+}
+
+/*********************************
+ * 9. SECCIÓN CONTACTOS
+ *********************************/
+/*********************************
+ * SECCIÓN DE CONTACTOS
+ *********************************/
+ .contacts-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.contacts-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+}
+
+.contacts-section h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--primary-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Grid de contactos con 2 filas de 4 */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Tarjeta de contacto */
+.contact-card {
+  background: var(--card-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+/* Avatar */
+.contact-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+/* Información */
+.contact-info h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: var(--text-color);
+}
+
+.contact-info p {
+  font-size: 0.9em;
+  color: var(--subtext-color);
+  margin-bottom: 15px;
+}
+
+/* Botón de chat */
+.chat-button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.chat-button:hover {
+  background-color: var(--primary-color-dark);
+  transform: scale(1.05);
+}
+
+/*********************************
+ * PAGINACIÓN
+ *********************************/
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+
+/* 10. SECCIÓN NOTICIAS*/
+
+ .news-section {
+  margin-top: 60px;
+  text-align: center;
+  padding: 50px 30px;
+  background-color: var(--background-light);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px var(--shadow-light);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #50E3C2;
+}
+
+.news-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+}
+
+.news-section h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: var(--success-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.news-description {
+  font-size: 1.3em;
+  color: var(--text-secondary);
+  max-width: 900px;
+  margin: 15px auto 30px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+.news-button {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: var(--success-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 2px 2px 8px var(--shadow-light);
+}
+
+.news-button:hover {
+  background-color: var(--success-color-dark);
+  transform: scale(1.05);
+}
+
+
+/*********************************
+ * 11. SUBMENÚ ESCUELA
+ *********************************/
+.submenu-wrapper {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.submenu li a {
+  color: var(--text-color);
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submenu li a:hover {
+  background-color: var(--text-color);
+  color: #fff;
+}
+
+/* 12. SECCIÓN CURSOS */
+.cursos-section {
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.cursos-section h2 {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.cursos-section h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--primary-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Card del último curso */
+.last-course {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-background);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.last-course:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+/* Imagen del curso */
+.last-course-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 4px solid var(--primary-color);
+}
+
+/* Información del curso */
+.last-course-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.last-course-info h3 {
+  font-size: 2em;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.last-course-info h3::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.last-course-info p {
+  font-size: 1em;
+  color: var(--subtext-color);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Botón "Más Cursos" */
+.more-courses-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  font-size: 1em;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+.more-courses-button:hover {
+  background-color: var(--primary-color-dark);
+  transform: scale(1.05);
+}
+
+/*********************************
+ * 13. MEDIA QUERIES
+ *********************************/
+
+/* Tablets y pantallas medianas (<= 1024px) */
+@media (max-width: 1024px) {
+  .hero-escuela {
+    height: 50vh;
+  }
+  .hero-escuela h1 {
+    font-size: 2.2em;
+  }
+  .hero-escuela p {
+    font-size: 1.2em;
+  }
+  
+  /* Ajustes en la parrilla de contactos si hace falta */
+  .contacts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+/* Móviles (<= 768px) */
+@media (max-width: 768px) {
+  body {
+    padding-top: 80px; 
+  }
+  
+  .hero-escuela {
+    height: 40vh;
+    padding: 20px;
+    margin-top: 160px;
+  }
+
+  .hero-escuela h1 {
+    font-size: 1.8em;
+  }
+
+  .hero-escuela p {
+    font-size: 1em;
+  }
+
+  .escuela-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .escuela-nav button {
+    width: 90%;
+    font-size: 0.9em;
+    padding: 10px;
+    margin: 15px;
+  }
+
+  .contacts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-card {
+    padding: 15px;
+  }
+
+  .last-course {
+    max-width: 100%;
+  }
+
+  .last-course-info h3 {
+    font-size: 1.5em;
+  }
+
+  .news-section {
+    padding: 40px;
+  }
+
+  .news-section h2 {
+    font-size: 2em;
+  }
+
+  .news-description {
+    font-size: 1.2em;
+    max-width: 700px;
+  }
+
+  .news-button {
+    font-size: 1.1em;
+    padding: 12px 25px;
+  }
+
+  .documents-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .documento-card.expanded {
+    grid-column: 1 / 3; /* ocupa esas 2 columnas */
+  }
+}
+
+/* Pantallas muy pequeñas (<= 480px) */
+@media (max-width: 480px) {
+  .hero-escuela {
+    height: 35vh;
+  }
+
+  .hero-escuela h1 {
+    font-size: 1.5em;
+  }
+
+  .hero-escuela p {
+    font-size: 0.9em;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+  }
+
+  .last-course-info h3 {
+    font-size: 1.3em;
+  }
+
+  .more-courses-button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+
+  .news-section {
+    padding: 30px;
+  }
+
+  .news-section h2 {
+    font-size: 1.8em;
+  }
+
+  .news-description {
+    font-size: 1.1em;
+    max-width: 90%;
+  }
+
+  .news-button {
+    width: 100%;
+    font-size: 1em;
+    padding: 12px;
+  }
+
+  .documents-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .documento-card.expanded {
+    grid-column: 1 / 2; /* con 1fr, básicamente es 1 / -1, pero la idea es 1 columna */
+  }
+}
