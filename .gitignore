@@ -80,3 +80,5 @@ client/public/uploads/
 client/.next/
 client/out/
 
+
+.vercel
