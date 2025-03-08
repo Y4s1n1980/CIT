@@ -30,55 +30,59 @@ const EnviarArchivosSection = () => {
     const handleFileUpload = async (e) => {
         e.preventDefault();
         if (!file || !selectedRecipient) {
-            alert('Selecciona un archivo y un destinatario.');
+            alert("Selecciona un archivo y un destinatario.");
             return;
         }
-
+    
         try {
-            // Subir el archivo al servidor
+            console.log("Enviando archivo:", file.name);
+    
             const formData = new FormData();
-            formData.append('file', file); // Archivo principal
-            formData.append('coleccionDestino', 'studentSubmissions'); // Colección de destino
-            formData.append('studentId', currentUser.uid);
-            formData.append('studentName', studentName);
-            formData.append('studentEmail', currentUser.email || 'Email desconocido');
-            formData.append('recipientId', selectedRecipient);
-            formData.append('recipientName', recipients.find(r => r.id === selectedRecipient)?.name || 'Nombre desconocido');
-            formData.append('message', message);
-
-            const response = await fetch('http://localhost:5000/upload', {
-                method: 'POST',
+            formData.append("file", file);
+            formData.append("coleccionDestino", "studentSubmissions");
+            formData.append("studentId", currentUser.uid);
+            formData.append("studentName", studentName);
+            formData.append("studentEmail", currentUser.email || "Email desconocido");
+            formData.append("recipientId", selectedRecipient);
+            formData.append("recipientName", recipients.find(r => r.id === selectedRecipient)?.name || "Nombre desconocido");
+            formData.append("message", message);
+    
+            const response = await fetch("http://localhost:5000/upload", {
+                method: "POST",
                 body: formData,
             });
-
+    
             const data = await response.json();
-            if (response.ok) {
-                // Guardar los metadatos del archivo en Firestore
-                await addDoc(collection(db, 'studentSubmissions'), {
-                    fileUrl: data.fileUrl, // URL del archivo en el bucket
+            console.log("Respuesta del servidor:", data);
+    
+            if (response.ok && data.fileUrl) {
+                console.log("Guardando en Firestore...");
+                await addDoc(collection(db, "studentSubmissions"), {
+                    fileUrl: data.fileUrl,
                     fileName: file.name,
                     studentId: currentUser.uid,
                     studentName,
-                    studentEmail: currentUser.email || 'Email desconocido',
+                    studentEmail: currentUser.email || "Email desconocido",
                     recipientId: selectedRecipient,
-                    recipientName: recipients.find(r => r.id === selectedRecipient)?.name || 'Nombre desconocido',
+                    recipientName: recipients.find(r => r.id === selectedRecipient)?.name || "Nombre desconocido",
                     message,
                     submittedAt: new Date(),
                 });
-
-                alert('Archivo enviado correctamente');
+    
+                alert("Archivo enviado correctamente");
                 setFile(null);
-                setMessage('');
-                setSelectedRecipient('');
+                setMessage("");
+                setSelectedRecipient("");
             } else {
-                console.error('Error del servidor:', data.error);
-                alert('Hubo un error al enviar el archivo.');
+                console.error("Error en la respuesta del servidor:", data);
+                alert("Hubo un error al enviar el archivo.");
             }
         } catch (error) {
-            console.error('Error al enviar el archivo:', error);
-            alert('Hubo un error al enviar el archivo.');
+            console.error("Error al enviar el archivo:", error);
+            alert("Hubo un error al enviar el archivo.");
         }
     };
+    
 
     return (
         <div>

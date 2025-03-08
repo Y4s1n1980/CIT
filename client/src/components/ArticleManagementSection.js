@@ -7,7 +7,7 @@ const ArticleManagementSection = () => {
     const [articles, setArticles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const articlesPerPage = 5;
-    const [imageFile, setImageFile] = useState(null);
+    const [imageFile] = useState(null);
 
     useEffect(() => {
         const fetchArticles = async () => {

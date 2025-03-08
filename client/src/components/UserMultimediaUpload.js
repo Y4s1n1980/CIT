@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { getAuth } from "firebase/auth";
 import { db } from "../services/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -12,7 +11,7 @@ const UserMultimediaUpload = () => {
     imagen: null,
   });
   const [uploading, setUploading] = useState(false);
-  const [uploadedUrls, setUploadedUrls] = useState({ fileUrl: "", imageUrl: "" });
+  const [uploadedUrls] = useState({ fileUrl: "", imageUrl: "" });
 
   // Manejar el cambio en el archivo principal
   const handleFileChange = (e) => {

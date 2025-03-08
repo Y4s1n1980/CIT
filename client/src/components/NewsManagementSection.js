@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { collection, updateDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import './NewsManagementSection.css';
 
