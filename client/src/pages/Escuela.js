@@ -165,9 +165,6 @@ const Escuela = () => {
           where('role', 'in', ['admin', 'profesor'])
         );
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          // Notar: En este componente no necesitamos actualizar el estado de contactos
-          // ya que usamos el componente ContactosSection de forma separada.
-          // Por ello, aquí podríamos omitirlo si no se usa en este componente.
         });
         return () => unsubscribe();
       } catch (error) {

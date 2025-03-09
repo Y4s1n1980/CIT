@@ -1,9 +1,10 @@
 // src/services/firebase.js
-import { initializeApp, getApps } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
+// Configuración de Firebase usando variables de entorno
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -13,14 +14,19 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-console.log('Firebase API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
+// Verificación de variables de entorno
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+    console.warn("⚠️ ADVERTENCIA: Las credenciales de Firebase están vacías o incorrectas.");
+} else {
+    console.log("✅ Firebase inicializado correctamente.");
+}
 
-// Solo inicializa Firebase si aún no ha sido inicializado
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+// Inicializar Firebase solo si no ha sido inicializado previamente
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
+// Exportar servicios de Firebase
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
 export { auth, db, storage };
-

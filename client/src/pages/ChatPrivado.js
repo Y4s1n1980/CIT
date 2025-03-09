@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import { db } from "../services/firebase";
 import { collection, query, where, orderBy, onSnapshot, doc, getDoc } from "firebase/firestore";
 import ChatMessages from "../components/chat/ChatMessages";
@@ -7,11 +8,10 @@ import ChatInput from "../components/chat/ChatInput";
 import ChatRecorder from "../components/chat/ChatRecorder";
 import ChatEmojiPicker from "../components/chat/ChatEmojiPicker";
 import ChatMediaUpload from "../components/chat/ChatMediaUpload";
-import ChatCamera from "../components/chat/ChatCamera";
 import ChatNotifications from "../components/chat/ChatNotifications";
 import ChatVideoCall from "../components/chat/ChatVideoCall";
 import "./ChatBase.css";
-import { useAuth } from "../contexts/AuthContext";
+
 
 const ChatPrivado = () => {
     const { contactId } = useParams();
@@ -51,8 +51,7 @@ const ChatPrivado = () => {
                 <ChatInput contactId={contactId} receiverEmail={receiverEmail} messagesEndRef={messagesEndRef} />
                 <ChatEmojiPicker />
                 <ChatRecorder />
-                <ChatMediaUpload />
-                <ChatCamera />
+                <ChatMediaUpload contactId={contactId} currentUser={currentUser} />
                 <ChatNotifications recipientEmail={receiverEmail} senderName={currentUser.displayName} />
                 <ChatVideoCall contactId={contactId} currentUser={currentUser} />
             </div>
