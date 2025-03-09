@@ -11,7 +11,16 @@ const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
 const app = express();
 const PORT = process.env.PORT || 5000;
 console.log("🔍 Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
+const rateLimit = require("express-rate-limit");
 
+// Aplicar rate limiting a todas las rutas
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 100, // Límite de 100 peticiones por IP
+    message: "Demasiadas solicitudes desde esta IP, por favor intenta más tarde."
+  });
+  
+  app.use(limiter);
 
 // Middleware
 app.use(cors({
