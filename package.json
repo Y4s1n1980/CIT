@@ -42,7 +42,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "build": "cd client && npm install && npm run build "
+    "build": "npm install && npm run build --prefix client "
   },
 
   "overrides": {
