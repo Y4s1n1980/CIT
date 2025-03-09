@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "ESLINT_NO_DEV_ERRORS=true react-scripts build",
+    "build": "set ESLINT_NO_DEV_ERRORS=true && react-scripts build",
     "test": "react-scripts test"
   },
   "eslintConfig": {
