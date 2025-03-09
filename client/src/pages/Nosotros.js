@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../services/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot, getDocs } from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faYoutube, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './Nosotros.css';
@@ -18,6 +18,16 @@ const Nosotros = () => {
             setMiembros(miembrosData);
         };
         fetchMiembros();
+    }, []);
+
+      // 🔹 USEEFFECT para obtener datos en tiempo real
+      useEffect(() => {
+        const unsubscribe = onSnapshot(collection(db, "juntaDirectiva"), (querySnapshot) => {
+            const miembrosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setMiembros(miembrosData);
+        });
+
+        return () => unsubscribe(); // Se cancela la suscripción cuando se desmonta el componente
     }, []);
     
 

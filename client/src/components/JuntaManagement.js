@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
-import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, onSnapshot, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYoutube, faLinkedin, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
@@ -14,6 +14,16 @@ const JuntaManagement = () => {
     });
     const [imagen, setImagen] = useState(null);
     const [editandoId, setEditandoId] = useState(null);
+
+      // 🔹 USEEFFECT para obtener datos en tiempo real
+      useEffect(() => {
+        const unsubscribe = onSnapshot(collection(db, "juntaDirectiva"), (querySnapshot) => {
+            const miembrosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setMiembros(miembrosData);
+        });
+
+        return () => unsubscribe(); // Se cancela la suscripción al desmontar el componente
+    }, []);
 
     useEffect(() => {
         const fetchMiembros = async () => {
@@ -93,11 +103,11 @@ const JuntaManagement = () => {
                         
                         {/* Mostrar redes sociales con íconos */}
                         <div className="redes-sociales">
-                            {miembro.facebook && <a href={miembro.facebook} target="_blank"><FontAwesomeIcon icon={faFacebook} /></a>}
-                            {miembro.youtube && <a href={miembro.youtube} target="_blank"><FontAwesomeIcon icon={faYoutube} /></a>}
-                            {miembro.linkedin && <a href={miembro.linkedin} target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>}
-                            {miembro.instagram && <a href={miembro.instagram} target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>}
-                            {miembro.tiktok && <a href={miembro.tiktok} target="_blank"><FontAwesomeIcon icon={faTiktok} /></a>}
+                            {miembro.facebook && <a href={miembro.facebook} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFacebook} /></a>}
+                            {miembro.youtube && <a href={miembro.youtube} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faYoutube} /></a>}
+                            {miembro.linkedin && <a href={miembro.linkedin} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>}
+                            {miembro.instagram && <a href={miembro.instagram} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faInstagram} /></a>}
+                            {miembro.tiktok && <a href={miembro.tiktok} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTiktok} /></a>}
                         </div>
 
                         <button className="btn-editar" onClick={() => handleEditMiembro(miembro)}>Editar</button>

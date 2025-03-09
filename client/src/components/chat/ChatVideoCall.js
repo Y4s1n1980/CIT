@@ -4,7 +4,7 @@ import { db } from "../../services/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo, faPhoneSlash, faMicrophone, faMicrophoneSlash } from "@fortawesome/free-solid-svg-icons";
-import "./ChatVideoCall.css";
+
 
 const ChatVideoCall = ({ userId, contactId }) => {
   const [peer, setPeer] = useState(null);
@@ -16,11 +16,11 @@ const ChatVideoCall = ({ userId, contactId }) => {
   const myVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
 
-  // 🔹 Evita que la función cambie en cada render
+  // 🔹 Guardar el Peer ID en Firestore
   const savePeerIdToFirestore = useCallback(async (id) => {
     if (!userId) return;
     await setDoc(doc(db, "videoCalls", userId), { peerId: id });
-  }, [userId]); 
+  }, [userId]);
 
   useEffect(() => {
     const newPeer = new Peer();
@@ -40,19 +40,22 @@ const ChatVideoCall = ({ userId, contactId }) => {
           call.on("stream", (remoteStream) => {
             remoteVideoRef.current.srcObject = remoteStream;
           });
+          setCallActive(true);
         })
         .catch((error) => console.error("Error al acceder a la cámara/micrófono:", error));
     });
 
     return () => newPeer.destroy();
-  }, [savePeerIdToFirestore]); // ✅ Ahora incluimos la función en las dependencias
+  }, [savePeerIdToFirestore]);
 
+  // 🔹 Obtener el Peer ID remoto de Firestore
   const getRemotePeerId = async () => {
     const contactRef = doc(db, "videoCalls", contactId);
     const contactSnap = await getDoc(contactRef);
     return contactSnap.exists() ? contactSnap.data().peerId : null;
   };
 
+  // 🔹 Iniciar llamada
   const startCall = async () => {
     const remotePeerId = await getRemotePeerId();
     if (!remotePeerId) {
@@ -68,10 +71,12 @@ const ChatVideoCall = ({ userId, contactId }) => {
         call.on("stream", (remoteStream) => {
           remoteVideoRef.current.srcObject = remoteStream;
         });
+        setCallActive(true);
       })
       .catch((error) => console.error("Error al acceder a la cámara/micrófono:", error));
   };
 
+  // 🔹 Alternar micrófono
   const toggleMic = () => {
     if (myStream) {
       myStream.getAudioTracks()[0].enabled = !micEnabled;
@@ -79,6 +84,7 @@ const ChatVideoCall = ({ userId, contactId }) => {
     }
   };
 
+  // 🔹 Alternar video
   const toggleVideo = () => {
     if (myStream) {
       myStream.getVideoTracks()[0].enabled = !videoEnabled;
@@ -86,6 +92,7 @@ const ChatVideoCall = ({ userId, contactId }) => {
     }
   };
 
+  // 🔹 Terminar llamada
   const endCall = () => {
     if (myStream) {
       myStream.getTracks().forEach(track => track.stop());
