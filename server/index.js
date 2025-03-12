@@ -76,6 +76,44 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 });
 
+// **ENDPOINT: Guardar datos de noticias en Firestore**
+app.post('/upload-news', upload.single('file'), async (req, res) => {
+    try {
+        const { titulo, descripcion, contenidoCompleto, estado, autorNombre, autorEmail } = req.body;
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'Archivo de imagen no proporcionado.' });
+        }
+
+        // Subir archivo a Firebase Storage
+        const storagePath = `noticias/${Date.now()}_${req.file.filename}`;
+        await bucket.upload(req.file.path, { destination: storagePath });
+
+        const imagenUrl = `https://storage.googleapis.com/${process.env.FIREBASE_STORAGE_BUCKET}/${storagePath}`;
+
+        // Guardar datos en Firestore
+        const docRef = await db.collection('noticias').add({
+            titulo,
+            descripcion,
+            contenidoCompleto,
+            estado: estado === 'true', // convertir a boolean
+            autorNombre,
+            autorEmail,
+            imagenUrl,
+            fechaCreacion: new Date(),
+        });
+
+        // Eliminar el archivo local tras subirlo
+        fs.unlinkSync(req.file.path);
+
+        res.status(200).json({ docId: docRef.id, imagenUrl });
+    } catch (error) {
+        console.error('Error al subir noticia:', error);
+        res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+});
+
+
 // **ENDPOINT: Guardar datos de donación en Firestore**
 app.post('/donations', async (req, res) => {
     const { donante_nombre, donante_email, monto, fecha_donacion, estado, referencia_transaccion, comentarios } = req.body;

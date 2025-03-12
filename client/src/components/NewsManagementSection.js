@@ -45,22 +45,22 @@ const NewsManagementSection = () => {
   };
 
   // Manejar la subida al servidor
-const uploadToServer = async (formData) => {
-  try {
-      const response = await fetch('http://localhost:5000/upload-news', { 
-          method: 'POST',
-          body: formData,
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Error desconocido en la subida');
-      return data;
-  } catch (error) {
-      console.error('Error al subir archivo:', error);
-      throw error;
-  }
-};
-
-
+  const uploadToServer = async (formData) => {
+    const baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+    try {
+        const response = await fetch(`${baseURL}/upload-news`, { 
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Error desconocido en la subida');
+        return data;
+    } catch (error) {
+        console.error('Error al subir archivo:', error);
+        throw error;
+    }
+  };
+  
   
   // Crear una nueva noticia
 const handleAddNoticia = async (e) => {
