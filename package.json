@@ -36,7 +36,11 @@
     "util": "^0.12.5"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.14.5"
+    "@babel/core": "^7.26.9",
+    "@babel/plugin-proposal-private-property-in-object": "^7.14.5",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "babel-jest": "^29.7.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -44,11 +48,9 @@
     "client": "npm start --prefix client",
     "build": "npm install && npm run build --prefix client "
   },
-
   "overrides": {
-  "nth-check": "^2.0.1",
-  "postcss": "^8.4.31",
-  "serialize-javascript": "^6.0.2"
-}
-
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31",
+    "serialize-javascript": "^6.0.2"
+  }
 }
