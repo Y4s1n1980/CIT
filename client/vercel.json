@@ -3,28 +3,20 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "server/index.js"
+      "destination": "/api/$1"
     },
     {
       "source": "/(.*)",
-      "destination": "/build/index.html"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "/sitemap.xml",
-      "statusCode": 301
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "max-age=31536000, immutable" },
-        { "key": "Content-Encoding", "value": "gzip" },
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     }
   ]
 }
+
