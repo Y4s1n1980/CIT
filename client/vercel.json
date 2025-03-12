@@ -16,13 +16,10 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "max-age=31536000, immutable"
-        },
-        {
-          "key": "Content-Encoding",
-          "value": "gzip"
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }
   ]
 }
+
