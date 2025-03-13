@@ -194,6 +194,50 @@ app.post('/donations', async (req, res) => {
     }
 });
 
+// **ENDPOINT: Subir curso**
+app.post('/upload-course', upload.single('imagen'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No se subió ningún archivo.' });
+        }
+
+        // Construir la URL pública del archivo subido
+        const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+
+        // Obtenemos los campos que vienen en el formData
+        const {
+            titulo,
+            descripcion,
+            autorNombre,
+            autorEmail
+        } = req.body;
+
+        // Creamos el objeto para guardar en Firestore
+        const courseData = {
+            titulo,
+            descripcion,
+            imagenUrl: fileUrl,
+            autorNombre,
+            autorEmail,
+            fechaCreacion: new Date(),
+            estado: true  // Por defecto, el curso está activo
+        };
+
+        // Guardar en Firestore usando Firebase Admin
+        const docRef = await db.collection('cursos').add(courseData);
+
+        // Devolvemos al cliente el ID del documento y la URL de la imagen
+        res.status(200).json({
+            docId: docRef.id,
+            imagenUrl: fileUrl
+        });
+    } catch (error) {
+        console.error('Error al subir curso:', error);
+        res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+});
+
+
 // Servir archivos estáticos y frontend en producción
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/build')));

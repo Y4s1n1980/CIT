@@ -323,7 +323,14 @@ const Escuela = () => {
                 className={`programa-semanal-item ${expandedWeeklyId === programa.id ? "expanded" : ""}`}
                 onClick={() => handleWeeklyCardClick(programa.id)}
               >
-                <p><strong>Día:</strong> {programa.day}</p>
+
+                <p>
+                   <strong>Día:</strong>{" "}
+                   {typeof programa.day === "object" && programa.day?.toDate
+                   ? programa.day.toDate().toLocaleDateString()
+                   : programa.day}
+                </p>
+
                 <p><strong>Clase:</strong> {programa.class}</p>
                 <p><strong>Profesor:</strong> {programa.teacher}</p>
                 <p><strong>Tema:</strong> {programa.subject}</p>
