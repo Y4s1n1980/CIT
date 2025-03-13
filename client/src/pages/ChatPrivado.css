@@ -1,0 +1,205 @@
+/********************************************
+ * 1. Ajustes generales
+ ********************************************/
+ body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ece5dd; /* Fondo estilo WhatsApp */
+  }
+  
+  /* Para centrar el contenedor y ocupar alto completo */
+  .chat-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ece5dd; /* Fondo global */
+  }
+  
+  /********************************************
+   * 2. Contenedor principal del chat
+   ********************************************/
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    height: 90vh;
+    background-color: #ece5dd; /* Color de fondo WhatsApp */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /********************************************
+   * 3. (Opcional) Cabecera estilo WhatsApp
+   ********************************************/
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #075e54; /* Verde WhatsApp */
+    color: #fff;
+    padding: 10px;
+  }
+  
+  .contact-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .contact-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  /********************************************
+   * 4. Área de mensajes (ChatMessages)
+   ********************************************/
+  /* Área de mensajes */
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #e5ddd5; /* Tono claro de WhatsApp */
+  }
+  
+  /* Cada mensaje */
+  .chat-message {
+    display: inline-block;
+    max-width: 80%;
+    margin: 6px 0;
+    padding: 8px 12px;
+    border-radius: 7.5px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    clear: both;
+  }
+  
+  /* Mensajes enviados (verde) */
+  .chat-message.sent {
+    background-color: #dcf8c6; /* Verde WhatsApp para emisor */
+    float: right; 
+    margin-left: auto;
+  }
+  
+  /* Mensajes recibidos (gris) */
+  .chat-message.received {
+    background-color: #fff; /* Gris clarito */
+    float: left;
+    margin-right: auto;
+  }
+  
+  /********************************************
+   * 5. Pie del chat (ChatInput)
+   ********************************************/
+  .chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    background-color: #f0f0f0; 
+  }
+  
+  .chat-input .text-input {
+    flex: 1;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    outline: none;
+    font-size: 0.95rem;
+    background-color: #fff;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .icon-button:hover {
+    color: #333;
+  }
+  
+  .send-button {
+    background-color: #25d366; /* Verde "enviar" WhatsApp */
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .send-button:hover {
+    background-color: #20b85b;
+  }
+  
+  /********************************************
+   * 6. Ajustes responsivos
+   ********************************************/
+  /* Tablets (<= 1024px) */
+  @media (max-width: 1024px) {
+    .chat-container {
+      height: 85vh;
+    }
+  }
+  
+  /* Móviles (<= 768px) */
+  @media (max-width: 768px) {
+    .chat-container {
+      height: 90vh;
+      border-radius: 0;
+    }
+    .chat-header {
+      padding: 8px;
+    }
+    .contact-avatar {
+      width: 35px;
+      height: 35px;
+    }
+    .contact-name {
+      font-size: 0.9rem;
+    }
+    .chat-input .text-input {
+      font-size: 0.85rem;
+    }
+    .icon-button, .send-button {
+      font-size: 0.85rem;
+      padding: 6px 10px;
+    }
+  }
+  
+  /* Pantallas muy pequeñas (<= 480px) */
+  @media (max-width: 480px) {
+    .chat-container {
+      height: 95vh;
+    }
+    .chat-header {
+      padding: 6px;
+    }
+    .contact-avatar {
+      width: 30px;
+      height: 30px;
+    }
+    .contact-name {
+      font-size: 0.85rem;
+    }
+    .chat-message {
+      font-size: 0.85rem;
+    }
+    .chat-input .text-input {
+      font-size: 0.8rem;
+      padding: 8px 10px;
+    }
+    .icon-button, .send-button {
+      font-size: 0.8rem;
+      padding: 5px 8px;
+    }
+  }
+  

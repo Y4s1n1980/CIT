@@ -1,42 +1,67 @@
+// components/chat/ChatRecorder.js
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone, faStop } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophone, faStop, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const ChatRecorder = ({ setAudioBlob }) => {
-    const [isRecording, setIsRecording] = useState(false);
-    const mediaRecorderRef = useRef(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [hasAudio, setHasAudio] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
 
-    const toggleRecording = () => {
-        if (isRecording) {
-            mediaRecorderRef.current.stop();
-        } else {
-            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-                const mediaRecorder = new MediaRecorder(stream);
-                mediaRecorderRef.current = mediaRecorder;
-                const audioChunks = [];
+  const toggleRecording = () => {
+    if (isRecording) {
+      // Detener grabación
+      mediaRecorderRef.current.stop();
+    } else {
+      // Iniciar grabación
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorderRef.current = mediaRecorder;
+        audioChunksRef.current = [];
 
-                mediaRecorder.ondataavailable = (event) => {
-                    audioChunks.push(event.data);
-                };
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunksRef.current.push(event.data);
+        };
 
-                mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-                    setAudioBlob(audioBlob);
-                };
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
+          setAudioBlob(audioBlob);
+          setHasAudio(true);
+        };
 
-                mediaRecorder.start();
-                setIsRecording(true);
-            }).catch(error => {
-                console.error("Error accediendo al micrófono:", error);
-            });
-        }
-    };
+        mediaRecorder.start();
+        setIsRecording(true);
+        setHasAudio(false);
+      }).catch(error => {
+        console.error("Error accediendo al micrófono:", error);
+      });
+    }
+  };
 
-    return (
-        <button type="button" onClick={toggleRecording} className="icon-button">
-            <FontAwesomeIcon icon={isRecording ? faStop : faMicrophone} />
+  const handleCancelAudio = () => {
+    // Descartar el audio grabado
+    setAudioBlob(null);
+    setHasAudio(false);
+  };
+
+  return (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <button type="button" onClick={toggleRecording} className="icon-button">
+        <FontAwesomeIcon icon={isRecording ? faStop : faMicrophone} />
+      </button>
+      {hasAudio && (
+        <button
+          type="button"
+          onClick={handleCancelAudio}
+          style={{ marginLeft: 8 }}
+          className="icon-button"
+        >
+          <FontAwesomeIcon icon={faTimes} />
         </button>
-    );
+      )}
+    </div>
+  );
 };
 
 export default ChatRecorder;
