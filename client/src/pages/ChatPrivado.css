@@ -155,10 +155,12 @@
     .chat-container {
       height: 90vh;
       border-radius: 0;
+      padding-top: 110px;
     }
     .chat-header {
       padding: 8px;
     }
+
     .contact-avatar {
       width: 35px;
       height: 35px;
