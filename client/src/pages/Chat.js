@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { collection, addDoc, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db, auth } from '../services/firebase'; 
-import './ChatBase.css';
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone, faStop, faSmile } from '@fortawesome/free-solid-svg-icons';
+import './ChatBase.css';
 
 function Chat() {
   const [messages, setMessages] = useState([]);

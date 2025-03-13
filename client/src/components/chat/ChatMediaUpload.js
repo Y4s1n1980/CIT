@@ -1,3 +1,4 @@
+// components/chat/ChatMediaUpload.js
 import React, { useState } from "react";
 import { storage, db } from "../../services/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -11,9 +12,15 @@ const ChatMediaUpload = ({ contactId, currentUser }) => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
-    
+
     // Validar el tipo de archivo
-    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/webm"];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "video/mp4",
+      "video/webm"
+    ];
     if (!allowedTypes.includes(selectedFile.type)) {
       alert("Solo se permiten imágenes y videos.");
       return;
@@ -28,11 +35,19 @@ const ChatMediaUpload = ({ contactId, currentUser }) => {
       alert("Selecciona un archivo primero.");
       return;
     }
+    if (!currentUser) {
+      alert("No hay usuario logueado.");
+      return;
+    }
+    if (!contactId) {
+      alert("No hay contactId definido.");
+      return;
+    }
 
     setUploading(true);
 
-    const storageRef = ref(storage, `chat_uploads/${currentUser.uid}/${file.name}`);
     try {
+      const storageRef = ref(storage, `chat_uploads/${currentUser.uid}/${file.name}`);
       await uploadBytes(storageRef, file);
       const fileURL = await getDownloadURL(storageRef);
 
@@ -43,7 +58,7 @@ const ChatMediaUpload = ({ contactId, currentUser }) => {
         senderName: currentUser.displayName || "Usuario Anónimo",
         fileUrl: fileURL,
         fileType: file.type.startsWith("image/") ? "image" : "video",
-        createdAt: serverTimestamp(),
+        createdAt: serverTimestamp()
       });
 
       alert("Archivo subido con éxito.");
