@@ -23,7 +23,7 @@ if (!serviceAccount.project_id || !serviceAccount.client_email || !serviceAccoun
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "maqueta-proyecto.appspot.com",
+        storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "maqueta-proyecto",
     });
 }
 

@@ -3,22 +3,13 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../services/firebase";
-import './ChatPrivado.css';
-
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  onSnapshot,
-  doc,
-  getDoc
-} from "firebase/firestore";
+import {collection,query,where,orderBy,onSnapshot,doc,getDoc} from "firebase/firestore";
 import ChatMessages from "../components/chat/ChatMessages";
 import ChatInput from "../components/chat/ChatInput";
 import ChatNotifications from "../components/chat/ChatNotifications";
 import ChatVideoCall from "../components/chat/ChatVideoCall";
-import "./ChatBase.css";
+import './ChatPrivado.css';
+
 
 const ChatPrivado = () => {
   const { contactId } = useParams();
