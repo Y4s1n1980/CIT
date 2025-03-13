@@ -79,37 +79,88 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 // **ENDPOINT: Guardar datos de noticias en Firestore**
 app.post('/upload-news', upload.single('file'), async (req, res) => {
     try {
-        const { titulo, descripcion, contenidoCompleto, estado, autorNombre, autorEmail } = req.body;
-
         if (!req.file) {
-            return res.status(400).json({ error: 'Archivo de imagen no proporcionado.' });
+            return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
 
-        // Subir archivo a Firebase Storage
-        const storagePath = `noticias/${Date.now()}_${req.file.filename}`;
-        await bucket.upload(req.file.path, { destination: storagePath });
+        // Ruta pública al archivo subido (en este caso, servida localmente por el mismo servidor):
+        const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
 
-        const imagenUrl = `https://storage.googleapis.com/${process.env.FIREBASE_STORAGE_BUCKET}/${storagePath}`;
-
-        // Guardar datos en Firestore
-        const docRef = await db.collection('noticias').add({
+        // Obtenemos los campos que vienen en el formData del frontend
+        const {
+            coleccionDestino, // e.g. "noticias"
             titulo,
             descripcion,
             contenidoCompleto,
-            estado: estado === 'true', // convertir a boolean
             autorNombre,
-            autorEmail,
-            imagenUrl,
+            autorEmail
+        } = req.body;
+
+        // Convertimos el estado (string) a booleano
+        // (Recordar que formData lo envía todo como string)
+        const estado = req.body.estado === 'true';
+
+        // Creamos el objeto noticia para guardar en Firestore
+        const noticiaData = {
+            titulo,
+            descripcion,
+            contenidoCompleto,
+            estado,
+            imagenUrl: fileUrl,
             fechaCreacion: new Date(),
+            autorNombre,
+            autorEmail
+        };
+
+        // Guardar en Firestore usando Firebase Admin
+        // (NOTA: Si "coleccionDestino" es "noticias", se guardará ahí)
+        const docRef = await db.collection(coleccionDestino).add(noticiaData);
+
+        // Devolvemos al cliente el ID del documento y la URL de la imagen
+        res.status(200).json({
+            docId: docRef.id,
+            imagenUrl: fileUrl
         });
-
-        // Eliminar el archivo local tras subirlo
-        fs.unlinkSync(req.file.path);
-
-        res.status(200).json({ docId: docRef.id, imagenUrl });
     } catch (error) {
-        console.error('Error al subir noticia:', error);
+        console.error('Error al subir archivo:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+});
+
+// **ENDPOINT: Guardar datos de donación en Firestore**
+app.post('/donations', async (req, res) => {
+    const {
+        donante_nombre,
+        donante_email,
+        monto,
+        fecha_donacion,
+        estado,
+        referencia_transaccion,
+        comentarios
+    } = req.body;
+
+    if (!donante_nombre || !donante_email || !monto || !fecha_donacion) {
+        return res.status(400).json({ error: 'Faltan datos requeridos para registrar la donación.' });
+    }
+
+    try {
+        const donationRef = db.collection('donations');
+        const newDoc = {
+            donante_nombre,
+            donante_email,
+            monto,
+            fecha_donacion: new Date(fecha_donacion),
+            estado,
+            referencia_transaccion,
+            comentarios,
+            createdAt: new Date(),
+        };
+
+        const docRef = await donationRef.add(newDoc);
+        res.status(200).json({ message: 'Donación registrada con éxito.', id: docRef.id });
+    } catch (error) {
+        console.error('Error al guardar la donación en Firestore:', error);
+        res.status(500).json({ error: 'Error al guardar los datos de la donación.' });
     }
 });
 
