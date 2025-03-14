@@ -1,29 +1,69 @@
-// ChatMessages.js
-import React, { useEffect, useRef } from "react";
+// components/chat/ChatMessages.js
+import React, { useEffect, useRef, useState } from "react";
 
 const ChatMessages = ({ messages, currentUser }) => {
-  const messagesEndRef = useRef(null);
+  const messagesRef = useRef(null);
+  const [isAtBottom, setIsAtBottom] = useState(true);
+
+  // Verifica si estamos cerca del fondo
+  const handleScroll = () => {
+    const el = messagesRef.current;
+    if (!el) return;
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
+    setIsAtBottom(nearBottom);
+  };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (isAtBottom) {
+      messagesRef.current?.scrollTo({
+        top: messagesRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages, isAtBottom]);
 
   return (
-    <div className="chat-messages">
+    <div
+      className="chatprivado-messages"
+      ref={messagesRef}
+      onScroll={handleScroll}
+      style={{ overflowY: "auto", overflowX: "hidden" }}
+    >
       {messages.map((msg, index) => {
-        // Si el senderId coincide con currentUser.uid => es "sent"
-        const bubbleClass = (msg.senderId === currentUser.uid) ? "sent" : "received";
-
+        const bubbleClass =
+          msg.senderId === currentUser.uid ? "sent" : "received";
         return (
-          <div key={index} className={`chat-message ${bubbleClass}`}>
-            <p>
-              <strong>{msg.senderName}:</strong> {msg.text}
+          <div key={index} className={`chatprivado-message ${bubbleClass}`}>
+            <p className="chatprivado-sender-name">
+              <strong>{msg.senderName}:</strong>
             </p>
-            {msg.audioUrl && <audio controls src={msg.audioUrl}></audio>}
+            {msg.text && <p className="chatprivado-text">{msg.text}</p>}
+            {msg.audioUrl && (
+              <div className="chatprivado-audio">
+                <audio controls src={msg.audioUrl} />
+              </div>
+            )}
+            {msg.fileUrl && msg.fileType === "image" && (
+              <div className="chatprivado-media">
+                <img
+                  src={msg.fileUrl}
+                  alt="Imagen"
+                  className="chatprivado-media-image"
+                />
+              </div>
+            )}
+            {msg.fileUrl && msg.fileType === "video" && (
+              <div className="chatprivado-media">
+                <video
+                  src={msg.fileUrl}
+                  controls
+                  className="chatprivado-media-video"
+                />
+              </div>
+            )}
           </div>
         );
       })}
-      <div ref={messagesEndRef} />
     </div>
   );
 };
