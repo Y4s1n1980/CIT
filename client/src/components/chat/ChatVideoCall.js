@@ -102,27 +102,27 @@ const ChatVideoCall = ({ userId, contactId }) => {
   };
 
   return (
-    <div className="chat-video-call">
+    <div className="chatPrivado-video-call">
       <p>Tu ID de llamada: <strong>{peerId}</strong></p>
       
       {!callActive && (
-        <button className="start-call-btn" onClick={startCall}>
+        <button className="chatPrivado-start-call-btn" onClick={startCall}>
           <FontAwesomeIcon icon={faVideo} /> Iniciar llamada
         </button>
       )}
 
       {callActive && (
-        <div className="video-container">
+        <div className="chatPrivado-video-container">
           <video ref={myVideoRef} autoPlay playsInline muted></video>
           <video ref={remoteVideoRef} autoPlay playsInline></video>
-          <div className="controls">
-            <button onClick={toggleMic}>
+          <div className="chatPrivado-controls">
+            <button onClick={toggleMic} className="chatPrivado-toggle-mic">
               <FontAwesomeIcon icon={micEnabled ? faMicrophone : faMicrophoneSlash} />
             </button>
-            <button onClick={toggleVideo}>
+            <button onClick={toggleVideo}  className="chatPrivado-toggle-video">
               <FontAwesomeIcon icon={faVideo} />
             </button>
-            <button onClick={endCall} className="end-call-btn">
+            <button onClick={endCall} className="chatPrivado-end-call-btn">
               <FontAwesomeIcon icon={faPhoneSlash} /> Colgar
             </button>
           </div>

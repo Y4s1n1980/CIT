@@ -15,27 +15,29 @@ const ChatRecorder = ({ setAudioBlob }) => {
       mediaRecorderRef.current.stop();
     } else {
       // Iniciar grabación
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-        const mediaRecorder = new MediaRecorder(stream);
-        mediaRecorderRef.current = mediaRecorder;
-        audioChunksRef.current = [];
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then((stream) => {
+          const mediaRecorder = new MediaRecorder(stream);
+          mediaRecorderRef.current = mediaRecorder;
+          audioChunksRef.current = [];
 
-        mediaRecorder.ondataavailable = (event) => {
-          audioChunksRef.current.push(event.data);
-        };
+          mediaRecorder.ondataavailable = (event) => {
+            audioChunksRef.current.push(event.data);
+          };
 
-        mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-          setAudioBlob(audioBlob);
-          setHasAudio(true);
-        };
+          mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
+            setAudioBlob(audioBlob);
+            setHasAudio(true);
+          };
 
-        mediaRecorder.start();
-        setIsRecording(true);
-        setHasAudio(false);
-      }).catch(error => {
-        console.error("Error accediendo al micrófono:", error);
-      });
+          mediaRecorder.start();
+          setIsRecording(true);
+          setHasAudio(false);
+        })
+        .catch((error) => {
+          console.error("Error accediendo al micrófono:", error);
+        });
     }
   };
 
@@ -46,17 +48,12 @@ const ChatRecorder = ({ setAudioBlob }) => {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div className="chatrecorder-container">
       <button type="button" onClick={toggleRecording} className="icon-button">
         <FontAwesomeIcon icon={isRecording ? faStop : faMicrophone} />
       </button>
       {hasAudio && (
-        <button
-          type="button"
-          onClick={handleCancelAudio}
-          style={{ marginLeft: 8 }}
-          className="icon-button"
-        >
+        <button type="button" onClick={handleCancelAudio} className="icon-button cancel-button">
           <FontAwesomeIcon icon={faTimes} />
         </button>
       )}

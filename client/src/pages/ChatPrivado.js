@@ -49,8 +49,8 @@ const ChatPrivado = () => {
   }
 
   return (
-    <div className="chat-page">
-      <div className="chat-container">
+    <div className="chatprivado-page">
+      <div className="chatprivado-container">
         <ChatMessages messages={messages} currentUser={currentUser}  />
 
         {/* 

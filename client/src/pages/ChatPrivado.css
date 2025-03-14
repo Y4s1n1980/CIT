@@ -1,6 +1,4 @@
-/********************************************
- * 1. Ajustes generales
- ********************************************/
+/* 1. Ajustes generales */
  body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -8,34 +6,32 @@
     background-color: #ece5dd; /* Fondo estilo WhatsApp */
   }
   
-  /* Para centrar el contenedor y ocupar alto completo */
-  .chat-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #ece5dd; /* Fondo global */
-  }
-  
-  /********************************************
-   * 2. Contenedor principal del chat
-   ********************************************/
-  .chat-container {
+  /* Contenedor global del chat (dentro de main, por ejemplo) */
+.chatprivado-page {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 600px;
-    height: 90vh;
-    background-color: #ece5dd; /* Color de fondo WhatsApp */
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    height: calc(100vh - 150px); /* Ajusta 150px según la altura combinada de header y footer */
+    background-color: #ece5dd; /* Fondo estilo WhatsApp */
     overflow: hidden;
-    position: relative;
+    padding: 10px;
+    margin-top: 60px;
   }
   
-  /********************************************
-   * 3. (Opcional) Cabecera estilo WhatsApp
-   ********************************************/
+  /* Contenedor del chat en sí */
+  .chatprivado-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #ece5dd;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  
+  /* 3. (Opcional) Cabecera estilo WhatsApp */
   .chat-header {
     display: flex;
     align-items: center;
@@ -55,65 +51,61 @@
     font-size: 1rem;
   }
   
-  /********************************************
-   * 4. Área de mensajes (ChatMessages)
-   ********************************************/
+
   /* Área de mensajes */
-.chat-messages {
+.chatprivado-messages {
     flex: 1;
     padding: 10px;
     overflow-y: auto;
-    background-color: #e5ddd5; /* Tono claro de WhatsApp */
+    background-color: #e5ddd5; /* Tono claro */
   }
   
-  /* Cada mensaje */
-  .chat-message {
-    display: inline-block;
+  /* Cada mensaje (burbujas) */
+  .chatprivado-message {
     max-width: 80%;
     margin: 6px 0;
     padding: 8px 12px;
-    border-radius: 7.5px;
+    border-radius: 8px;
     font-size: 0.95rem;
     line-height: 1.4;
     clear: both;
   }
   
-  /* Mensajes enviados (verde) */
-  .chat-message.sent {
-    background-color: #dcf8c6; /* Verde WhatsApp para emisor */
-    float: right; 
-    margin-left: auto;
+ /* Mensajes enviados (alineados a la derecha, verde) */
+.chatprivado-message.sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
   }
   
-  /* Mensajes recibidos (gris) */
-  .chat-message.received {
-    background-color: #fff; /* Gris clarito */
-    float: left;
-    margin-right: auto;
+  /* Mensajes recibidos (alineados a la izquierda, gris/blanco) */
+  .chatprivado-message.received {
+    background-color: #fff;
+    align-self: flex-start;
   }
   
-  /********************************************
-   * 5. Pie del chat (ChatInput)
-   ********************************************/
-  .chat-input {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    gap: 10px;
-    background-color: #f0f0f0; 
-  }
+  /* Pie del chat (barra de input) */
+.chatprivado-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px; /* Ajusta para que ocupe poco espacio vertical */
+  background-color: #f0f0f0;
+  border-top: 1px solid #ccc; /* Opcional, si quieres una línea divisoria */
+}
   
-  .chat-input .text-input {
-    flex: 1;
+  /* Input de texto en la barra */
+  .chatprivado-input .text-input {
+    flex:1;
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
-    outline: none;
     font-size: 0.95rem;
     background-color: #fff;
+    outline: none;
   }
   
-  .icon-button {
+  /* Botones de iconos y enviar */
+.chatprivado-input .icon-button {
     background: none;
     border: none;
     color: #555;
@@ -121,12 +113,12 @@
     cursor: pointer;
     transition: color 0.2s ease;
   }
-  .icon-button:hover {
+  .chatprivado-input .icon-button:hover {
     color: #333;
   }
-  
-  .send-button {
-    background-color: #25d366; /* Verde "enviar" WhatsApp */
+
+  .chatprivado-input .send-button {
+    background-color: #25d366;
     color: #fff;
     border: none;
     border-radius: 20px;
@@ -136,9 +128,179 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
   }
-  .send-button:hover {
+  .chatprivado-input .send-button:hover {
     background-color: #20b85b;
   }
+
+  /* Estilos para el componente ChatRecorder */
+.chatrecorder-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chatrecorder-container .icon-button {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin-right: 8px;
+  }
+  
+  .chatrecorder-container .icon-button:hover {
+    color: #333;
+  }
+  
+  .chatrecorder-container .cancel-button {
+    margin-left: 8px;
+  }
+  
+
+  .text-input {
+    flex: 1;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    outline: none;
+  }
+  
+  .chatprivado-input .send-button {
+    background-color: #25d366;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .chatprivado-input .send-button:hover {
+    background-color: #20b85b;
+  }
+
+  .send-notification-btn {
+    background-color: #25d366; 
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 30px;
+  }
+  
+  .send-notification-btn:hover {
+    background-color: #20b85b;
+    transform: scale(1.05);
+  }
+
+  /* ChatVideoCall.css */
+
+/* Contenedor principal del componente de videollamada */
+.chatPrivado-video-call {
+    padding: 10px;
+    background-color: #ece5dd;
+  }
+  
+  /* Botón para iniciar llamada */
+  .chatPrivado-start-call-btn {
+    background-color: #25d366;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .chatPrivado-start-call-btn:hover {
+    background-color: #20b85b;
+  }
+  
+  /* Contenedor para videos */
+  .chatPrivado-video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  /* Videos: ajusta tamaño según necesites */
+  .chatPrivado-video-container video {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* Controles de videollamada */
+  .chatPrivado-controls {
+    display: flex;
+    gap: 10px;
+  }
+  .chatPrivado-controls button {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .chatPrivado-controls button:hover {
+    color: #333;
+  }
+  
+  /* Botón para terminar la llamada */
+  .chatPrivado-end-call-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .chatPrivado-end-call-btn:hover {
+    background-color: #c82333;
+  }
+
+  .chatprivado-file-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;         /* Separación entre imagen y botón */
+    margin-left: 8px; /* Ajusta según tu layout */
+  }
+  
+  /* Miniatura de la imagen */
+  .chatprivado-preview-image {
+    max-width: 80px;  /* O el tamaño que prefieras */
+    max-height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  /* Botón para remover archivo */
+  .chatprivado-remove-file-btn {
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+  }
+  .chatprivado-remove-file-btn:hover {
+    color: #555;
+  }
+  
+  
+  
   
   /********************************************
    * 6. Ajustes responsivos
