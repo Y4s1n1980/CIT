@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './Blog.css';
 
 const Blog = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, isAdmin } = useAuth();
 
   // Controlar la visibilidad del formulario
   const [showForm, setShowForm] = useState(false);
@@ -81,7 +81,7 @@ const Blog = () => {
         contenido: content,
         tags: tags,
         imagenUrl: imageUrl || '',
-        estado: 'pendiente',
+        estado: isAdmin ? 'aprobado' : 'pendiente',
         fechaEnvio: Timestamp.now(),
       };
 
