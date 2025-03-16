@@ -24,7 +24,10 @@ const limiter = rateLimit({
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000', // Cambiar si el frontend está en otro dominio
+    origin: [
+        'http://localhost:3000',
+        'https://www.comunidadislamicatordera.org'
+      ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -63,13 +66,14 @@ const upload = multer({ storage });
 
 // **ENDPOINT: Subir archivos**
 app.post('/upload', upload.single('file'), async (req, res) => {
+    console.log("¡Upload request recibida!", req.file);
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
         
         const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
-        res.status(200).json({ imageUrl:fileUrl });
+        res.status(200).json({ fileUrl });
     } catch (error) {
         console.error('Error al subir archivo:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
