@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import './Historia.css';
 
 const initialImages = [
-    '/clases 1 1.jpeg',
-    '/clases 21.jpeg',
-    '/clases 22.jpeg',
-    '/clases 112.jpeg',
-    '/clases 113.jpeg',
+    '/clases-2.jpeg',
+    '/minbarmihrab.jpg',
+    '/interiormihrab.jpg',
+    '/interior1.jpg',
+    '/clases-4.jpeg',
     '/fachada-masjid-tordera.jpeg',
-    '/clases 1.jpeg',
-    '/clases 113.jpeg',
+    '/clases-4.jpeg',
+    '/clases-22.jpeg',
 ];
 
 const Historia = () => {
@@ -34,8 +34,9 @@ const Historia = () => {
         <div className="historia-page">
             <h1 className="historia-title">Historia de la Mezquita</h1>
             <p className="historia-description">
-                Nuestra mezquita tiene una rica historia de apoyo y comunidad que se remonta a décadas.
-                Es un lugar para el aprendizaje, la adoración y la unión comunitaria, siempre promoviendo valores de paz y solidaridad.
+            Nuestra mezquita posee una rica historia de apoyo mutuo y comunidad que se remonta a mas de una década atrás. 
+            Es un espacio dedicado al aprendizaje, la adoración espiritual y la unión comunitaria, promoviendo constantemente valores de paz, 
+            entendimiento y solidaridad.
             </p>
 
             {/* Galería de imágenes */}
@@ -69,12 +70,19 @@ const Historia = () => {
             <div className="historia-comunidad">
             <h1 className="historia-title-comunidad">Comunidad Islamica Tordera</h1>
             <p className="historia-description-comunidad">
-            La Comunidad Islámica de Tordera comenzó hace más de quince años como un pequeño grupo de personas con el sueño de construir un espacio de encuentro,
-             aprendizaje y espiritualidad. Desde entonces, se ha dedicado a servir no solo a la comunidad musulmana, sino a toda la sociedad, fomentando valores de convivencia,
-              solidaridad y respeto mutuo. La comunidad está formada por personas de más de diez nacionalidades diferentes, lo que refleja su carácter inclusivo y diverso. 
-              Con el esfuerzo continuo de sus miembros, la mezquita se ha convertido en un lugar donde se fortalecen los lazos comunitarios y se promueven proyectos sociales 
-              y educativos que benefician a todos, sin importar su origen o creencias. A través de actividades culturales, religiosas y de apoyo social, 
-              la comunidad sigue trabajando incansablemente para construir puentes de entendimiento y unidad.
+            La Comunidad Islámica de Tordera nació hace más de quince años impulsada por un pequeño grupo de personas unidas por un sueño compartido: 
+            crear un espacio abierto para el encuentro, la espiritualidad y el aprendizaje. 
+            Desde sus humildes comienzos, nuestra comunidad ha crecido hasta convertirse en un punto de referencia que no solo atiende a la comunidad musulmana, 
+            sino que abre sus puertas a toda la sociedad, fomentando valores esenciales como la convivencia pacífica, la solidaridad y el respeto mutuo.
+            Actualmente, somos orgullosamente una comunidad diversa y multicultural, compuesta por miembros de más de diez nacionalidades diferentes, 
+            reflejando así nuestro espíritu inclusivo y abierto al diálogo. Gracias al compromiso continuo y al esfuerzo conjunto de nuestros miembros, 
+            la mezquita se ha transformado en mucho más que un lugar de culto: 
+            es un centro vital donde se fortalecen lazos comunitarios y se desarrollan importantes proyectos sociales y educativos que enriquecen a toda la población, 
+            independientemente de su origen o creencias.
+            A través de variadas actividades culturales, religiosas y de apoyo social, la Comunidad Islámica de Tordera continúa trabajando día a día, 
+            con entusiasmo y dedicación, para tender puentes de entendimiento, unidad y cooperación entre todos los vecinos.
+
+
             </p>
             </div>
         </div>
