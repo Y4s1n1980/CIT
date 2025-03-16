@@ -69,7 +69,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         }
         
         const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
-        res.status(200).json({ fileUrl });
+        res.status(200).json({ imageUrl:fileUrl });
     } catch (error) {
         console.error('Error al subir archivo:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
