@@ -41,7 +41,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set ESLINT_NO_DEV_ERRORS=true && react-scripts build",
+    "build": "cross-env ESLINT_NO_DEV_ERRORS=true react-scripts build",
     "test": "react-scripts test"
   },
   "eslintConfig": {
@@ -69,6 +69,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "babel-jest": "^27.5.1",
+    "cross-env": "^7.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1"
   },
@@ -78,9 +79,9 @@
     "serialize-javascript": "^6.0.2"
   },
   "jest": {
-  "moduleNameMapper": {
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-    "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
   }
-}
 }
