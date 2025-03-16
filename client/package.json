@@ -37,7 +37,8 @@
     "schema-utils": "^4.3.0",
     "sharp": "^0.33.5",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^4.2.4"
+    "web-vitals": "^4.2.4",
+    "yocto-queue": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
