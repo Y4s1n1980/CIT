@@ -38,12 +38,12 @@ const ArticleManagementSection = () => {
         const formData = new FormData();
         formData.append('file', file);
         try {
-            const response = await fetch('http://localhost:5000/upload-image', {
+            const response = await fetch('http://localhost:5000/upload', {
                 method: 'POST',
                 body: formData,
             });
             const data = await response.json();
-            return data.imageUrl || null;
+            return data.fileUrl || null;
         } catch (error) {
             console.error('Error al subir la imagen:', error);
             return null;

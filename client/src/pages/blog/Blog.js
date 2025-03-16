@@ -55,7 +55,7 @@ const Blog = () => {
         body: formData,
       });
       const data = await response.json();
-      return data.imageUrl || null;
+      return data.fileUrl || null;
     } catch (error) {
       console.error('Error al subir la imagen:', error);
       return null;
