@@ -18,7 +18,7 @@ const serviciosData = [
         details: 'Nuestros cursos están cuidadosamente diseñados para no araboparlantes e incluyen una enseñanza integral de la lengua árabe, abarcando gramática, lectura, escritura y conversación. A través de un enfoque dinámico y accesible, buscamos facilitar el aprendizaje del idioma y su comprensión, brindando a cada estudiante las herramientas necesarias para desenvolverse con confianza en distintos contextos.',
     },
     {
-        id: 'estudios-curanicos',
+        id: 'estudios-coranicos',
         title: 'Estudios Coránicos',
         description: 'lectura conjunta de versículos de diferentes suras del Corán.',
         image: '/gallery-image3.jpg',
