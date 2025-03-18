@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import Home from './pages/Home';
 import Nosotros from './pages/Nosotros';
 import Servicios from './pages/Servicios';
@@ -104,7 +103,6 @@ function App() {
                 </Routes>
                 <>
             <CookieBanner />
-            <Footer />
         </>
             </Router>
         </AuthProvider>
