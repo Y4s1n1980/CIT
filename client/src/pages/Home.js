@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import './Home.css';
+import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import './Home.css';
 
 const texts = [
     { title: '"Bienvenidos a nuestra página"', description: 'Explora nuestros servicios y aprende más sobre nosotros.' },
@@ -81,6 +82,7 @@ const Home = () => {
 
 
     return (
+        <>
         <div className="home">
             {/* Hero Section */}
             <section className="hero-home">
@@ -162,6 +164,10 @@ const Home = () => {
                 <Link to="/donaciones" className="cta-button-donaciones">Haz una donación</Link>
             </section>
         </div>
+
+            {/* Footer solo en home*/}
+            <Footer />
+      </>
     );
 };
 
