@@ -33,8 +33,8 @@ const Home = () => {
             image: '/clases-22.jpeg'
         },
         {
-            name: 'Estudios Curanicos',
-            title: '"Estudios Curanicos"',
+            name: 'Estudios Coránicos ',
+            title: '"Estudios Coránicos"',
             description: '"Reuniones Para Lectur Conjunta De Versiculos De Diferentes Surat Del Curan Para Poder...."',
             image: '/gallery-image3.jpg'
         },
@@ -45,7 +45,7 @@ const Home = () => {
             image: '/mezquita-tordera-interior.png'
         },
         {
-            name: 'Estudios Islamicos',
+            name: 'Estudios Islámicos',
             title: '"Charlas y eventos"',
             description: '"Charlas Fin De Semana Despues De Salat Al-Maghrib Sobre Sunna, Hadit, Fiqh, Historias Sahaba ...."',
             image: '/clases-1.jpeg'
