@@ -1,20 +1,11 @@
 {
     "redirects": [
       {
-        "source": "http://comunidadislamicatordera.org/:path*",
-        "destination": "https://www.comunidadislamicatordera.org/:path*",
-        "permanent": true
-      },
-      {
-        "source": "http://www.comunidadislamicatordera.org/:path*",
-        "destination": "https://www.comunidadislamicatordera.org/:path*",
-        "permanent": true
-      },
-      {
-        "source": "https://comunidadislamicatordera.org/:path*",
+        "source": "/:path*",
         "destination": "https://www.comunidadislamicatordera.org/:path*",
         "permanent": true
       }
     ]
   }
+  
   
