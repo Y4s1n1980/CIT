@@ -1,7 +1,9 @@
-// src/App.js
+// src/App.js FINAL CORREGIDO Y SIN WARNINGS
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
+import NavbarLayout from './components/NavbarLayout';
 import Home from './pages/Home';
 import Nosotros from './pages/Nosotros';
 import Servicios from './pages/Servicios';
@@ -9,9 +11,7 @@ import Contacto from './pages/Contacto';
 import Donaciones from './pages/Donaciones';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import Auth from './pages/Auth'; 
-import { AuthProvider } from './contexts/AuthContext';
-import PrivateRoute from './components/PrivateRoute';
+import Auth from './pages/Auth';
 import Chat from './pages/Chat';
 import Escuela from './pages/Escuela';
 import Dashboard from './pages/Dashboard';
@@ -19,9 +19,9 @@ import FinancialDashboard from './components/areafinanciera/FinancialDashboard';
 import ChatPrivado from './pages/ChatPrivado';
 import Testimonios from './pages/Testimonios/Testimonios';
 import Blog from './pages/blog/Blog';
-import Articulo  from './pages/blog/Articulo';
+import Articulo from './pages/blog/Articulo';
 import Eventos from './pages/eventos/Eventos';
-import EventoDetalles from './pages/eventos/EventoDetalles'; 
+import EventoDetalles from './pages/eventos/EventoDetalles';
 import MultimediaPage from './pages/MultimediaPage';
 import NuestrosServicios from './pages/NuestrosServicios';
 import Historia from './pages/Historia';
@@ -34,83 +34,83 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import VerifyEmail from './pages/VerifyEmail';
 import MiembroDetalle from './pages/MiembroDetalle';
-import './App.css';
 import Explora from './pages/Explora';
+import './App.css';
 
+const routes = [
+  {
+    path: "/",
+    element: <NavbarLayout />,
+    children: [
+      { path: "/", element: <Explora /> },
+      { path: "/explora", element: <Explora /> },
+      { path: "/home", element: <Home /> },
+      { path: "/nosotros", element: <Nosotros /> },
+      { path: "/historia", element: <Historia /> },
+      { path: "/servicios", element: <Servicios /> },
+      { path: "/nuestros-servicios", element: <NuestrosServicios /> },
+      { path: "/nuestros-servicios/:id", element: <NuestrosServicios /> },
+      { path: "/contacto", element: <Contacto /> },
+      { path: "/donaciones", element: <Donaciones /> },
+      { path: "/registro", element: <Register /> },
+      { path: "/iniciar-sesion", element: <Login /> },
+      { path: "/auth", element: <Auth /> },
+      { path: "/testimonios", element: <Testimonios /> },
+      { path: "/blog", element: <Blog /> },
+      { path: "/blog/:id", element: <Articulo /> },
+      { path: "/eventos", element: <Eventos /> },
+      { path: "/eventos/:id", element: <EventoDetalles /> },
+      { path: "/multimedia", element: <MultimediaPage /> },
+      { path: "/noticias", element: <Noticias /> },
+      { path: "/noticias/:id", element: <NoticiaDetalle /> },
+      { path: "/cursos", element: <Cursos /> },
+      { path: "/cursos/:id", element: <CursosDetalle /> },
+      { path: "/privacy", element: <PrivacyPolicy /> },
+      { path: "/terms", element: <TermsOfService /> },
+      { path: "/verify-email", element: <VerifyEmail /> },
+      { path: "/miembro/:nombre", element: <MiembroDetalle /> },
+
+      // Rutas protegidas estándar
+      {
+        path: "/chat",
+        element: <PrivateRoute><Chat /></PrivateRoute>
+      },
+      {
+        path: "/escuela",
+        element: <PrivateRoute><Escuela /></PrivateRoute>
+      },
+      {
+        path: "/chat-escuela/:contactId",
+        element: <PrivateRoute><ChatPrivado /></PrivateRoute>
+      },
+
+      // Rutas protegidas de admin
+      {
+        path: "/dashboard",
+        element: <PrivateRoute adminOnly><Dashboard /></PrivateRoute>
+      },
+      {
+        path: "/area-financiera",
+        element: <PrivateRoute adminOnly><FinancialDashboard /></PrivateRoute>
+      }
+    ],
+  },
+];
+
+const router = createBrowserRouter(routes, {
+  future: {
+    v7_startTransition: true,
+    v7_relativeSplatPath: true,
+  },
+});
 
 function App() {
-    return (
-        <AuthProvider>
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Explora />} />
-                    <Route path="/explora" element={<Explora />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/nosotros" element={<Nosotros />} />
-                    <Route path="/historia" element={<Historia />} /> 
-                    <Route path="/servicios" element={<Servicios />} />
-                    <Route path="/nuestros-servicios" element={<NuestrosServicios />} />
-                    <Route path="/nuestros-servicios/:id" element={<NuestrosServicios />} />
-                    <Route path="/contacto" element={<Contacto />} />
-                    <Route path="/donaciones" element={<Donaciones />} />
-                    <Route path="/registro" element={<Register />} />
-                    <Route path="/iniciar-sesion" element={<Login />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/testimonios" element={<Testimonios />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:id" element={<Articulo />} />
-                    <Route path= "/eventos" element={<Eventos/>} />
-                    <Route path="/eventos/:id" element={<EventoDetalles />} />
-                    <Route path="/multimedia" element={<MultimediaPage />} />
-                    <Route path="/noticias/:id" element={<NoticiaDetalle />} />
-                    <Route path="/noticias" element={<Noticias />} />
-                    <Route path="/cursos" element={<Cursos />} />
-                    <Route path="/cursos/:id" element={<CursosDetalle />} />
-                    <Route path="/privacy" element={<PrivacyPolicy />} />
-                    <Route path="/terms" element={<TermsOfService />} />
-                    <Route path="/verify-email" element={<VerifyEmail />} />
-                    <Route path="/miembro/:nombre" element={<MiembroDetalle />} />
-                    
-
-                    
-
-                    {/* Rutas protegidas */}
-                    <Route path="/chat" element={
-                        <PrivateRoute>
-                            <Chat />
-                        </PrivateRoute>
-                    } />
-                    <Route path="/escuela" element={
-                        <PrivateRoute>
-                            <Escuela />
-                        </PrivateRoute>
-                    } />
-
-                    <Route path="/chat-escuela/:contactId" element={
-                        <PrivateRoute>
-                            <ChatPrivado />
-                        </PrivateRoute>
-                    } />
-
-                    {/* Rutas de administrador */}
-                    <Route path="/dashboard" element={
-                        <PrivateRoute adminOnly={true}>
-                            <Dashboard />
-                        </PrivateRoute>
-                    } />
-                    <Route path="/area-financiera" element={
-                        <PrivateRoute adminOnly={true}>
-                            <FinancialDashboard  />
-                        </PrivateRoute>
-                    } />
-                </Routes>
-                <>
-            <CookieBanner />
-        </>
-            </Router>
-        </AuthProvider>
-    );
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <CookieBanner />
+    </AuthProvider>
+  );
 }
 
 export default App;

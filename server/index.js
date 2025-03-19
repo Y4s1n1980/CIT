@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
@@ -249,3 +250,38 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 
 
 // Iniciar servidor
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+
+// Inicializar servidor HTTP y Socket.io
+const server = app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
+});
+
+// Inicialización de socket.io en el servidor
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:3000", "https://www.comunidadislamicatordera.org"],
+    methods: ["GET", "POST"]
+  }
+});
+
+// Manejo de conexiones de WebSocket
+io.on('connection', (socket) => {
+    console.log('Usuario conectado:', socket.id);
+
+    socket.on('disconnect', () => {
+        console.log('Usuario desconectado:', socket.id);
+    });
+
+    // Ejemplo para escuchar y emitir mensajes
+    socket.on('mensaje', (data) => {
+        console.log('Mensaje recibido:', data);
+        io.emit('mensaje', data);
+    });
+});
+
+// Iniciar servidor
+const server = app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en puerto ${PORT}`);
+});
+
+module.exports = { app, io };

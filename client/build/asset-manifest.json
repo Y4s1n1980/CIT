@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.2126c8a5.css",
-    "main.js": "/static/js/main.5a5d0111.js",
+    "main.css": "/static/css/main.666e9a5d.css",
+    "main.js": "/static/js/main.bdea05fb.js",
     "static/js/488.5dc00adb.chunk.js": "/static/js/488.5dc00adb.chunk.js",
     "static/media/fachada-masjid-tordera.jpeg": "/static/media/fachada-masjid-tordera.48ab680ed13ffe765936.jpeg",
     "static/media/clases-2.jpeg": "/static/media/clases-2.154ea3789e998994ba24.jpeg",
     "static/media/hero4.jpeg": "/static/media/hero4.a80608d56023afd79ce8.jpeg",
     "static/media/clases-22.jpeg": "/static/media/clases-22.ffb14c9c7667d3bdf2be.jpeg",
+    "static/media/interior1.jpg": "/static/media/interior1.5646827cf078706e3d95.jpg",
     "static/media/mezquita-tordera-interior.png": "/static/media/mezquita-tordera-interior.b864034c79676e5b44ea.png",
     "static/media/general9.jpeg": "/static/media/general9.61d767c2721d59c67e3c.jpeg",
     "static/media/general16.jpeg": "/static/media/general16.11294d5f4b8d471b5eb9.jpeg",
@@ -22,12 +23,12 @@
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
-    "main.2126c8a5.css.map": "/static/css/main.2126c8a5.css.map",
-    "main.5a5d0111.js.map": "/static/js/main.5a5d0111.js.map",
+    "main.666e9a5d.css.map": "/static/css/main.666e9a5d.css.map",
+    "main.bdea05fb.js.map": "/static/js/main.bdea05fb.js.map",
     "488.5dc00adb.chunk.js.map": "/static/js/488.5dc00adb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2126c8a5.css",
-    "static/js/main.5a5d0111.js"
+    "static/css/main.666e9a5d.css",
+    "static/js/main.bdea05fb.js"
   ]
 }
