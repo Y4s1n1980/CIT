@@ -26,6 +26,7 @@
     "nodemailer": "^6.10.0",
     "path-to-regexp": "^8.2.0",
     "react": "^18.2.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.30.2",

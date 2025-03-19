@@ -1,0 +1,105 @@
+.contacto-prev-section {
+    width: 100%;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.contacto-prev-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.contacto-prev-text {
+    flex: 1;
+    animation: fadeInLeft 1s ease;
+}
+
+.contacto-prev-text h2 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    color: #222;
+    line-height: 1.2;
+}
+
+.contacto-prev-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.contacto-prev-btn {
+    padding: 14px 28px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+}
+
+.contacto-prev-btn:hover {
+    transform: translateY(-6px);
+    background-color: #0059c7;
+    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+}
+
+.contacto-prev-media {
+    flex: 1;
+    position: relative;
+    animation: fadeInRight 1s ease;
+}
+
+.contacto-prev-video {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Animaciones clave */
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Diseño adaptado a tablets */
+@media (max-width: 992px) {
+    .contacto-prev-container {
+        gap: 30px;
+    }
+
+    .contacto-prev-text h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Diseño adaptado a móviles */
+@media (max-width: 768px) {
+    .contacto-prev-container {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+    }
+
+    .contacto-prev-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .contacto-prev-btn {
+        width: 100%;
+    }
+}

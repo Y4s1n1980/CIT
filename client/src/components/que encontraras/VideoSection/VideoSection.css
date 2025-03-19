@@ -1,0 +1,69 @@
+.video-seccion {
+    width: 100%;
+    padding: 50px 20px;
+    background-color: #f2f6fb;
+    text-align: center;
+    overflow: hidden;
+}
+
+.video-seccion video {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    margin: 30px auto;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.video-seccion video:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+}
+
+/* Animación suave al aparecer */
+.video-seccion video {
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .video-seccion {
+        padding: 40px 15px;
+    }
+
+    .video-seccion video {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-seccion {
+        padding: 30px 10px;
+    }
+
+    .video-seccion video {
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-seccion {
+        padding: 25px 5px;
+    }
+
+    .video-seccion video {
+        margin: 20px 0;
+    }
+}

@@ -1,0 +1,51 @@
+.redes-sociales-prev {
+  text-align: center;
+  padding: 50px;
+  background-color: #eef3ff;
+  border-radius: 15px;
+}
+
+.redes-sociales-prev h2 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.redes-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.social-icon {
+  font-size: 45px;
+  color: #555;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon.facebook:hover {
+  color: hsl(221, 69%, 47%);
+}
+
+.social-icon.instagram:hover {
+  color: hwb(278 19% 12%);
+}
+
+.social-icon.youtube:hover {
+  color: #FF0000;
+}
+
+.social-icon:hover {
+  transform: scale(1.3);
+}
+
+@media (max-width: 768px) {
+  .social-icon {
+    font-size: 35px;
+  }
+
+  .redes-icons {
+    gap: 15px;
+  }
+}
+
+  
