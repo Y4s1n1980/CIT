@@ -8,11 +8,14 @@ const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
+const { Server } = require("socket.io");
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+console.log("✅ Firebase Admin inicializado correctamente");
+console.log("🌍 Bucket configurado:", process.env.FIREBASE_STORAGE_BUCKET);
 console.log("🔍 Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
-const rateLimit = require("express-rate-limit");
 
 // Aplicar rate limiting a todas las rutas
 const limiter = rateLimit({
@@ -72,8 +75,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
-        
-        const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+
+        const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
         res.status(200).json({ fileUrl });
     } catch (error) {
         console.error('Error al subir archivo:', error);
@@ -89,7 +92,7 @@ app.post('/upload-news', upload.single('file'), async (req, res) => {
         }
 
         // Ruta pública al archivo subido (en este caso, servida localmente por el mismo servidor):
-        const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+        const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
 
         // Obtenemos los campos que vienen en el formData del frontend
         const {
@@ -207,7 +210,8 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
         }
 
         // Construir la URL pública del archivo subido
-        const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+        const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
+
 
         // Obtenemos los campos que vienen en el formData
         const {
@@ -248,8 +252,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
 
-// Iniciar servidor
-app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 
 // Inicializar servidor HTTP y Socket.io
 const server = app.listen(PORT, () => {
@@ -277,11 +279,6 @@ io.on('connection', (socket) => {
         console.log('Mensaje recibido:', data);
         io.emit('mensaje', data);
     });
-});
-
-// Iniciar servidor
-const server = app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en puerto ${PORT}`);
 });
 
 module.exports = { app, io };
