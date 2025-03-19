@@ -1,0 +1,58 @@
+.funcionalidades-explora {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 40px auto;
+    max-width: 1200px;
+    animation: fadeIn 1s ease;
+}
+
+.funcionalidad-card {
+    flex: 1 1 calc(33% - 20px);
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.funcionalidad-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+}
+
+/* Animación de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive para tablets */
+@media (max-width: 1024px) {
+    .funcionalidad-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .funcionalidades-explora {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .funcionalidad-card {
+        width: 100%;
+        flex: 1 1 100%;
+        margin-bottom: 20px;
+    }
+}
+

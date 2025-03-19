@@ -35,6 +35,7 @@ import TermsOfService from './pages/TermsOfService';
 import VerifyEmail from './pages/VerifyEmail';
 import MiembroDetalle from './pages/MiembroDetalle';
 import './App.css';
+import Explora from './pages/Explora';
 
 
 function App() {
@@ -43,7 +44,9 @@ function App() {
             <Router>
                 <Navbar />
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Explora />} />
+                    <Route path="/explora" element={<Explora />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/nosotros" element={<Nosotros />} />
                     <Route path="/historia" element={<Historia />} /> 
                     <Route path="/servicios" element={<Servicios />} />
@@ -68,6 +71,7 @@ function App() {
                     <Route path="/terms" element={<TermsOfService />} />
                     <Route path="/verify-email" element={<VerifyEmail />} />
                     <Route path="/miembro/:nombre" element={<MiembroDetalle />} />
+                    
 
                     
 

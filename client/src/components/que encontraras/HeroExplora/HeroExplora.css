@@ -1,0 +1,54 @@
+.explora-page {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 100px 20px 60px;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.hero-explora {
+    text-align: center;
+    animation: fadeInUp 1.5s ease;
+    padding: 20px;
+}
+
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Añade una transición suave al cambiar de tamaño */
+@media (max-width: 1200px) {
+    .explora-page {
+        padding: 90px 20px 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .explora-page {
+        padding: 80px 15px 40px;
+        gap: 60px;
+    }
+
+    .hero-explora {
+        padding: 10px;
+    }
+}
+
+/* Optimización para dispositivos pequeños */
+@media (max-width: 480px) {
+    .explora-page {
+        gap: 50px;
+        padding: 70px 10px 30px;
+    }
+}

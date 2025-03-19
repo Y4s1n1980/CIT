@@ -67,8 +67,12 @@ const Navbar = () => {
                 </button>
                 <ul className={isMenuOpen ? 'nav-menu open' : 'nav-menu'}>
                 <li>
-                    <Link to="/" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
+                {!currentUser && (
+                <Link to="/explora">¿Qué encontrarás?</Link>
+                )}
+                    <Link to="/home">Inicio</Link>
                 </li>
+
 
                 {currentUser?.emailVerified && (
                     <li
