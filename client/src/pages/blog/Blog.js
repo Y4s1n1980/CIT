@@ -47,20 +47,22 @@ const Blog = () => {
   // Subir imagen (ejemplo de tu fetch al /upload)
   const uploadImage = async (file) => {
     if (!file) return null;
-    const formData = new FormData();
-    formData.append('file', file);
     try {
-      const response = await fetch('http://localhost:5000/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      return data.fileUrl || null;
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await fetch(`${process.env.REACT_APP_SOCKET_URL}/upload`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+        return result.fileUrl;
     } catch (error) {
-      console.error('Error al subir la imagen:', error);
-      return null;
+        console.error('Error al subir la imagen:', error);
+        return null;
     }
-  };
+};
+
 
   // Manejar envío de formulario
   const handleSubmit = async (e) => {

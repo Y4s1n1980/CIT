@@ -1,9 +1,8 @@
 {
-    "redirects": [
+    "rewrites": [
       {
-        "source": "/:path*",
-        "destination": "https://www.comunidadislamicatordera.org/:path*",
-        "permanent": true
+        "source": "/uploads/:path*",
+        "destination": "/uploads/:path*"
       }
     ]
   }
