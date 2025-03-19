@@ -74,20 +74,8 @@ service cloud.firestore {
       allow read: if true;  // Todos pueden leer los testimonios
       allow create: if request.auth != null;  // Solo usuarios autenticados pueden crear testimonios
     }
-    
-   
-   // Reglas para la colección 'articulos'
-    match /articulos/{document} {
-      allow read: if resource.data.estado == "aprobado" || 
-                  (request.auth != null && 
-                   get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin");
-      allow create: if request.auth != null;
-      allow update: if request.auth != null && 
-                    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
-    }
 
-   
-
+  
     // Reglas para la colección 'users'
     match /users/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
@@ -112,16 +100,19 @@ service cloud.firestore {
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin"));
 }
 
-
-// Reglas para la colección 'multimedia'
-    match /multimedia/{document} {
-  allow read: if resource.data.estado == "aprobado";
+match /multimedia/{document} {
+  allow read: if true;  // Permitir lectura pública temporalmente
   allow create: if request.auth != null;
-  allow update, delete: if request.auth != null && 
-                        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+  allow update: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
 }
 
-    
+match /articulos/{document} {
+  allow read: if true;  // Permitir lectura pública temporalmente
+  allow create: if request.auth != null;
+  allow update: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+}
+
+
     match /servicios/{servicioId} {
     allow read: if true; // Todos pueden leer
     allow create, update: if request.auth != null &&
