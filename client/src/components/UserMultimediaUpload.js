@@ -2,6 +2,28 @@ import React, { useState } from "react";
 import { db } from "../services/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
+
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://www.comunidadislamicatordera.org';
+
+const uploadImage = async (file) => {
+    if (!file) return null;
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await fetch(`${BASE_URL}/upload`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+        return result.fileUrl;
+    } catch (error) {
+        console.error('Error al subir la imagen:', error);
+        return null;
+    }
+};
+
+
 const UserMultimediaUpload = () => {
   const [newMultimedia, setNewMultimedia] = useState({
     titulo: "",
