@@ -86,14 +86,16 @@ const upload = multer({
 
 
 // **ENDPOINT: Subir archivos y devolver la URL correcta**
+const BASE_URL = process.env.BASE_URL || 'https://www.comunidadislamicatordera.org';
+
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
 
-        // Construir la URL pública del archivo
-        const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+        // Construir la URL usando HTTPS en producción
+        const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
 
         res.status(200).json({ fileUrl });
     } catch (error) {
@@ -101,6 +103,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
+
 
 // **ENDPOINT: Guardar datos de noticias en Firestore**
 app.post('/upload-news', upload.single('file'), async (req, res) => {
