@@ -7,6 +7,12 @@
     "install": "npm install --legacy-peer-deps --no-audit --no-fund",
     "start": "node index.js"
   },
+  
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
