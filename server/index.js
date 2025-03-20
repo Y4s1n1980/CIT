@@ -28,15 +28,20 @@ const limiter = rateLimit({
 
 
 // Middleware
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://www.comunidadislamicatordera.org';
+
+// Middleware
 app.use(cors({
     origin: [
-        'http://localhost:3000',
+        BASE_URL,
         'https://www.comunidadislamicatordera.org'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'multipart/form-data'],
     credentials: true,
 }));
+
+
 
 
 app.use(express.json());
@@ -86,8 +91,6 @@ const upload = multer({
 
 
 // **ENDPOINT: Subir archivos y devolver la URL correcta**
-const BASE_URL = process.env.BASE_URL || 'https://www.comunidadislamicatordera.org';
-
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
@@ -242,7 +245,6 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
 
 // Servir archivos estáticos y frontend en producción
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/uploads', express.static(uploadDir));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
 
