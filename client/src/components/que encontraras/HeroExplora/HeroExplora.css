@@ -16,6 +16,9 @@
     padding: 20px;
 }
 
+
+
+
 @keyframes fadeInUp {
     from { 
         opacity: 0; 
@@ -45,7 +48,7 @@
     }
 
     .hero-explora h1 {
-        padding-top: 30px;
+        padding-top: 90px;
     }
 
     .hero-explora fade-in{
