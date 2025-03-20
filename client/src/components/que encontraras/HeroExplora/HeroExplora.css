@@ -39,9 +39,17 @@
         padding: 80px 15px 40px;
         gap: 60px;
     }
-
+    
     .hero-explora {
         padding: 10px;
+    }
+
+    .hero-explora h1 {
+        padding-top: 30px;
+    }
+
+    .hero-explora fade-in{
+        margin-top: 100px;
     }
 }
 
