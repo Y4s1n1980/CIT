@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "install": "npm install --legacy-peer-deps",
+    "install": "npm install --legacy-peer-deps --no-audit --no-fund",
     "start": "node index.js"
   },
   "keywords": [],
