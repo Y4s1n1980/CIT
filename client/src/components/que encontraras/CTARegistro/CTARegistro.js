@@ -5,7 +5,7 @@ import './CTARegistro.css';
 
 const CTARegistro = () => (
     <section className="cta-registro">
-        <Link to="/registro" className="btn-registro">¡Únete Ahora!</Link>
+        <Link to="/auth" className="btn-registro">¡Únete Ahora!</Link>
     </section>
 );
 

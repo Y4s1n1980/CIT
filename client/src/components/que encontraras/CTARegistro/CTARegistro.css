@@ -20,7 +20,7 @@
     display: inline-block;
 }
 
-.btn-registro:hover {
+.btn-registro {
     background-color: #0056b3;
     transform: translateY(-4px);
     box-shadow: 0 8px 15px rgba(0, 86, 179, 0.3);
@@ -43,10 +43,12 @@
     .cta-registro {
         margin: 30px 10px;
         padding: 15px;
+        margin-top: 100px;
     }
 
     .btn-registro {
         width: 100%;
         font-size: 1rem;
     }
+    
 }
