@@ -55,21 +55,22 @@ const MultimediaPage = () => {
       ) : (
         <>
           <div className="multimedia-grid">
-            {paginatedMultimedia.length > 0 ? (
-              paginatedMultimedia.map((item) => (
-                <div key={item.id} className="multimedia-card" onClick={() => setSelectedMedia(item)}>
-                  {item.tipo === 'video' ? (
-                    <video controls src={item.url} />
-                  ) : (
-                    <audio controls src={item.url} />
-                  )}
-                  <h4>{item.titulo || 'Sin título'}</h4>
-                  <p>{item.autor || 'Desconocido'}</p>
-                </div>
-              ))
-            ) : (
-              <p>No hay multimedia disponible.</p>
-            )}
+          {paginatedMultimedia.length > 0 ? (
+  paginatedMultimedia.map((item) => (
+    <div key={item.id} className="multimedia-card" onClick={() => setSelectedMedia(item)}>
+      {item.tipo === "video" ? (
+        <video controls src={item.url ? item.url : "https://www.comunidadislamicatordera.org/placeholder-video.mp4"} />
+      ) : (
+        <audio controls src={item.url ? item.url : "https://www.comunidadislamicatordera.org/placeholder-audio.mp3"} />
+      )}
+      <h4>{item.titulo || "Sin título"}</h4>
+      <p>{item.autor || "Desconocido"}</p>
+    </div>
+  ))
+) : (
+  <p>No hay multimedia disponible.</p>
+)}
+
           </div>
 
           <div className="pagination">

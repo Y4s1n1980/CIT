@@ -26,17 +26,21 @@ const limiter = rateLimit({
   
   app.use(limiter);
 
+
 // Middleware
 app.use(cors({
     origin: [
         'http://localhost:3000',
         'https://www.comunidadislamicatordera.org'
-      ],
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'multipart/form-data'],
     credentials: true,
 }));
+
+
 app.use(express.json());
+
 
 // **ENDPOINT: Crear PaymentIntent para donaciones**
 app.post('/create-payment-intent', async (req, res) => {
@@ -55,9 +59,10 @@ app.post('/create-payment-intent', async (req, res) => {
     }
 });
 
-// Crear directorio `uploads` si no existe
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads');
+// Crear carpeta 'uploads' si no existe
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
     console.log('Carpeta "uploads" creada.');
 }
 
@@ -66,17 +71,30 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
-const upload = multer({ storage });
 
-// **ENDPOINT: Subir archivos**
+const upload = multer({
+    storage,
+    limits: { fileSize: 50 * 1024 * 1024 }, // Máximo 50MB para videos
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = ['video/mp4', 'audio/mpeg', 'audio/wav'];
+        if (!allowedTypes.includes(file.mimetype)) {
+            return cb(new Error('Formato de archivo no permitido.'));
+        }
+        cb(null, true);
+    }
+});
+
+
+// **ENDPOINT: Subir archivos y devolver la URL correcta**
 app.post('/upload', upload.single('file'), async (req, res) => {
-    console.log("¡Upload request recibida!", req.file);
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
 
-        const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
+        // Construir la URL pública del archivo
+        const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
         res.status(200).json({ fileUrl });
     } catch (error) {
         console.error('Error al subir archivo:', error);
@@ -173,34 +191,6 @@ app.post('/donations', async (req, res) => {
 });
 
 
-// **ENDPOINT: Guardar datos de donación en Firestore**
-app.post('/donations', async (req, res) => {
-    const { donante_nombre, donante_email, monto, fecha_donacion, estado, referencia_transaccion, comentarios } = req.body;
-
-    if (!donante_nombre || !donante_email || !monto || !fecha_donacion) {
-        return res.status(400).json({ error: 'Faltan datos requeridos para registrar la donación.' });
-    }
-
-    try {
-        const donationRef = db.collection('donations');
-        const newDoc = {
-            donante_nombre,
-            donante_email,
-            monto,
-            fecha_donacion: new Date(fecha_donacion),
-            estado,
-            referencia_transaccion,
-            comentarios,
-            createdAt: new Date(),
-        };
-
-        const docRef = await donationRef.add(newDoc);
-        res.status(200).json({ message: 'Donación registrada con éxito.', id: docRef.id });
-    } catch (error) {
-        console.error('Error al guardar la donación en Firestore:', error);
-        res.status(500).json({ error: 'Error al guardar los datos de la donación.' });
-    }
-});
 
 // **ENDPOINT: Subir curso**
 app.post('/upload-course', upload.single('imagen'), async (req, res) => {
@@ -249,6 +239,7 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
 
 // Servir archivos estáticos y frontend en producción
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(uploadDir));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
 
