@@ -50,10 +50,11 @@ const Blog = () => {
     try {
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch(`${process.env.REACT_APP_SOCKET_URL}/upload`, {
-            method: 'POST',
-            body: formData,
-        });
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL || 'http://localhost:5000'}/upload`, {
+          method: 'POST',
+          body: formData,
+      });
+      
 
         const result = await response.json();
         return result.fileUrl;
@@ -174,11 +175,12 @@ const Blog = () => {
               <h2>{article.titulo}</h2>
               {article.imagenUrl && (
                 <img
-                  src={article.imagenUrl}
+                  src={article.imagenUrl ? article.imagenUrl : "https://www.comunidadislamicatordera.org/placeholder-image.webp"}
                   alt="Artículo"
                   className="article-thumbnail"
-                />
+              />
               )}
+
               <p>{article.contenido.slice(0, 100)}...</p>
               <Link to={`/blog/${article.id}`} className="read-more-button">
                 Leer más
