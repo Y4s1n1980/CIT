@@ -1,6 +1,6 @@
 // src/components/MultimediaPage.js
 import React, { useState, useEffect, useMemo } from 'react';
-import { db } from '../services/firebase';
+import { db, obtenerDatos } from '../services/firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 import UserMultimediaUpload from '../components/UserMultimediaUpload';
 import './MultimediaPage.css';
@@ -31,6 +31,21 @@ const MultimediaPage = () => {
       }
     );
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const cargarMultimedia = async () => {
+      setLoading(true);
+      try {
+        const multimediaData = await obtenerDatos(); // Nueva función en `firebase.js`
+        setMultimedia(multimediaData);
+      } catch (error) {
+        console.error("Error al cargar multimedia:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargarMultimedia();
   }, []);
 
   const paginatedMultimedia = useMemo(

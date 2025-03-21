@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './Contacto.css';
 import { db } from '../services/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
+
 
 const Contacto = () => {
     const [formData, setFormData] = useState({ nombre: '', email: '', mensaje: '' });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import './SubmissionsSection.css';
 
 const SubmissionsSection = () => {

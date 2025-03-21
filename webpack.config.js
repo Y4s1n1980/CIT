@@ -1,9 +1,14 @@
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  ignoreWarnings: [/Failed to parse source map/],
+    ignoreWarnings: [/Failed to parse source map/, /Critical dependency: the request of a dependency is an expression/],
+
   devtool: false,  
   resolve: {
+
+    alias: {
+        'peerjs':'peerjs/dist/peerjs.js'
+      },
       fallback: {
           "http": require.resolve("stream-http"),
           "https": require.resolve("https-browserify"),
@@ -24,7 +29,7 @@ module.exports = {
       rules: [
           {
               test: /\.(js|jsx)$/,
-              exclude: /node_modules/,
+              exclude: /node_modules\/peerjs/ ,
               use: {
                   loader: "babel-loader",
                   options: {

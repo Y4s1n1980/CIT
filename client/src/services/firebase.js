@@ -1,7 +1,7 @@
 // src/services/firebase.js
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // Configuración de Firebase usando variables de entorno
@@ -31,5 +31,17 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
+
+// 🔥 FUNCION PARA OBTENER DATOS DE MULTIMEDIA 🔥
+export const obtenerDatos = async () => {
+    try {
+        const q = query(collection(db, "multimedia"), orderBy("fecha", "desc"), limit(10));
+        const snapshot = await getDocs(q);
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+        console.error("⚠️ Error obteniendo datos de multimedia:", error);
+        return [];
+    }
+};
 
 export { auth, db, storage };
