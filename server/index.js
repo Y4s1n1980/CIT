@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const fs = require('fs');
+console.log('Stripe Key:', process.env.STRIPE_SECRET_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
 const { Server } = require("socket.io");
