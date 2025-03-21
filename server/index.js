@@ -8,6 +8,47 @@ const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 console.log('Stripe Key:', process.env.STRIPE_SECRET_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+
+// 📂 Ruta donde se creará el archivo en Render
+const serviceAccountPath = path.join(__dirname, "../config/serviceAccountKey.json");
+
+// ✅ Verifica si `FIREBASE_SERVICE_ACCOUNT` está definido
+if (!process.env.FIREBASE_SERVICE_ACCOUNT) {
+    console.error("🚨 ERROR: La variable FIREBASE_SERVICE_ACCOUNT no está definida en Render.");
+    process.exit(1);
+}
+
+// ✅ Si el archivo `serviceAccountKey.json` no existe, créalo
+if (!fs.existsSync(serviceAccountPath)) {
+    try {
+        console.log("🔧 Creando serviceAccountKey.json en Render...");
+
+        // Convertir la variable de entorno en JSON
+        const serviceAccountData = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+
+        // Guardar el archivo en `config/serviceAccountKey.json`
+        fs.writeFileSync(serviceAccountPath, JSON.stringify(serviceAccountData, null, 2));
+
+        console.log("✅ Archivo serviceAccountKey.json creado correctamente.");
+    } catch (error) {
+        console.error("🚨 ERROR: No se pudo crear `serviceAccountKey.json`:", error);
+        process.exit(1);
+    }
+} else {
+    console.log("✅ El archivo serviceAccountKey.json ya existe en Render.");
+}
+
+// ✅ Verificar que el archivo se creó correctamente
+setTimeout(() => {
+    if (fs.existsSync(serviceAccountPath)) {
+        console.log("🔍 Verificación: `serviceAccountKey.json` está presente en Render.");
+    } else {
+        console.error("🚨 ERROR: `serviceAccountKey.json` NO se creó en Render.");
+        process.exit(1);
+    }
+}, 3000); // Espera 3 segundos para asegurar que se creó antes de usar Firebase
+
 const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
 const { Server } = require("socket.io");
 

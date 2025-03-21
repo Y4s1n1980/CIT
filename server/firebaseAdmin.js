@@ -2,26 +2,44 @@ const admin = require("firebase-admin");
 const fs = require("fs");
 const path = require("path");
 
-// Ruta al archivo de credenciales
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+const serviceAccountPath = path.join(__dirname, "../config/serviceAccountKey.json");
 
+let serviceAccount;
 
+// ✅ Intenta cargar desde archivo si existe (modo local)
+if (fs.existsSync(serviceAccountPath)) {
+    try {
+        serviceAccount = require(serviceAccountPath);
+        console.log("✅ Cargando credenciales desde serviceAccountKey.json (Local)");
+    } catch (error) {
+        console.error("🚨 ERROR: No se pudo cargar serviceAccountKey.json:", error);
+        process.exit(1);
+    }
+} else if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    try {
+        console.log("🔧 Creando serviceAccountKey.json desde FIREBASE_SERVICE_ACCOUNT (Render)...");
 
-// Verificar si el archivo de credenciales existe antes de cargarlo
-if (!fs.existsSync(serviceAccountPath)) {
-    console.error("⚠️ Error: Archivo de credenciales Firebase no encontrado:", serviceAccountPath);
-    process.exit(1); // Finaliza el proceso si no se encuentra el archivo
-}
+        // Paso 1: parsear y corregir la private_key
+        const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
+        const parsed = JSON.parse(raw);
 
-const serviceAccount = require(serviceAccountPath);
+        // Corregir manualmente la private_key
+        parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
+        serviceAccount = parsed;
 
-// Verificar que las credenciales sean válidas
-if (!serviceAccount.project_id || !serviceAccount.client_email || !serviceAccount.private_key) {
-    console.error("⚠️ Error: Credenciales Firebase incompletas. Revisa serviceAccountKey.json.");
+        // Paso 2: escribir archivo corregido
+        fs.writeFileSync(serviceAccountPath, JSON.stringify(parsed, null, 2));
+        console.log("✅ Archivo serviceAccountKey.json creado correctamente.");
+    } catch (error) {
+        console.error("🚨 ERROR: No se pudo crear serviceAccountKey.json:", error);
+        process.exit(1);
+    }
+} else {
+    console.error("🚨 ERROR: No se encontró serviceAccountKey.json ni la variable FIREBASE_SERVICE_ACCOUNT.");
     process.exit(1);
 }
 
-// Inicializa Firebase Admin solo si no está inicializado
+// ✅ Inicializar Firebase solo si no está ya inicializado
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
