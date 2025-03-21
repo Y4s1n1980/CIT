@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import './RamadanCountdown.css';
 
 const RamadanCountdown = () => {
   const targetDate = new Date('2026-02-18T00:00:00').getTime();
-  
-  const calculateTimeLeft = () => {
+
+  // ✅ Memoizamos la función con useCallback
+  const calculateTimeLeft = useCallback(() => {
     const difference = targetDate - new Date().getTime();
-    let timeLeft = {};
+    if (difference <= 0) return null;
 
-    if (difference > 0) {
-      timeLeft = {
-        dias: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutos: Math.floor((difference / 1000 / 60) % 60),
-        segundos: Math.floor((difference / 1000) % 60),
-      };
-    } else {
-      timeLeft = null;
-    }
-
-    return timeLeft;
-  };
+    return {
+      dias: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutos: Math.floor((difference / 1000 / 60) % 60),
+      segundos: Math.floor((difference / 1000) % 60),
+    };
+  }, [targetDate]); // ✅ targetDate no cambia, así que la función se mantiene estable
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -31,7 +26,7 @@ const RamadanCountdown = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [calculateTimeLeft]); // ✅ Ahora ESLint no se quejará
 
   if (!timeLeft) {
     return <div className="ramadan-countdown-completo">¡Ya llegó el Ramadán!</div>;

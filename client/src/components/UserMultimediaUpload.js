@@ -5,22 +5,30 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
 
-const uploadImage = async (file) => {
-    if (!file) return null;
-    try {
-        const formData = new FormData();
-        formData.append('file', file);
-        const response = await fetch(`${BASE_URL}/upload`, {
-            method: 'POST',
-            body: formData,
-        });
+// Función para subir archivos 
+const uploadFile = async (file) => {
+  if (!file) return null;
+  try {
+      const formData = new FormData();
+      formData.append("file", file);
 
-        const result = await response.json();
-        return result.fileUrl;
-    } catch (error) {
-        console.error('Error al subir la imagen:', error);
-        return null;
-    }
+      // Aquí nos aseguramos de que BASE_URL se usa correctamente
+      const response = await fetch(`${BASE_URL}/upload`, {
+          method: "POST",
+          body: formData,
+      });
+
+      if (!response.ok) {
+          console.error("Error en la respuesta del servidor:", await response.text());
+          throw new Error("Error al subir el archivo.");
+      }
+
+      const result = await response.json();
+      return result.fileUrl;
+  } catch (error) {
+      console.error("Error al subir archivo:", error);
+      return null;
+  }
 };
 
 
@@ -64,75 +72,68 @@ const UserMultimediaUpload = () => {
   };
 
   // Manejar el envío del formulario
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Manejar el envío del formulario
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const { titulo, autor, tipo, file, imagen } = newMultimedia;
+  const { titulo, autor, tipo, file, imagen } = newMultimedia;
 
-    if (!file || !titulo || !autor) {
-      alert("Por favor, completa todos los campos obligatorios.");
-      return;
+  if (!file || !titulo || !autor) {
+    alert("Por favor, completa todos los campos obligatorios.");
+    return;
+  }
+
+  setUploading(true);
+
+  try {
+    // ✅ Subir archivo principal
+    const fileUrl = await uploadFile(file);
+    if (!fileUrl) {
+      throw new Error("Error al subir el archivo principal.");
     }
 
-    setUploading(true);
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("titulo", titulo);
-      formData.append("autor", autor);
-      formData.append("tipo", tipo);
-      if (imagen) formData.append("imagen", imagen);
-
-      const BASE_URL = process.env.REACT_APP_BASE_URL || window.location.origin;
-      const response = await fetch(`${BASE_URL}/upload`, {
-        method: "POST",
-        body: formData,
-      });
-
-      console.log("Respuesta del servidor:", response);
-
-      if (!response.ok) {
-        console.error("Error en la respuesta del servidor:", await response.text());
-        throw new Error("Error al subir multimedia al servidor.");
-      }
-
-      const data = await response.json();
-      console.log("Archivo subido:", data);
-
-      // Guardar en Firestore
-      await addDoc(collection(db, "multimedia"), {
-        titulo,
-        autor,
-        tipo,
-        url: data.fileUrl || "https://www.comunidadislamicatordera.org/placeholder-video.mp4",
-        imagenUrl: data.imageUrl || "https://www.comunidadislamicatordera.org/placeholder-image.webp",
-        estado: "pendiente",
-        fechaSubida: serverTimestamp(),
-      });
-
-      setUploadedUrls({
-        fileUrl: data.fileUrl || "https://www.comunidadislamicatordera.org/placeholder-video.mp4",
-        imageUrl: data.imageUrl || "https://www.comunidadislamicatordera.org/placeholder-image.webp",
-      });
-
-      alert("Multimedia enviada correctamente. Esperando aprobación.");
-
-      setNewMultimedia({
-        titulo: "",
-        autor: "",
-        tipo: "video",
-        file: null,
-        imagen: null,
-      });
-
-    } catch (error) {
-      console.error("Error al subir multimedia:", error);
-      alert("Error al subir multimedia.");
-    } finally {
-      setUploading(false);
+    // ✅ Subir imagen opcional (si existe)
+    let imageUrl = "https://www.comunidadislamicatordera.org/placeholder-image.webp"; 
+    if (imagen) {
+      const uploadedImageUrl = await uploadFile(imagen);
+      if (uploadedImageUrl) imageUrl = uploadedImageUrl;
     }
-  };
+
+    console.log("Archivo subido:", fileUrl);
+    console.log("Imagen subida:", imageUrl);
+
+    // ✅ Guardar en Firestore
+    await addDoc(collection(db, "multimedia"), {
+      titulo,
+      autor,
+      tipo,
+      url: fileUrl, // Ahora usamos el archivo subido
+      imagenUrl: imageUrl, // Ahora usamos la imagen subida
+      estado: "pendiente",
+      fechaSubida: serverTimestamp(),
+    });
+
+    setUploadedUrls({ fileUrl, imageUrl });
+
+    alert("Multimedia enviada correctamente. Esperando aprobación.");
+
+    // ✅ Reiniciar formulario
+    setNewMultimedia({
+      titulo: "",
+      autor: "",
+      tipo: "video",
+      file: null,
+      imagen: null,
+    });
+
+  } catch (error) {
+    console.error("Error al subir multimedia:", error);
+    alert("Error al subir multimedia.");
+  } finally {
+    setUploading(false);
+  }
+};
+
 
   return (
     <section className="user-multimedia-upload">

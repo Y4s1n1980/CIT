@@ -3,7 +3,9 @@ const fs = require("fs");
 const path = require("path");
 
 // Ruta al archivo de credenciales
-const serviceAccountPath = path.join(__dirname, "../config/serviceAccountKey.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+
+
 
 // Verificar si el archivo de credenciales existe antes de cargarlo
 if (!fs.existsSync(serviceAccountPath)) {
