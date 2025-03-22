@@ -28,53 +28,11 @@ function log(message, type = 'info') {
 
 let serviceAccount;
 
-function validateServiceAccount(obj) {
-  if (!obj || typeof obj !== 'object') return false;
-  const validEmail = obj.client_email?.includes('@') && obj.client_email?.includes('gserviceaccount.com');
-  return validEmail && obj.private_key && obj.project_id && obj.type === 'service_account';
-}
-
-if (fs.existsSync(serviceAccountPath)) {
-  try {
-    serviceAccount = require(serviceAccountPath);
-    if (!validateServiceAccount(serviceAccount)) {
-      log("⚠️ Archivo serviceAccountKey.json malformado. Eliminando...", 'warn');
-      fs.unlinkSync(serviceAccountPath);
-      throw new Error("Archivo inválido");
-    }
-    log("✅ Cargando credenciales desde serviceAccountKey.json (Local)");
-  } catch (error) {
-    log(`🚨 ERROR al cargar serviceAccountKey.json: ${error.stack}`, 'error');
-    process.exit(1);
-  }
-} else if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  try {
-    log("🔧 Creando serviceAccountKey.json desde FIREBASE_SERVICE_ACCOUNT (Render)...");
-    const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
-    const parsed = JSON.parse(raw);
-
-    if (parsed.private_key && typeof parsed.private_key === "string") {
-      parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
-    } else {
-      log("❌ ERROR: La clave privada no es válida o está vacía.", 'error');
-      process.exit(1);
-    }
-
-    if (!validateServiceAccount(parsed)) {
-      log("❌ ERROR: Campos faltantes en FIREBASE_SERVICE_ACCOUNT.", 'error');
-      process.exit(1);
-    }
-
-    serviceAccount = parsed;
-    fs.mkdirSync(path.dirname(serviceAccountPath), { recursive: true });
-    fs.writeFileSync(serviceAccountPath, JSON.stringify(parsed, null, 2));
-    log("✅ Archivo serviceAccountKey.json creado correctamente.");
-  } catch (error) {
-    log(`🚨 ERROR al crear serviceAccountKey.json: ${error.stack}`, 'error');
-    process.exit(1);
-  }
-} else {
-  log("🚨 ERROR: No se encontró serviceAccountKey.json ni la variable FIREBASE_SERVICE_ACCOUNT.", 'error');
+try {
+  serviceAccount = require(serviceAccountPath);
+  log("✅ Cargando credenciales desde serviceAccountKey.json (Local)");
+} catch (error) {
+  log(`🚨 ERROR al cargar serviceAccountKey.json: ${error.stack}`, 'error');
   process.exit(1);
 }
 
