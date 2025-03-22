@@ -28,6 +28,7 @@ if (fs.existsSync(serviceAccountPath)) {
         serviceAccount = parsed;
 
         // Paso 2: escribir archivo corregido
+        fs.mkdirSync(path.dirname(serviceAccountPath), { recursive: true });
         fs.writeFileSync(serviceAccountPath, JSON.stringify(parsed, null, 2));
         console.log("✅ Archivo serviceAccountKey.json creado correctamente.");
     } catch (error) {
