@@ -1,78 +1,36 @@
 // server/index.js
 require('dotenv').config(); 
+require('./setupFirebase');
+
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const fs = require('fs');
+
 console.log('Stripe Key:', process.env.STRIPE_SECRET_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-
-// 📂 Ruta donde se creará el archivo en Render
-const serviceAccountPath = path.join(__dirname, "../config/serviceAccountKey.json");
-
-// ✅ Verifica si `FIREBASE_SERVICE_ACCOUNT` está definido
-if (!process.env.FIREBASE_SERVICE_ACCOUNT) {
-    console.error("🚨 ERROR: La variable FIREBASE_SERVICE_ACCOUNT no está definida en Render.");
-    process.exit(1);
-}
-
-// ✅ Si el archivo `serviceAccountKey.json` no existe, créalo
-if (!fs.existsSync(serviceAccountPath)) {
-    try {
-        console.log("🔧 Creando serviceAccountKey.json en Render...");
-
-        // Convertir la variable de entorno en JSON
-        const serviceAccountData = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-
-        // Guardar el archivo en `config/serviceAccountKey.json`
-        fs.writeFileSync(serviceAccountPath, JSON.stringify(serviceAccountData, null, 2));
-
-        console.log("✅ Archivo serviceAccountKey.json creado correctamente.");
-    } catch (error) {
-        console.error("🚨 ERROR: No se pudo crear `serviceAccountKey.json`:", error);
-        process.exit(1);
-    }
-} else {
-    console.log("✅ El archivo serviceAccountKey.json ya existe en Render.");
-}
-
-// ✅ Verificar que el archivo se creó correctamente
-setTimeout(() => {
-    if (fs.existsSync(serviceAccountPath)) {
-        console.log("🔍 Verificación: `serviceAccountKey.json` está presente en Render.");
-    } else {
-        console.error("🚨 ERROR: `serviceAccountKey.json` NO se creó en Render.");
-        process.exit(1);
-    }
-}, 3000); // Espera 3 segundos para asegurar que se creó antes de usar Firebase
-
-const { bucket, db } = require('./firebaseAdmin'); // Firebase Admin
+const { bucket, db } = require('./firebaseAdmin');
 const { Server } = require("socket.io");
-
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-console.log("✅ Firebase Admin inicializado correctamente");
-console.log("🌍 Bucket configurado:", process.env.FIREBASE_STORAGE_BUCKET);
-console.log("🔍 Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
 
-// Aplicar rate limiting a todas las rutas
+console.log("\u2705 Firebase Admin inicializado correctamente");
+console.log("\ud83c\udf0d Bucket configurado:", process.env.FIREBASE_STORAGE_BUCKET);
+console.log("\ud83d\udd0d Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
+
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    max: 100, // Límite de 100 peticiones por IP
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: "Demasiadas solicitudes desde esta IP, por favor intenta más tarde."
-  });
-  
-  app.use(limiter);
+});
+app.use(limiter);
 
-
-// Middleware
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://www.comunidadislamicatordera.org';
 
-// Middleware
 app.use(cors({
     origin: [
         BASE_URL,
@@ -83,19 +41,14 @@ app.use(cors({
     credentials: true,
 }));
 
-
-
-
 app.use(express.json());
 
-
-// **ENDPOINT: Crear PaymentIntent para donaciones**
 app.post('/create-payment-intent', async (req, res) => {
     const { amount } = req.body;
     try {
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(amount * 100), 
-            currency: 'usd', 
+            amount: Math.round(amount * 100),
+            currency: 'usd',
             automatic_payment_methods: { enabled: true },
         });
 
@@ -106,14 +59,12 @@ app.post('/create-payment-intent', async (req, res) => {
     }
 });
 
-// Crear carpeta 'uploads' si no existe
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
     console.log('Carpeta "uploads" creada.');
 }
 
-// Configuración de multer para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
@@ -121,7 +72,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage,
-    limits: { fileSize: 20 * 1024 * 1024 }, // Máximo 50MB para videos
+    limits: { fileSize: 20 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         const allowedTypes = ['video/mp4', 'audio/mpeg', 'audio/wav'];
         if (!allowedTypes.includes(file.mimetype)) {
@@ -131,17 +82,12 @@ const upload = multer({
     }
 });
 
-
-// **ENDPOINT: Subir archivos y devolver la URL correcta**
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
-
-        // Construir la URL usando HTTPS en producción
         const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
-
         res.status(200).json({ fileUrl });
     } catch (error) {
         console.error('Error al subir archivo:', error);
@@ -149,32 +95,22 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 });
 
-
-// **ENDPOINT: Guardar datos de noticias en Firestore**
 app.post('/upload-news', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
-
-        // Ruta pública al archivo subido (en este caso, servida localmente por el mismo servidor):
         const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
-
-        // Obtenemos los campos que vienen en el formData del frontend
         const {
-            coleccionDestino, // e.g. "noticias"
+            coleccionDestino,
             titulo,
             descripcion,
             contenidoCompleto,
             autorNombre,
             autorEmail
         } = req.body;
-
-        // Convertimos el estado (string) a booleano
-        // (Recordar que formData lo envía todo como string)
         const estado = req.body.estado === 'true';
 
-        // Creamos el objeto noticia para guardar en Firestore
         const noticiaData = {
             titulo,
             descripcion,
@@ -186,22 +122,14 @@ app.post('/upload-news', upload.single('file'), async (req, res) => {
             autorEmail
         };
 
-        // Guardar en Firestore usando Firebase Admin
-        // (NOTA: Si "coleccionDestino" es "noticias", se guardará ahí)
         const docRef = await db.collection(coleccionDestino).add(noticiaData);
-
-        // Devolvemos al cliente el ID del documento y la URL de la imagen
-        res.status(200).json({
-            docId: docRef.id,
-            imagenUrl: fileUrl
-        });
+        res.status(200).json({ docId: docRef.id, imagenUrl: fileUrl });
     } catch (error) {
         console.error('Error al subir archivo:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
 
-// **ENDPOINT: Guardar datos de donación en Firestore**
 app.post('/donations', async (req, res) => {
     const {
         donante_nombre,
@@ -238,20 +166,12 @@ app.post('/donations', async (req, res) => {
     }
 });
 
-
-
-// **ENDPOINT: Subir curso**
 app.post('/upload-course', upload.single('imagen'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo.' });
         }
-
-        // Construir la URL pública del archivo subido
         const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
-
-
-        // Obtenemos los campos que vienen en el formData
         const {
             titulo,
             descripcion,
@@ -259,7 +179,6 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
             autorEmail
         } = req.body;
 
-        // Creamos el objeto para guardar en Firestore
         const courseData = {
             titulo,
             descripcion,
@@ -267,36 +186,25 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
             autorNombre,
             autorEmail,
             fechaCreacion: new Date(),
-            estado: true  // Por defecto, el curso está activo
+            estado: true
         };
 
-        // Guardar en Firestore usando Firebase Admin
         const docRef = await db.collection('cursos').add(courseData);
-
-        // Devolvemos al cliente el ID del documento y la URL de la imagen
-        res.status(200).json({
-            docId: docRef.id,
-            imagenUrl: fileUrl
-        });
+        res.status(200).json({ docId: docRef.id, imagenUrl: fileUrl });
     } catch (error) {
         console.error('Error al subir curso:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
 
-
-// Servir archivos estáticos y frontend en producción
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
 
-
-// Inicializar servidor HTTP y Socket.io
 const server = app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
+    console.log(`\ud83d\ude80 Servidor corriendo en puerto ${PORT}`);
 });
 
-// Inicialización de socket.io en el servidor
 const io = new Server(server, {
   cors: {
     origin: ["http://localhost:3000", "https://www.comunidadislamicatordera.org"],
@@ -304,7 +212,6 @@ const io = new Server(server, {
   }
 });
 
-// Manejo de conexiones de WebSocket
 io.on('connection', (socket) => {
     console.log('Usuario conectado:', socket.id);
 
@@ -312,7 +219,6 @@ io.on('connection', (socket) => {
         console.log('Usuario desconectado:', socket.id);
     });
 
-    // Ejemplo para escuchar y emitir mensajes
     socket.on('mensaje', (data) => {
         console.log('Mensaje recibido:', data);
         io.emit('mensaje', data);
