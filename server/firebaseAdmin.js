@@ -24,7 +24,12 @@ if (fs.existsSync(serviceAccountPath)) {
         const parsed = JSON.parse(raw);
 
         // Corregir manualmente la private_key
-        parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
+        if (parsed.private_key && typeof parsed.private_key === "string") {
+            parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
+        } else {
+            console.error("❌ ERROR: La clave privada no es válida o está vacía.");
+            process.exit(1);
+        }        
         serviceAccount = parsed;
 
         // Paso 2: escribir archivo corregido
