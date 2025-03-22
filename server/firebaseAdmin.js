@@ -5,14 +5,13 @@ const axios = require("axios");
 
 const LOG_DIR = path.join(__dirname, "../logs");
 const LOG_FILE = path.join(LOG_DIR, "app.log");
-const MAX_LOG_SIZE = 1024 * 1024; // 1MB
+const MAX_LOG_SIZE = 1024 * 1024;
 const serviceAccountPath = path.join(__dirname, "../config/serviceAccountKey.json");
 
 function log(message, type = 'info') {
   const timestamp = new Date().toISOString();
   const formatted = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
   console.log(formatted);
-
   try {
     fs.mkdirSync(LOG_DIR, { recursive: true });
     if (fs.existsSync(LOG_FILE) && fs.statSync(LOG_FILE).size > MAX_LOG_SIZE) {
@@ -28,11 +27,42 @@ function log(message, type = 'info') {
 
 let serviceAccount;
 
-try {
-  serviceAccount = require(serviceAccountPath);
-  log("✅ Cargando credenciales desde serviceAccountKey.json (Local)");
-} catch (error) {
-  log(`🚨 ERROR al cargar serviceAccountKey.json: ${error.stack}`, 'error');
+function validateServiceAccount(obj) {
+  if (!obj || typeof obj !== 'object') return false;
+  const validEmail = obj.client_email?.includes('@') && obj.client_email?.includes('gserviceaccount.com');
+  return validEmail && obj.private_key && obj.project_id && obj.type === 'service_account';
+}
+
+if (fs.existsSync(serviceAccountPath)) {
+  try {
+    serviceAccount = require(serviceAccountPath);
+    log("✅ Cargando credenciales desde serviceAccountKey.json (Local)");
+  } catch (error) {
+    log(`🚨 ERROR al cargar serviceAccountKey.json: ${error.stack}`, 'error');
+    process.exit(1);
+  }
+} else if (process.env.NODE_ENV === 'production' && process.env.FIREBASE_SERVICE_ACCOUNT) {
+  try {
+    log("🔧 Creando serviceAccountKey.json desde FIREBASE_SERVICE_ACCOUNT (Render)...");
+    const raw = process.env.FIREBASE_SERVICE_ACCOUNT.trim();
+    const parsed = raw.startsWith('{') ? JSON.parse(raw) : JSON.parse(JSON.parse(raw));
+    parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
+
+    if (!validateServiceAccount(parsed)) {
+      log("❌ ERROR: Campos faltantes en FIREBASE_SERVICE_ACCOUNT.", 'error');
+      process.exit(1);
+    }
+
+    fs.mkdirSync(path.dirname(serviceAccountPath), { recursive: true });
+    fs.writeFileSync(serviceAccountPath, JSON.stringify(parsed, null, 2));
+    serviceAccount = parsed;
+    log("✅ Archivo serviceAccountKey.json creado correctamente.");
+  } catch (error) {
+    log(`🚨 ERROR al crear serviceAccountKey.json: ${error.stack}`, 'error');
+    process.exit(1);
+  }
+} else {
+  log("🚨 ERROR: No se encontró serviceAccountKey.json ni la variable FIREBASE_SERVICE_ACCOUNT.", 'error');
   process.exit(1);
 }
 
