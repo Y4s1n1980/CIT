@@ -4,7 +4,13 @@ const path = require("path");
 const filePath = path.join(__dirname, "config/serviceAccountKey.json");
 
 try {
-    const raw = fs.readFileSync(filePath, "utf-8");
+    // 🔧 Crea el directorio si no existe
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+
+    const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+    if (!raw) throw new Error("La variable FIREBASE_SERVICE_ACCOUNT no está definida");
+
     const json = JSON.parse(raw);
 
     if (json.private_key) {
@@ -12,7 +18,9 @@ try {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(json, null, 2));
-    console.log("✅ Clave privada corregida con saltos de línea reales en serviceAccountKey.json");
+    console.log("\u2705 Clave privada corregida y archivo creado en:", filePath);
 } catch (error) {
-    console.error("❌ Error procesando el archivo:", error.message);
+    console.error("\u274C Error procesando el archivo:", error.message);
+    process.exit(1);
 }
+
