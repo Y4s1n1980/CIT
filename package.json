@@ -39,7 +39,7 @@
     "cross-env": "^7.0.3"
   },
   "scripts": {
-    "prestart": "node fixServiceAccountKey.js",
+    "prestart": "node tools/validateServiceAccountEnv.js && node fixServiceAccountKey.js",
     "postinstall": "node -e \"require('./server/firebaseAdmin')\"",
     "start": "node tools/checkFirebaseKey.js && node server/index.js",
     "server": "node server/index.js",
