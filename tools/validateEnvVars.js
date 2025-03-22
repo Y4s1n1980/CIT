@@ -1,22 +1,15 @@
 // tools/validateEnvVars.js
+// tools/validateEnvVars.js
 
-function validateRequiredEnvVars(vars = []) {
-    const missing = [];
-  
-    for (const name of vars) {
-      if (!process.env[name]) {
-        console.warn(`⚠️ Falta la variable de entorno: ${name}`);
-        missing.push(name);
-      }
-    }
-  
-    if (missing.length) {
-      console.error(`\u274C Variables faltantes: ${missing.join(", ")}`);
-      return false;
-    }
-  
-    return true;
+module.exports = function validateRequiredEnvVars(required = []) {
+  const missing = required.filter(k => !process.env[k]);
+  if (missing.length) {
+    console.warn("⚠️ Variables de entorno faltantes:");
+    missing.forEach(key => console.warn(`❌ ${key}`));
+    if (process.env.NODE_ENV === 'production') process.exit(1);
+  } else {
+    console.log("✅ Todas las variables requeridas están definidas.");
   }
-  
-  module.exports = { validateRequiredEnvVars };
+};
+
   
