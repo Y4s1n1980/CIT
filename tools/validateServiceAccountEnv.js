@@ -21,18 +21,17 @@ function validateFirebaseServiceEnv(rawJson) {
   }
 }
 
-// Ejecutar desde CLI (para test local o CI/CD)
 if (require.main === module) {
-  const envPath = ".env";
+  const envPath = "server/.env";
   if (!fs.existsSync(envPath)) {
-    console.error("\u274C No se encontró .env");
+    console.error("\u274C No se encontró server/.env");
     process.exit(1);
   }
 
   const envContent = fs.readFileSync(envPath, "utf8");
   const match = envContent.match(/FIREBASE_SERVICE_ACCOUNT\s*=\s*(\{[\s\S]*?\})/);
   if (!match) {
-    console.error("\u274C FIREBASE_SERVICE_ACCOUNT no está definido o mal formado en .env");
+    console.error("\u274C FIREBASE_SERVICE_ACCOUNT no está definido o mal formado en server/.env");
     process.exit(1);
   }
 
