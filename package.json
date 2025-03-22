@@ -41,8 +41,8 @@
   "scripts": {
     "prestart": "node fixServiceAccountKey.js",
     "postinstall": "node -e \"require('./server/firebaseAdmin')\"",
-    "start": "node index.js",
-    "server": "nodemon server.js",
+    "start": "node server/prepareFirebaseAdmin.js",
+    "server": "node server/index.js",
     "client": "npm start --prefix client",
     "build": "cross-env ESLINT_NO_DEV_ERRORS=true npm run build --prefix client"
   },

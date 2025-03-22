@@ -9,6 +9,7 @@ import axios from 'axios';
 import { sendDonationConfirmationToDonor, sendNotificationToAdmin } from "../services/emailService";
 
 
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
@@ -36,72 +37,79 @@ const CheckoutForm = () => {
   };
 
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  setPaymentProcessing(true);
-  setError(null);
-
-  if (!stripe || !elements) {
-    setError("Stripe no está listo");
-    setPaymentProcessing(false);
-    return;
-  }
-
-  try {
-    const response = await axios.post("http://localhost:5000/create-payment-intent", {
-      amount: Math.round(donationDetails.monto * 100), // Convertir a centavos
-      currency: "usd",
-    });
-
-    const { clientSecret } = response.data;
-
-    const cardElement = elements.getElement(CardElement);
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: {
-          name: donationDetails.donante_nombre,
-          email: donationDetails.donante_email,
-        },
-      },
-    });
-
-    if (error) {
-      setError(error.message);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setPaymentProcessing(true);
+    setError(null);
+  
+    if (!stripe || !elements) {
+      setError("Stripe no está listo");
       setPaymentProcessing(false);
       return;
     }
-
-    setPaymentSucceeded(true);
-
-    await addDoc(collection(db, "donations"), {
-      ...donationDetails,
-      estado: "completada",
-      referencia_transaccion: paymentIntent.id,
-      fecha_donacion: Timestamp.now(),
-    });
-
-    // Enviar correos electrónicos
-    await sendDonationConfirmationToDonor(donationDetails);
-    await sendNotificationToAdmin(donationDetails);
-
-    // Limpiar el formulario
-    setDonationDetails({
-      donante_nombre: "",
-      donante_email: "",
-      monto: 0,
-      metodo_pago: "Tarjeta de Crédito",
-      comentarios: "",
-    });
-
-    elements.getElement(CardElement).clear();
-  } catch (err) {
-    setError("Error al procesar el pago. Por favor, intenta nuevamente.");
-    console.error("Error al procesar la donación:", err);
-  } finally {
-    setPaymentProcessing(false);
-  }
-};
+  
+    try {
+      let clientSecret;
+  
+      if (process.env.REACT_APP_PAYMENTS_ENABLED === 'true') {
+        const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/create-payment-intent`, {
+          amount: donationDetails.monto,
+        });
+        clientSecret = response.data.clientSecret;
+      } else {
+        // 🔧 Mock para pruebas locales
+        console.warn('⚠️ Stripe desactivado, usando mock clientSecret');
+        clientSecret = 'mock_client_secret_test_123';
+      }
+  
+      const cardElement = elements.getElement(CardElement);
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: donationDetails.donante_nombre,
+            email: donationDetails.donante_email,
+          },
+        },
+      });
+  
+      if (error) {
+        setError(error.message);
+        setPaymentProcessing(false);
+        return;
+      }
+  
+      setPaymentSucceeded(true);
+  
+      // Guardar datos localmente si Stripe está desactivado
+      const reference = paymentIntent?.id || 'mock_tx_123';
+  
+      await addDoc(collection(db, "donations"), {
+        ...donationDetails,
+        estado: "completada",
+        referencia_transaccion: reference,
+        fecha_donacion: Timestamp.now(),
+      });
+  
+      await sendDonationConfirmationToDonor(donationDetails);
+      await sendNotificationToAdmin(donationDetails);
+  
+      setDonationDetails({
+        donante_nombre: "",
+        donante_email: "",
+        monto: 0,
+        metodo_pago: "Tarjeta de Crédito",
+        comentarios: "",
+      });
+  
+      elements.getElement(CardElement).clear();
+    } catch (err) {
+      setError("Error al procesar el pago. Por favor, intenta nuevamente.");
+      console.error("Error al procesar la donación:", err);
+    } finally {
+      setPaymentProcessing(false);
+    }
+  };
 
 
   return (
@@ -187,6 +195,13 @@ const handleSubmit = async (event) => {
 };
 
 const Donation = () => {
+  const paymentsEnabled = process.env.REACT_APP_PAYMENTS_ENABLED === 'true';
+
+if (!paymentsEnabled) {
+  return <p>🛑 Los pagos están temporalmente desactivados.</p>;
+}
+
+  
   return (
     <div>
       <motion.section

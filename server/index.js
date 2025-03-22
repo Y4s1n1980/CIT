@@ -1,6 +1,5 @@
 // server/index.js
 require('dotenv').config(); 
-require('./setupFirebase');
 
 const express = require('express');
 const cors = require('cors');
@@ -9,8 +8,14 @@ const path = require('path');
 const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 
-console.log('Stripe Key:', process.env.STRIPE_SECRET_KEY);
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+if (!process.env.STRIPE_SECRET_KEY) {
+    console.warn("⚠️ Advertencia: STRIPE_SECRET_KEY no está definida, modo pagos deshabilitado.");
+  }
+  
+  const stripe = process.env.STRIPE_SECRET_KEY
+    ? require('stripe')(process.env.STRIPE_SECRET_KEY)
+    : null;
+  
 
 const { bucket, db } = require('./firebaseAdmin');
 const { Server } = require("socket.io");
@@ -43,21 +48,30 @@ app.use(cors({
 
 app.use(express.json());
 
+// crear pago stripe
 app.post('/create-payment-intent', async (req, res) => {
+    if (!process.env.PAYMENTS_ENABLED || process.env.PAYMENTS_ENABLED !== 'true') {
+      return res.status(503).json({ error: 'Los pagos están desactivados temporalmente.' });
+    }
+  
+    if (!stripe) {
+      return res.status(503).json({ error: 'Stripe no está configurado en este entorno.' });
+    }
+  
     const { amount } = req.body;
     try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(amount * 100),
-            currency: 'usd',
-            automatic_payment_methods: { enabled: true },
-        });
-
-        res.status(200).json({ clientSecret: paymentIntent.client_secret });
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(amount * 100),
+        currency: 'usd',
+        automatic_payment_methods: { enabled: true },
+      });
+      res.status(200).json({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
-        console.error('Error al crear PaymentIntent:', error);
-        res.status(500).json({ error: 'Error al procesar el pago.' });
+      console.error('Error al crear PaymentIntent:', error);
+      res.status(500).json({ error: 'Error al procesar el pago.' });
     }
-});
+  });
+  
 
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)) {
