@@ -1,1 +1,5 @@
-# Este archivo .keep evita que Render borre esta carpeta
+keep_path = "/mnt/data/.keep"
+with open(keep_path, "w") as f:
+    f.write("# Archivo .keep para mantener la carpeta uploads activa en Render\n")
+
+keep_path
