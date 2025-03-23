@@ -29,6 +29,8 @@ const { bucket, db } = require('./firebaseAdmin');
 const { Server } = require("socket.io");
 
 const app = express();
+app.set('trust proxy', 1); // Confía en el primer proxy (Render)
+
 const PORT = process.env.PORT || 5000;
 
 console.log("✅ Firebase Admin inicializado correctamente");
