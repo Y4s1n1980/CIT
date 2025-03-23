@@ -110,7 +110,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'No se subió ningún archivo.' });
     }
-    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    const fileUrl = `${BASE_URL.replace('http://localhost:5000', 'https://cit-backend-iuqy.onrender.com')}/uploads/${req.file.filename}`;
     res.status(200).json({ fileUrl });
   } catch (error) {
     console.error('Error al subir archivo:', error);

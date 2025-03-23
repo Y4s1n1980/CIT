@@ -1,6 +1,4 @@
 // tools/validateEnvVars.js
-// tools/validateEnvVars.js
-
 module.exports = function validateRequiredEnvVars(required = []) {
   const missing = required.filter(k => !process.env[k]);
   if (missing.length) {

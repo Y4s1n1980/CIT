@@ -1,3 +1,4 @@
+// pages/blog/Blog.js
 import React, { useState, useEffect } from 'react';
 import { db } from '../../services/firebase';
 import { collection, addDoc, getDocs, Timestamp } from 'firebase/firestore';
