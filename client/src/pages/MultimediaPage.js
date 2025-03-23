@@ -1,4 +1,4 @@
-// src/components/MultimediaPage.js
+// src/pages/MultimediaPage.js
 import React, { useState, useEffect, useMemo } from 'react';
 import { db, obtenerDatos } from '../services/firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
