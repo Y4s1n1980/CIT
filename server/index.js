@@ -220,6 +220,32 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
   }
 });
 
+app.get('/admin/run-fix-urls', async (req, res) => {
+    const SECRET_KEY = process.env.ADMIN_FIX_KEY;
+    if (req.query.key !== SECRET_KEY) {
+      return res.status(403).send("🚫 Acceso no autorizado.");
+    }
+  
+    try {
+      const { fixFirestoreUrls } = require('./scripts/updateImageUrls');
+      await fixFirestoreUrls();
+      res.send("✅ URLs actualizadas correctamente.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("❌ Error al actualizar URLs.");
+    }
+  });
+
+  if (process.env.RUN_FIX === 'true') {
+    setTimeout(async () => {
+      const { fixFirestoreUrls } = require('./scripts/updateImageUrls');
+      await fixFirestoreUrls();
+      console.log("🔥 Script de actualización ejecutado.");
+    }, 3000);
+  }
+  
+  
+
 app.get('/ping', (_, res) => res.send('pong'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/build')));
