@@ -1,12 +1,11 @@
-const { collection, getDocs, updateDoc, doc } = require("firebase/firestore");
-const { db } = require("../client/src/services/firebase");
+//scripts/updateImageUrls.js
+const { db } = require("../server/firebaseAdmin");
 
-module.exports.fixFirestoreUrls = async () => {
+const fixFirestoreUrls = async () => {
   const targets = ["multimedia", "articulos"];
 
   for (const collectionName of targets) {
-    const colRef = collection(db, collectionName);
-    const snapshot = await getDocs(colRef);
+    const snapshot = await db.collection(collectionName).get();
 
     for (const docSnap of snapshot.docs) {
       const data = docSnap.data();
@@ -27,9 +26,12 @@ module.exports.fixFirestoreUrls = async () => {
       }
 
       if (Object.keys(updates).length > 0) {
-        await updateDoc(doc(db, collectionName, docSnap.id), updates);
+        await db.collection(collectionName).doc(docSnap.id).update(updates);
         console.log(`✅ Documento ${docSnap.id} actualizado en ${collectionName}`);
       }
     }
   }
 };
+
+module.exports = { fixFirestoreUrls };
+
