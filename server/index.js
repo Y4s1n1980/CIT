@@ -227,7 +227,7 @@ app.get('/admin/run-fix-urls', async (req, res) => {
     }
   
     try {
-      const { fixFirestoreUrls } = require('./scripts/updateImageUrls');
+      const { fixFirestoreUrls } = require('../scripts/updateImageUrls');
       await fixFirestoreUrls();
       res.send("✅ URLs actualizadas correctamente.");
     } catch (err) {
@@ -238,7 +238,7 @@ app.get('/admin/run-fix-urls', async (req, res) => {
 
   if (process.env.RUN_FIX === 'true') {
     setTimeout(async () => {
-      const { fixFirestoreUrls } = require('./scripts/updateImageUrls');
+      const { fixFirestoreUrls } = require('../scripts/updateImageUrls');
       await fixFirestoreUrls();
       console.log("🔥 Script de actualización ejecutado.");
     }, 3000);
