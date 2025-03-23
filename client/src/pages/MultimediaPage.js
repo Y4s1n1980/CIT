@@ -1,6 +1,6 @@
 // src/pages/MultimediaPage.js
 import React, { useState, useEffect, useMemo } from 'react';
-import { db} from '../services/firebase';
+import { db } from '../services/firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 import UserMultimediaUpload from '../components/UserMultimediaUpload';
 import './MultimediaPage.css';
@@ -32,9 +32,6 @@ const MultimediaPage = () => {
     );
     return () => unsubscribe();
   }, []);
-  
-
-  
 
   const paginatedMultimedia = useMemo(
     () => multimedia.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage),
@@ -58,22 +55,21 @@ const MultimediaPage = () => {
       ) : (
         <>
           <div className="multimedia-grid">
-          {paginatedMultimedia.length > 0 ? (
-  paginatedMultimedia.map((item) => (
-    <div key={item.id} className="multimedia-card" onClick={() => setSelectedMedia(item)}>
-      {item.tipo === "video" ? (
-        <video controls src={item.url ? item.url : "https://www.comunidadislamicatordera.org/placeholder-video.mp4"} />
-      ) : (
-        <audio controls src={item.url ? item.url : "https://www.comunidadislamicatordera.org/placeholder-audio.mp3"} />
-      )}
-      <h4>{item.titulo || "Sin título"}</h4>
-      <p>{item.autor || "Desconocido"}</p>
-    </div>
-  ))
-) : (
-  <p>No hay multimedia disponible.</p>
-)}
-
+            {paginatedMultimedia.length > 0 ? (
+              paginatedMultimedia.map((item) => (
+                <div key={item.id} className="multimedia-card" onClick={() => setSelectedMedia(item)}>
+                  {item.tipo === 'video' ? (
+                    <video controls src={item.url || 'https://www.comunidadislamicatordera.org/placeholder-video.mp4'} />
+                  ) : (
+                    <audio controls src={item.url || 'https://www.comunidadislamicatordera.org/placeholder-audio.mp3'} />
+                  )}
+                  <h4>{item.titulo || 'Sin título'}</h4>
+                  <p>{item.autor || 'Desconocido'}</p>
+                </div>
+              ))
+            ) : (
+              <p>No hay multimedia disponible.</p>
+            )}
           </div>
 
           <div className="pagination">

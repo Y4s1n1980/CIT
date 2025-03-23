@@ -8,6 +8,8 @@ const path = require('path');
 const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const validateRequiredEnvVars = require('../tools/validateEnvVars');
+const { bucket, db } = require('./firebaseAdmin');
+const { Server } = require('socket.io');
 
 // Validación global de variables sensibles
 validateRequiredEnvVars([
@@ -25,38 +27,63 @@ const stripe = process.env.STRIPE_SECRET_KEY
   ? require('stripe')(process.env.STRIPE_SECRET_KEY)
   : null;
 
-const { bucket, db } = require('./firebaseAdmin');
-const { Server } = require("socket.io");
 
 const app = express();
 app.set('trust proxy', 1); // Confía en el primer proxy (Render)
 
 const PORT = process.env.PORT || 5000;
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? process.env.BASE_URL
+  : `http://localhost:${PORT}`;
+
 
 console.log("✅ Firebase Admin inicializado correctamente");
 console.log("🌍 Bucket configurado:", process.env.FIREBASE_STORAGE_BUCKET);
 console.log("🔍 Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: "Demasiadas solicitudes desde esta IP, por favor intenta más tarde."
-});
-app.use(limiter);
-
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://www.comunidadislamicatordera.org';
 
 app.use(cors({
   origin: [
-    BASE_URL,
-    'https://www.comunidadislamicatordera.org'
+    'http://localhost:3000',
+    'https://www.comunidadislamicatordera.org',
+    'https://cit-frontend-a660.onrender.com'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'multipart/form-data'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
 
+
 app.use(express.json());
+
+// Anti spam
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100
+});
+app.use(limiter);
+
+// Carpeta de subida
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
+// Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const types = ['video/mp4', 'audio/mpeg', 'audio/wav', 'image/jpeg', 'image/png'];
+    if (!types.includes(file.mimetype)) {
+      return cb(new Error('Formato de archivo no permitido.'));
+    }
+    cb(null, true);
+  }
+});
 
 // crear pago stripe
 app.post('/create-payment-intent', async (req, res) => {
@@ -82,41 +109,27 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 
-const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  console.log('Carpeta "uploads" creada.');
-}
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
-});
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 20 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = ['video/mp4', 'audio/mpeg', 'audio/wav'];
-    if (!allowedTypes.includes(file.mimetype)) {
-      return cb(new Error('Formato de archivo no permitido.'));
-    }
-    cb(null, true);
-  }
-});
-
+// Subida multimedia
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
+    console.log("➡️ Upload recibido");
+
     if (!req.file) {
-      return res.status(400).json({ error: 'No se subió ningún archivo.' });
+      console.warn("⚠️ No se recibió archivo");
+      return res.status(400).json({ error: 'No se subio ningún archivo' });
     }
-    const fileUrl = `${BASE_URL.replace('http://localhost:5000', 'https://cit-backend-iuqy.onrender.com')}/uploads/${req.file.filename}`;
+
+    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    console.log("✅ Archivo guardado:", fileUrl);
+
     res.status(200).json({ fileUrl });
   } catch (error) {
-    console.error('Error al subir archivo:', error);
-    res.status(500).json({ error: 'Error interno del servidor.' });
+    console.error('[UPLOAD ERROR]', error);
+    res.status(500).json({ error: 'Error interno del servidor', detalle: error.message });
   }
 });
+
 
 app.post('/upload-news', upload.single('file'), async (req, res) => {
   try {
@@ -251,9 +264,13 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
 
-const server = app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
-  });
+app.use((err, req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // o tu dominio
+  console.error('❌ Error global:', err);
+  res.status(err.status || 500).json({ error: err.message });
+});
+
+const server = app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
   
 
 const io = new Server(server, {
