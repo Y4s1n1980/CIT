@@ -74,11 +74,14 @@ client/node_modules/
 .dataconnect/
 
 # Subidas y archivos temporales
-server/uploads/
+# Subidas y archivos temporales
+server/uploads/*
+!server/uploads/.keep
 server/tmp/
 client/public/uploads/
 client/.next/
 client/out/
+
 
 
 .vercel
