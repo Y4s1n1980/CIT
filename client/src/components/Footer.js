@@ -17,16 +17,16 @@ const Footer = () => {
                     <p><FontAwesomeIcon icon={faPhone} /> (+34) 630 630 630</p>
                     <p>Tel: (+34) 630 630 630</p>
                     <div className="social-icons">
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/profile.php?id=61574460066780" target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={faFacebook} />
                     </a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/comunidadislamicatordera/" target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={faInstagram} />
                     </a>
                     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={faTwitter} />
                     </a>
-                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.youtube.com/@comunidadislamicatordera" target="_blank" rel="noopener noreferrer">
                         <FontAwesomeIcon icon={faYoutube} />
                     </a>
                     </div>
@@ -54,7 +54,7 @@ const Footer = () => {
 
             <div className="footer-bottom">
                 <p>© 2023 CIT. Todos los derechos reservados.</p>
-                <a href="https://wa.me/630 630 630" target="_blank" rel="noopener noreferrer" className="whatsapp-button">
+                <a href="https://wa.me/662031368" target="_blank" rel="noopener noreferrer" className="whatsapp-button">
                     WhatsApp
                 </a>
             </div>
