@@ -42,6 +42,11 @@ app.use(cors({
   credentials: true,
 }));
 
+app.options('*', cors()); // ✅ Esto es nuevo
+
+app.use(express.json());
+
+
 
 const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.NODE_ENV === 'production'
