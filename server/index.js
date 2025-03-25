@@ -106,7 +106,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'No se subio ningún archivo' });
     }
 
-    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    const fileUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
     console.log("✅ Archivo guardado:", fileUrl);
 
     res.status(200).json({ fileUrl });
@@ -122,7 +122,7 @@ app.post('/upload-blog', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'No se subió ningún archivo' });
     }
 
-    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    const fileUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
     res.status(200).json({ fileUrl });
   } catch (error) {
     console.error('Error al subir imagen del blog:', error);
@@ -174,7 +174,7 @@ app.post('/upload-news', upload.single('file'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'No se subió ningún archivo.' });
     }
-    const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
+    const fileUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
     const {
       coleccionDestino,
       titulo,
@@ -245,7 +245,7 @@ app.post('/upload-course', upload.single('imagen'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'No se subió ningún archivo.' });
     }
-    const fileUrl = `${process.env.BASE_URL || `http://localhost:${PORT}`}/uploads/${req.file.filename}`;
+    const fileUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
     const {
       titulo,
       descripcion,
@@ -298,7 +298,7 @@ app.get('/admin/run-fix-urls', async (req, res) => {
   
 
   app.get('/ping', (_, res) => res.send('pong'));
-  app.use('/uploads', express.static(uploadDir));
+  app.use("/uploads", express.static("/mnt/disks/media-storage/uploads"));
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
   
