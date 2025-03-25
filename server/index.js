@@ -31,17 +31,6 @@ const stripe = process.env.STRIPE_SECRET_KEY
 const app = express();
 app.set('trust proxy', 1); // Confía en el primer proxy (Render)
 
-const PORT = process.env.PORT || 5000;
-const BASE_URL = process.env.NODE_ENV === 'production'
-  ? process.env.BASE_URL
-  : `http://localhost:${PORT}`;
-
-
-console.log("✅ Firebase Admin inicializado correctamente");
-console.log("🌍 Bucket configurado:", process.env.FIREBASE_STORAGE_BUCKET);
-console.log("🔍 Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
-
-
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -52,6 +41,17 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
+
+
+const PORT = process.env.PORT || 5000;
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? process.env.BASE_URL
+  : `http://localhost:${PORT}`;
+
+
+console.log("✅ Firebase Admin inicializado correctamente");
+console.log("🌍 Bucket configurado:", process.env.FIREBASE_STORAGE_BUCKET);
+console.log("🔍 Variables de entorno cargadas:", process.env.FIREBASE_STORAGE_BUCKET);
 
 
 app.use(express.json());
