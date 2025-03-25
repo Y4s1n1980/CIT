@@ -70,6 +70,11 @@ app.use(limiter);
 
 // Carpeta de subida
 const uploadDir = '/mnt/disks/media-storage/uploads';
+// Crear carpeta si no existe (opcional pero recomendado)
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log("📂 Carpeta de subida creada:", uploadDir);
+}
 
 
 // Multer
@@ -110,6 +115,21 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor', detalle: error.message });
   }
 });
+
+app.post('/upload-blog', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No se subió ningún archivo' });
+    }
+
+    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    res.status(200).json({ fileUrl });
+  } catch (error) {
+    console.error('Error al subir imagen del blog:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
 
 //endponit temporal de prueba 
 app.get('/test-disk', (req, res) => {

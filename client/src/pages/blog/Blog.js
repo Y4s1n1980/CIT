@@ -51,7 +51,7 @@ const Blog = () => {
     try {
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL || 'http://localhost:5000'}/upload`, {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL || 'http://localhost:5000'}/upload-blog`, {
           method: 'POST',
           body: formData,
       });
