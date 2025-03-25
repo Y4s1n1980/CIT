@@ -51,10 +51,18 @@ const Blog = () => {
     try {
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/upload-blog`, {
-          method: 'POST',
-          body: formData,
-      });
+        const BACKEND_URL = process.env.REACT_APP_BASE_URL;
+    if (!BACKEND_URL) {
+       console.error("❌ BACKEND_URL no está definida. Revisa tu .env y vuelve a hacer build.");
+       return null;
+       }
+
+        console.log("📦 Enviando a:", `${process.env.REACT_APP_BASE_URL}/upload-blog`);
+       const response = await fetch(`${BACKEND_URL}/upload-blog`, {
+         method: 'POST',
+         body: formData,
+       });
+
       
 
         const result = await response.json();
