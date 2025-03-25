@@ -65,7 +65,6 @@ app.use(limiter);
 
 // Carpeta de subida
 const uploadDir = '/mnt/disks/media-storage/uploads';
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 
 // Multer
