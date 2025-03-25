@@ -54,7 +54,8 @@ const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    const BACKEND_URL = process.env.REACT_APP_BASE_URL;
+    const BACKEND_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
+
 
     if (!BACKEND_URL) {
       console.error("❌ BACKEND_URL no está definida. Revisa tu .env y vuelve a hacer build.");
