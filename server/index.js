@@ -64,8 +64,9 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Carpeta de subida
-const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+const uploadDir = '/mnt/disks/media-storage/uploads';
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
 
 // Multer
 const storage = multer.diskStorage({
@@ -259,38 +260,38 @@ app.get('/admin/run-fix-urls', async (req, res) => {
   
   
 
-app.get('/ping', (_, res) => res.send('pong'));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
-
-app.use((err, req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // o tu dominio
-  console.error('❌ Error global:', err);
-  res.status(err.status || 500).json({ error: err.message });
-});
-
-const server = app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+  app.get('/ping', (_, res) => res.send('pong'));
+  app.use('/uploads', express.static(uploadDir));
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
   
-
-const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:3000", "https://www.comunidadislamicatordera.org"],
-    methods: ["GET", "POST"]
-  }
-});
-
-io.on('connection', (socket) => {
-  console.log('Usuario conectado:', socket.id);
-
-  socket.on('disconnect', () => {
-    console.log('Usuario desconectado:', socket.id);
+  app.use((err, req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    console.error('❌ Error global:', err);
+    res.status(err.status || 500).json({ error: err.message });
   });
-
-  socket.on('mensaje', (data) => {
-    console.log('Mensaje recibido:', data);
-    io.emit('mensaje', data);
+  
+  const server = app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+  
+  const io = new Server(server, {
+    cors: {
+      origin: ["http://localhost:3000", "https://www.comunidadislamicatordera.org"],
+      methods: ["GET", "POST"]
+    }
   });
-});
-
-module.exports = { app, io };
+  
+  io.on('connection', (socket) => {
+    console.log('Usuario conectado:', socket.id);
+  
+    socket.on('disconnect', () => {
+      console.log('Usuario desconectado:', socket.id);
+    });
+  
+    socket.on('mensaje', (data) => {
+      console.log('Mensaje recibido:', data);
+      io.emit('mensaje', data);
+    });
+  });
+  
+  module.exports = { app, io };
+  
