@@ -46,32 +46,37 @@ const Blog = () => {
   }, []);
 
   // Subir imagen (ejemplo de tu fetch al /upload)
-  const uploadImage = async (file) => {
-    if (!file) return null;
-    try {
-        const formData = new FormData();
-        formData.append('file', file);
-        const BACKEND_URL = process.env.REACT_APP_BASE_URL;
+  // Subir imagen al servidor
+const uploadImage = async (file) => {
+  if (!file) return null;
+
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const BACKEND_URL = process.env.REACT_APP_BASE_URL;
+
     if (!BACKEND_URL) {
-       console.error("❌ BACKEND_URL no está definida. Revisa tu .env y vuelve a hacer build.");
-       return null;
-       }
-
-        console.log("📦 Enviando a:", `${process.env.REACT_APP_BASE_URL}/upload-blog`);
-       const response = await fetch(`${BACKEND_URL}/upload-blog`, {
-         method: 'POST',
-         body: formData,
-       });
-
-      
-
-        const result = await response.json();
-        return result.fileUrl;
-    } catch (error) {
-        console.error('Error al subir la imagen:', error);
-        return null;
+      console.error("❌ BACKEND_URL no está definida. Revisa tu .env y vuelve a hacer build.");
+      return null;
     }
+
+    const uploadUrl = `${BACKEND_URL}/upload-blog`;
+    console.log("📦 Enviando a:", uploadUrl);
+
+    const response = await fetch(uploadUrl, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+    return result.fileUrl;
+  } catch (error) {
+    console.error('❌ Error al subir la imagen:', error);
+    return null;
+  }
 };
+
 
 
   // Manejar envío de formulario
