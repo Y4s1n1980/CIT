@@ -52,12 +52,12 @@ const ArticleManagementSection = () => {
     formData.append('file', file);
     try {
       // Cambia la URL si tu endpoint es distinto
-      const response = await fetch('http://localhost:5000/upload', {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/upload`, {
         method: 'POST',
         body: formData,
       });
+      
       const data = await response.json();
-      // tu servidor responde: { fileUrl: "http://localhost:5000/uploads/..." }
       return data.fileUrl || null;
     } catch (error) {
       console.error('Error al subir la imagen:', error);
