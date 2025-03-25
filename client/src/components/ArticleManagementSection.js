@@ -52,10 +52,12 @@ const ArticleManagementSection = () => {
     formData.append('file', file);
     try {
       // Cambia la URL si tu endpoint es distinto
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/upload`, {
-        method: 'POST',
-        body: formData,
-      });
+      const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
+
+    const response = await fetch(`${BASE_URL}/upload-blog`, {
+      method: 'POST',
+      body: formData,
+    });
       
       const data = await response.json();
       return data.fileUrl || null;
