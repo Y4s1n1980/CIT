@@ -31,6 +31,7 @@ const stripe = process.env.STRIPE_SECRET_KEY
 const app = express();
 app.set('trust proxy', 1); // Confía en el primer proxy (Render)
 
+app.options('*', cors()); 
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -42,7 +43,6 @@ app.use(cors({
   credentials: true,
 }));
 
-app.options('*', cors()); // ✅ Esto es nuevo
 
 app.use(express.json());
 
@@ -90,6 +90,40 @@ const upload = multer({
   }
 });
 
+
+// Subida multimedia
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    console.log("➡️ Upload recibido");
+
+    if (!req.file) {
+      console.warn("⚠️ No se recibió archivo");
+      return res.status(400).json({ error: 'No se subio ningún archivo' });
+    }
+
+    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    console.log("✅ Archivo guardado:", fileUrl);
+
+    res.status(200).json({ fileUrl });
+  } catch (error) {
+    console.error('[UPLOAD ERROR]', error);
+    res.status(500).json({ error: 'Error interno del servidor', detalle: error.message });
+  }
+});
+
+//endponit temporal de prueba 
+app.get('/test-disk', (req, res) => {
+  const testPath = '/mnt/disks/media-storage/uploads/test.txt';
+  fs.writeFile(testPath, '¡Hola desde Render con disco persistente!', (err) => {
+    if (err) {
+      console.error('Error al escribir en disco:', err);
+      return res.status(500).json({ ok: false, error: err.message });
+    }
+    res.json({ ok: true, message: 'Archivo escrito correctamente en disco persistente.' });
+  });
+});
+
+
 // crear pago stripe
 app.post('/create-payment-intent', async (req, res) => {
   if (!process.env.PAYMENTS_ENABLED || process.env.PAYMENTS_ENABLED !== 'true') {
@@ -111,27 +145,6 @@ app.post('/create-payment-intent', async (req, res) => {
   } catch (error) {
     console.error('Error al crear PaymentIntent:', error);
     res.status(500).json({ error: 'Error al procesar el pago.' });
-  }
-});
-
-
-// Subida multimedia
-app.post('/upload', upload.single('file'), async (req, res) => {
-  try {
-    console.log("➡️ Upload recibido");
-
-    if (!req.file) {
-      console.warn("⚠️ No se recibió archivo");
-      return res.status(400).json({ error: 'No se subio ningún archivo' });
-    }
-
-    const fileUrl = `${BASE_URL}/uploads/${req.file.filename}`;
-    console.log("✅ Archivo guardado:", fileUrl);
-
-    res.status(200).json({ fileUrl });
-  } catch (error) {
-    console.error('[UPLOAD ERROR]', error);
-    res.status(500).json({ error: 'Error interno del servidor', detalle: error.message });
   }
 });
 
