@@ -1,3 +1,5 @@
+const Dotenv = require('dotenv-webpack');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
@@ -24,6 +26,7 @@ module.exports = {
   
   plugins: [
       new NodePolyfillPlugin(), 
+      new Dotenv()
   ],
   module: {
       rules: [

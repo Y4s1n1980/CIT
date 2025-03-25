@@ -36,7 +36,8 @@
     "@babel/plugin-transform-private-property-in-object": "^7.25.9",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "dotenv-webpack": "^8.1.0"
   },
   "scripts": {
     "prestart": "node tools/validateServiceAccountEnv.js && node fixServiceAccountKey.js",
