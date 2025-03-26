@@ -170,10 +170,18 @@ app.post('/create-payment-intent', async (req, res) => {
 
 app.post('/upload-news', upload.single('file'), async (req, res) => {
   try {
+    console.log("📥 Recibido en /upload-news");
+
     if (!req.file) {
+      console.warn("⚠️ No se recibió ningún archivo");
       return res.status(400).json({ error: 'No se subió ningún archivo.' });
     }
+
+    console.log("✅ Archivo recibido:", req.file.originalname);
+
     const fileUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
+    console.log("🖼️ URL generada:", fileUrl);
+
     const {
       coleccionDestino,
       titulo,
@@ -182,7 +190,10 @@ app.post('/upload-news', upload.single('file'), async (req, res) => {
       autorNombre,
       autorEmail
     } = req.body;
-    const estado = req.body.estado === 'true';
+
+    console.log("📝 Datos del formulario:", req.body);
+
+    const estado = req.body.estado === 'true' || req.body.estado === true;
 
     const noticiaData = {
       titulo,
@@ -196,12 +207,15 @@ app.post('/upload-news', upload.single('file'), async (req, res) => {
     };
 
     const docRef = await db.collection(coleccionDestino).add(noticiaData);
+    console.log("✅ Noticia guardada en Firestore con ID:", docRef.id);
+
     res.status(200).json({ docId: docRef.id, imagenUrl: fileUrl });
   } catch (error) {
-    console.error('Error al subir archivo:', error);
-    res.status(500).json({ error: 'Error interno del servidor.' });
+    console.error('❌ Error en /upload-news:', error);
+    res.status(500).json({ error: 'Error interno del servidor.', detalle: error.message });
   }
 });
+
 
 app.post('/donations', async (req, res) => {
   const {
