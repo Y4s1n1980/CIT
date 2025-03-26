@@ -70,7 +70,6 @@ app.use(limiter);
 
 // Carpeta de subida
 const uploadDir = '/mnt/disks/media-storage/uploads';
-// Crear carpeta si no existe (opcional pero recomendado)
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
   console.log("📂 Carpeta de subida creada:", uploadDir);
@@ -298,7 +297,18 @@ app.get('/admin/run-fix-urls', async (req, res) => {
   
 
   app.get('/ping', (_, res) => res.send('pong'));
-  app.use("/uploads", express.static("/mnt/disks/media-storage/uploads"));
+
+    const staticUploadsPath = path.join(__dirname, 'uploads');
+    const sourceUploads = '/mnt/disks/media-storage/uploads';
+
+// Crear enlace simbólico si no existe
+  if (!fs.existsSync(staticUploadsPath)) {
+    fs.symlinkSync(sourceUploads, staticUploadsPath, 'dir');
+    console.log("🔗 Enlace simbólico creado: /uploads -> /mnt/disks/media-storage/uploads");
+  }
+
+
+  app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')));
   
