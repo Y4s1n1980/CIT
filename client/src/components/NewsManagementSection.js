@@ -53,6 +53,11 @@ const NewsManagementSection = () => {
   // Manejar la subida al servidor
   const uploadToServer = async (formData) => {
     try {
+      
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}:`, pair[1]);
+      }
+
       const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
       const response = await fetch(`${BASE_URL}/upload-news`, {
         method: 'POST',
@@ -79,7 +84,7 @@ const NewsManagementSection = () => {
     formData.append('titulo', nuevaNoticia.titulo);
     formData.append('descripcion', nuevaNoticia.descripcion);
     formData.append('contenidoCompleto', nuevaNoticia.contenidoCompleto);
-    formData.append('estado', nuevaNoticia.estado);
+    formData.append('estado', nuevaNoticia.estado ? 'true' : 'false');
 
     // Agregar información del autor
     formData.append(
