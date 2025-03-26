@@ -83,35 +83,32 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
 
+const allowedTypes = [
+  'image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
+  'video/mp4', 'audio/mpeg', 'audio/wav',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/zip', 'application/x-rar-compressed',
+  'text/plain', 'application/pdf' // AÑADE PDF si lo necesitas
+];
+
+
 const upload = multer({
   storage,
   limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = [
-      'image/jpeg',
-      'image/png',
-      'image/webp',
-      'image/gif',
-      'image/svg+xml',
-      'video/mp4',
-      'audio/mpeg',
-      'audio/wav',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
-      'application/vnd.ms-excel',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
-      'application/zip',
-      'application/x-rar-compressed',
-      'text/plain'
-    ];
+    console.log("🧪 Tipo de archivo recibido:", file.mimetype);
+
     if (!allowedTypes.includes(file.mimetype)) {
+      console.warn("❌ Tipo de archivo no permitido:", file.mimetype);
       return cb(new Error('Formato de archivo no permitido.'));
     }
+
     cb(null, true);
   }
 });
-
-
 
 // Subida multimedia
 app.post('/upload', upload.single('file'), async (req, res) => {
