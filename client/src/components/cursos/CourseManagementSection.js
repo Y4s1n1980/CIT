@@ -87,7 +87,7 @@ const CourseManagementSection = () => {
             console.log('FormData:', [...formData.entries()]);
     
             // Enviar al backend
-            const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
+            const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
             const response = await axios.post(`${BASE_URL}/upload-course`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
