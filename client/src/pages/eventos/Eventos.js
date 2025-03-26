@@ -74,8 +74,7 @@ const Eventos = () => {
                                     })}
                                 </p>
                             </div>
-                    
-                    
+
                             <button
                                 className="evento-button"
                                 onClick={() => navigate(`/eventos/${evento.id}`)}

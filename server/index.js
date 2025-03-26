@@ -95,7 +95,14 @@ const upload = multer({
       'image/svg+xml',
       'video/mp4',
       'audio/mpeg',
-      'audio/wav'
+      'audio/wav',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+      'application/zip',
+      'application/x-rar-compressed',
+      'text/plain'
     ];
     if (!allowedTypes.includes(file.mimetype)) {
       return cb(new Error('Formato de archivo no permitido.'));
