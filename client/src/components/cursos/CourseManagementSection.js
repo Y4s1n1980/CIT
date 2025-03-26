@@ -87,7 +87,8 @@ const CourseManagementSection = () => {
             console.log('FormData:', [...formData.entries()]);
     
             // Enviar al backend
-            const response = await axios.post('http://localhost:5000/upload-course', formData, {
+            const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
+            const response = await axios.post(`${BASE_URL}/upload-course`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

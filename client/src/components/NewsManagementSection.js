@@ -233,7 +233,10 @@ const NewsManagementSection = () => {
               <td>{noticia.autorNombre || 'Desconocido'}</td>
               <td>
                 {noticia.fechaCreacion
-                  ? new Date(noticia.fechaCreacion.seconds * 1000).toLocaleString()
+                  ? new Date
+                  (noticia.fechaCreacion.seconds  
+                    ? noticia.fechaCreacion.seconds  * 1000  : noticia.fechaCreacion)
+                  .toLocaleString()
                   : 'Fecha no disponible'}
               </td>
               <td>{noticia.estado ? 'Activa' : 'Inactiva'}</td>
