@@ -87,13 +87,23 @@ const upload = multer({
   storage,
   limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const types = ['video/mp4', 'audio/mpeg', 'audio/wav', 'image/jpeg', 'image/png'];
-    if (!types.includes(file.mimetype)) {
+    const allowedTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'image/gif',
+      'image/svg+xml',
+      'video/mp4',
+      'audio/mpeg',
+      'audio/wav'
+    ];
+    if (!allowedTypes.includes(file.mimetype)) {
       return cb(new Error('Formato de archivo no permitido.'));
     }
     cb(null, true);
   }
 });
+
 
 
 // Subida multimedia
