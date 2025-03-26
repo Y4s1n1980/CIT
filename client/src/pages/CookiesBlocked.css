@@ -1,0 +1,103 @@
+/* src/pages/CookiesBlocked.css */
+
+.cookies-blocked {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/images/privacy-bg.jpg') no-repeat center center / cover;
+    padding: 2rem;
+  }
+  
+  .cookies-blocked-container {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 2rem 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  .cookies-blocked-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #d32f2f;
+  }
+  
+  .cookies-blocked-container p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .cookies-blocked-container .icon {
+    font-size: 3rem;
+    color: #ff9800;
+    margin-bottom: 1rem;
+  }
+  
+  .cookies-blocked-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .cookies-blocked-buttons button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .cookies-blocked-buttons .accept {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .cookies-blocked-buttons .back {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .cookies-blocked-buttons button:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 500px) {
+    .cookies-blocked-container {
+      padding: 1.5rem;
+    }
+  
+    .cookies-blocked-container h1 {
+      font-size: 1.5rem;
+    }
+  
+    .cookies-blocked-buttons {
+      flex-direction: column;
+    }
+  
+    .cookies-blocked-buttons button {
+      width: 100%;
+    }
+  }
+  
