@@ -53,7 +53,7 @@ const NewsManagementSection = () => {
   // Manejar la subida al servidor
   const uploadToServer = async (formData) => {
     try {
-      
+
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
@@ -67,6 +67,7 @@ const NewsManagementSection = () => {
       if (!response.ok) throw new Error(data.error || 'Error desconocido en la subida');
       return data;
     } catch (error) {
+      console.error('🛑 Error al subir archivo a /upload-news:', error.message);
       console.error('Error al subir archivo:', error);
       throw error;
     }
