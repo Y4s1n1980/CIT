@@ -53,8 +53,8 @@ const NewsManagementSection = () => {
   // Manejar la subida al servidor
   const uploadToServer = async (formData) => {
     try {
-      // Importante: la ruta /upload-news es la que ahora está definida en el servidor
-      const response = await fetch('http://localhost:5000/upload-news', {
+      const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
+      const response = await fetch(`${BASE_URL}/upload-news`, {
         method: 'POST',
         body: formData,
       });
