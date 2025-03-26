@@ -1,5 +1,8 @@
 // src/components/CookieBanner.js
 import React, { useState, useEffect } from 'react';
+import { db } from '../services/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import './CookieBanner.css';
@@ -8,6 +11,35 @@ const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { currentUser } = useAuth(); 
+
+  const guardarConsentimientoEnFirestore = async (valor) => {
+    if (!currentUser) return;
+
+    try {
+      await setDoc(doc(db, 'cookieConsents', currentUser.uid), {
+        userId: currentUser.uid,
+        email: currentUser.email,
+        consent: valor,
+        updatedAt: new Date()
+      });
+    } catch (error) {
+      console.error("Error guardando el consentimiento:", error);
+    }
+  };
+
+  const acceptCookies = () => {
+    Cookies.set('cookieConsent', 'true', { expires: 365 });
+    guardarConsentimientoEnFirestore(true);
+    setShowBanner(false);
+  };
+
+  const declineCookies = () => {
+    Cookies.set('cookieConsent', 'false', { expires: 1 });
+    guardarConsentimientoEnFirestore(false);
+    setShowBanner(false);
+    navigate('/explora');
+  };
 
   useEffect(() => {
     const consent = Cookies.get('cookieConsent');
@@ -16,19 +48,6 @@ const CookieBanner = () => {
     }
   }, [location.pathname]);
 
-  const acceptCookies = () => {
-    Cookies.set('cookieConsent', 'true', { expires: 365 });
-    setShowBanner(false);
-  };
-
-  const declineCookies = () => {
-    Cookies.remove('cookieConsent');
-    Cookies.set('cookieConsent', 'false', { expires: 1 });
-    setShowBanner(false);
-    navigate('/explora');
-  };
-
-  // Para volver a mostrar el banner si el usuario declina y luego navega
   useEffect(() => {
     const consent = Cookies.get('cookieConsent');
     if (consent === 'false') {
@@ -36,7 +55,6 @@ const CookieBanner = () => {
     }
   }, [location.pathname]);
 
-  // Geolocalización solo para Europa
   useEffect(() => {
     const checkConsent = () => {
       const consent = Cookies.get('cookieConsent');
@@ -51,14 +69,14 @@ const CookieBanner = () => {
           }
         })
         .catch(() => {
-          setShowBanner(true); // fallback
+          setShowBanner(true);
         });
     };
 
     checkConsent();
   }, [location.pathname]);
 
-  if (['/privacy', '/terms', '/cookies-bloqueadas'].includes(location.pathname)) return null;
+  if (['/privacy', '/terms'].includes(location.pathname)) return null;
 
   return (
     showBanner && (

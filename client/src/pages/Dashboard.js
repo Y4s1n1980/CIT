@@ -1,7 +1,6 @@
 //Dashboard
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
 import SociosSection from '../components/SociosSection';
 import SubmissionsSection from '../components/SubmissionsSection';
 import UserManagementSection from '../components/UserManagementSection';
@@ -16,6 +15,9 @@ import CourseManagementSection from '../components/cursos/CourseManagementSectio
 import JuntaManagement from '../components/JuntaManagement';
 import UploadSchoolDocument from '../components/UploadSchoolDocument';
 import ProgramWeeklySection from '../components/ProgramWeeklySection';
+import ConsentimientosCookiesSection from '../components/ConsentimientosCookiesSection.js';
+import './Dashboard.css';
+
 
 
 const Dashboard = () => {
@@ -44,7 +46,9 @@ const Dashboard = () => {
         { name: 'Gestión de Cursos', component: 'CourseManagementSection' },
         { name: 'Gestión de Junta Directiva', component: 'JuntaManagement' },
         { name: 'Gestión de Documentos Escolares', component: 'UploadSchoolDocument' },
-        { name: 'Gestión de Programa Semanal', component: 'ProgramWeeklySection' }
+        { name: 'Gestión de Programa Semanal', component: 'ProgramWeeklySection' },
+        { name: 'Consentimientos de Cookies', component: 'ConsentimientosCookiesSection' },
+
     ];
 
     const renderSection = () => {
@@ -74,9 +78,12 @@ const Dashboard = () => {
             case 'JuntaManagement':
                 return <JuntaManagement />;
             case 'UploadSchoolDocument':
-    return <UploadSchoolDocument />;      
-    case 'ProgramWeeklySection':
-        return <ProgramWeeklySection />;
+                return <UploadSchoolDocument />;      
+            case 'ProgramWeeklySection':
+                return <ProgramWeeklySection />;
+            case 'ConsentimientosCookiesSection':
+                return <ConsentimientosCookiesSection />;
+
     
 
         }

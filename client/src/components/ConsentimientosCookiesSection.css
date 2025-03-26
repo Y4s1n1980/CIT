@@ -1,0 +1,103 @@
+.consentimientos-section {
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+    overflow-x: auto;
+  }
+  
+  .consentimientos-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #222;
+  }
+  
+  .consentimientos-section table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  .consentimientos-section th,
+  .consentimientos-section td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+  }
+  
+  .consentimientos-section th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+  
+  .consentimientos-section td {
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  .consentimientos-section .accepted {
+    color: green;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .consentimientos-section .delete-btn {
+    background-color: #e74c3c;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    font-size: 0.9rem;
+  }
+  
+  .consentimientos-section .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  /* ✅ RESPONSIVE */
+  @media (max-width: 768px) {
+    .consentimientos-section table {
+      min-width: 100%;
+      font-size: 0.85rem;
+    }
+  
+    .consentimientos-section th,
+    .consentimientos-section td {
+      padding: 10px 8px;
+    }
+  
+    .consentimientos-section h2 {
+      font-size: 1.4rem;
+    }
+  
+    .consentimientos-section .delete-btn {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .consentimientos-section {
+      padding: 15px;
+    }
+  
+    .consentimientos-section h2 {
+      font-size: 1.2rem;
+    }
+  
+    .consentimientos-section table {
+      font-size: 0.8rem;
+    }
+  }
+  
