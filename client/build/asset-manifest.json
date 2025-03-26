@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.be6e51b0.css",
-    "main.js": "/static/js/main.c39b695c.js",
+    "main.css": "/static/css/main.c4d810bd.css",
+    "main.js": "/static/js/main.a908bc84.js",
     "static/js/685.2f6ac13d.chunk.js": "/static/js/685.2f6ac13d.chunk.js",
     "static/media/fachada-masjid-tordera.jpeg": "/static/media/fachada-masjid-tordera.48ab680ed13ffe765936.jpeg",
     "static/media/clases-2.jpeg": "/static/media/clases-2.154ea3789e998994ba24.jpeg",
@@ -25,7 +25,7 @@
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff"
   },
   "entrypoints": [
-    "static/css/main.be6e51b0.css",
-    "static/js/main.c39b695c.js"
+    "static/css/main.c4d810bd.css",
+    "static/js/main.a908bc84.js"
   ]
 }

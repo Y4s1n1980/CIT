@@ -1,34 +1,19 @@
 // src/components/CookieBanner.js
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import './CookieBanner.css';
 
 const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const checkConsent = () => {
-      const consent = Cookies.get('cookieConsent');
-      const isLegalPage = location.pathname === '/privacy' || location.pathname === '/terms';
-      if (consent || isLegalPage) return;
-
-      // Geolocalización para detectar si es Europa (EU)
-      fetch('https://ipapi.co/json/')
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.continent_code === 'EU') {
-            setShowBanner(true);
-          }
-        })
-        .catch(() => {
-          // En caso de fallo, mostrar el banner como precaución
-          setShowBanner(true);
-        });
-    };
-
-    checkConsent();
+    const consent = Cookies.get('cookieConsent');
+    if (!consent && location.pathname !== '/privacy' && location.pathname !== '/terms') {
+      setShowBanner(true);
+    }
   }, [location.pathname]);
 
   const acceptCookies = () => {
@@ -37,11 +22,43 @@ const CookieBanner = () => {
   };
 
   const declineCookies = () => {
-    Cookies.set('cookieConsent', 'false', { expires: 365 });
+    Cookies.remove('cookieConsent');
+    Cookies.set('cookieConsent', 'false', { expires: 1 });
     setShowBanner(false);
+    navigate('/explora');
   };
 
-  if (location.pathname === '/privacy' || location.pathname === '/terms') return null;
+  // Para volver a mostrar el banner si el usuario declina y luego navega
+  useEffect(() => {
+    const consent = Cookies.get('cookieConsent');
+    if (consent === 'false') {
+      Cookies.remove('cookieConsent');
+    }
+  }, [location.pathname]);
+
+  // Geolocalización solo para Europa
+  useEffect(() => {
+    const checkConsent = () => {
+      const consent = Cookies.get('cookieConsent');
+      const isLegalPage = location.pathname === '/privacy' || location.pathname === '/terms';
+      if (consent || isLegalPage) return;
+
+      fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.continent_code === 'EU') {
+            setShowBanner(true);
+          }
+        })
+        .catch(() => {
+          setShowBanner(true); // fallback
+        });
+    };
+
+    checkConsent();
+  }, [location.pathname]);
+
+  if (['/privacy', '/terms', '/cookies-bloqueadas'].includes(location.pathname)) return null;
 
   return (
     showBanner && (

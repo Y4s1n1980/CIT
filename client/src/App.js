@@ -34,6 +34,7 @@ import TermsOfService from './pages/TermsOfService';
 import VerifyEmail from './pages/VerifyEmail';
 import MiembroDetalle from './pages/MiembroDetalle';
 import Explora from './pages/Explora';
+import CookiesLimitadas from './components/CookiesLimitadas';
 import './App.css';
 
 const routes = [
@@ -68,6 +69,8 @@ const routes = [
       { path: "/terms", element: <TermsOfService /> },
       { path: "/verify-email", element: <VerifyEmail /> },
       { path: "/miembro/:nombre", element: <MiembroDetalle /> },
+      { path: "/cookies-bloqueadas", element: <CookiesLimitadas /> },
+
 
       // Rutas protegidas estándar
       {
