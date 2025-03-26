@@ -9,6 +9,7 @@ const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const validateRequiredEnvVars = require('../tools/validateEnvVars');
 const { bucket, db } = require('./firebaseAdmin');
+const { Timestamp } = require('firebase-admin/firestore');
 const { Server } = require('socket.io');
 
 // Validación global de variables sensibles
@@ -201,7 +202,7 @@ app.post('/upload-news', upload.single('file'), async (req, res) => {
       contenidoCompleto,
       estado,
       imagenUrl: fileUrl,
-      fechaCreacion: new Date(),
+      fechaCreacion: Timestamp.now(),
       autorNombre,
       autorEmail
     };
