@@ -47,7 +47,8 @@ const EnviarArchivosSection = () => {
             formData.append("recipientName", recipients.find(r => r.id === selectedRecipient)?.name || "Nombre desconocido");
             formData.append("message", message);
     
-            const response = await fetch("http://localhost:5000/upload", {
+            const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://cit-backend-iuqy.onrender.com';
+            const response = await fetch(`${BASE_URL}/upload`, {
                 method: "POST",
                 body: formData,
             });
