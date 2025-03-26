@@ -75,12 +75,6 @@ const Eventos = () => {
                                 </p>
                             </div>
                     
-                            {/* 🔽 MOSTRAR IMAGEN SI EXISTE */}
-                            {evento.imagenUrl && (
-                                <div className="evento-imagen">
-                                    <img src={evento.imagenUrl} alt={evento.nombre} />
-                                </div>
-                            )}
                     
                             <button
                                 className="evento-button"

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.f8be90b5.css",
-    "main.js": "/static/js/main.b3b68106.js",
+    "main.js": "/static/js/main.f567b5b8.js",
     "static/js/685.2f6ac13d.chunk.js": "/static/js/685.2f6ac13d.chunk.js",
     "static/media/fachada-masjid-tordera.jpeg": "/static/media/fachada-masjid-tordera.48ab680ed13ffe765936.jpeg",
     "static/media/clases-2.jpeg": "/static/media/clases-2.154ea3789e998994ba24.jpeg",
@@ -26,6 +26,6 @@
   },
   "entrypoints": [
     "static/css/main.f8be90b5.css",
-    "static/js/main.b3b68106.js"
+    "static/js/main.f567b5b8.js"
   ]
 }
