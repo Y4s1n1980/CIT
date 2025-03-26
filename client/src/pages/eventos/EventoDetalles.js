@@ -56,13 +56,20 @@ const EventoDetalles = () => {
             <div className="evento-info">
                 <h1 className="evento-titulo">{evento.nombre}</h1>
                 <p>
-                    <strong>Fecha: </strong>
-                    {new Date(evento.fecha.seconds * 1000).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                    })}
-                </p>
+  <strong>Fecha: </strong>
+  {evento.fecha
+    ? new Date(
+        evento.fecha.seconds
+          ? evento.fecha.seconds * 1000
+          : evento.fecha
+      ).toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : 'Fecha no disponible'}
+</p>
+
                 <p>
                     <strong>Ubicación: </strong>
                     {evento.ubicacion}

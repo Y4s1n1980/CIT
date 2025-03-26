@@ -51,37 +51,46 @@ const Eventos = () => {
             ) : (
                 <ul className="eventos-list">
                     {eventosAMostrar.length > 0 ? (
-                        eventosAMostrar.map(evento => (
-                            <li key={evento.id} className="evento-card">
-                                <div className="evento-date">
+                       eventosAMostrar.map(evento => (
+                        <li key={evento.id} className="evento-card">
+                            <div className="evento-date">
+                                {new Date(evento.fecha).toLocaleDateString('es-ES', {
+                                    day: '2-digit',
+                                    month: 'short',
+                                })}
+                                <span>
                                     {new Date(evento.fecha).toLocaleDateString('es-ES', {
-                                        day: '2-digit',
-                                        month: 'short',
+                                        weekday: 'long',
                                     })}
-                                    <span>
-                                        {new Date(evento.fecha).toLocaleDateString('es-ES', {
-                                            weekday: 'long',
-                                        })}
-                                    </span>
+                                </span>
+                            </div>
+                            <div className="evento-info">
+                                <h2>{evento.nombre}</h2>
+                                <p>{evento.ubicacion}</p>
+                                <p>
+                                    {new Date(evento.fecha).toLocaleTimeString('es-ES', {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
+                                </p>
+                            </div>
+                    
+                            {/* 🔽 MOSTRAR IMAGEN SI EXISTE */}
+                            {evento.imagenUrl && (
+                                <div className="evento-imagen">
+                                    <img src={evento.imagenUrl} alt={evento.nombre} />
                                 </div>
-                                <div className="evento-info">
-                                    <h2>{evento.nombre}</h2>
-                                    <p>{evento.ubicacion}</p>
-                                    <p>
-                                        {new Date(evento.fecha).toLocaleTimeString('es-ES', {
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                        })}
-                                    </p>
-                                </div>
-                                <button
-                                    className="evento-button"
-                                    onClick={() => navigate(`/eventos/${evento.id}`)}
-                                >
-                                    Ver Detalles
-                                </button>
-                            </li>
-                        ))
+                            )}
+                    
+                            <button
+                                className="evento-button"
+                                onClick={() => navigate(`/eventos/${evento.id}`)}
+                            >
+                                Ver Detalles
+                            </button>
+                        </li>
+                    ))
+                    
                     ) : (
                         <p>No hay eventos próximos.</p>
                     )}
