@@ -29,7 +29,6 @@ import NoticiaDetalle from './pages/noticias/NoticiaDetalle';
 import Noticias from './pages/noticias/Noticias';
 import Cursos from './pages/cursosdetalles/Cursos';
 import CursosDetalle from './pages/cursosdetalles/CursosDetalle';
-import CookieBanner from './components/CookieBanner';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import VerifyEmail from './pages/VerifyEmail';
@@ -108,7 +107,6 @@ function App() {
   return (
     <AuthProvider>
       <RouterProvider router={router} />
-      <CookieBanner />
     </AuthProvider>
   );
 }
