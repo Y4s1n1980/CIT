@@ -1,7 +1,17 @@
 // src/pages/Chat.js
 import React, { useState, useEffect, useRef } from 'react';
-import { collection, addDoc, query, onSnapshot, orderBy } from "firebase/firestore";
-import { db, auth } from '../services/firebase'; 
+import {
+  collection,
+  addDoc,
+  query,
+  onSnapshot,
+  orderBy,
+  doc,
+  getDoc,
+  setDoc
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from '../services/firebase';
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,12 +24,52 @@ function Chat() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
-  const messagesEndRef = useRef(null);
-  const inputRef = useRef(null); 
-  const mediaRecorderRef = useRef(null); 
-  const currentUser = auth.currentUser;
+  const [hasAccess, setHasAccess] = useState(null);
+  const [requestSent, setRequestSent] = useState(false);
 
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Verificar acceso al chat y crear solicitud si no existe
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+
+      setCurrentUser(user);
+
+      const requestRef = doc(db, "chatAccessRequests", user.uid);
+      const requestSnap = await getDoc(requestRef);
+
+      if (requestSnap.exists()) {
+        const data = requestSnap.data();
+        if (data.estado === 'approved') {
+          setHasAccess(true);
+        } else {
+          setHasAccess(false);
+          setRequestSent(true);
+        }
+      } else {
+        await setDoc(requestRef, {
+          userId: user.uid,
+          email: user.email,
+          name: user.displayName || "Desconocido",
+          estado: 'pending',
+          createdAt: new Date(),
+        });
+        setHasAccess(false);
+        setRequestSent(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Escuchar mensajes si tiene acceso
+  useEffect(() => {
+    if (!hasAccess) return;
+
     const q = query(collection(db, "messages"), orderBy("createdAt"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const loadedMessages = snapshot.docs.map(doc => ({
@@ -28,8 +78,9 @@ function Chat() {
       }));
       setMessages(loadedMessages);
     });
+
     return () => unsubscribe();
-  }, []);
+  }, [hasAccess]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -102,6 +153,24 @@ function Chat() {
     }
   };
 
+  if (hasAccess === null) {
+    return <div className="chat-page"><p>Verificando permisos de acceso al chat...</p></div>;
+  }
+
+  if (!hasAccess) {
+    return (
+      <div className="chat-page">
+        <div className="chat-container">
+          <p className="chat-info">
+            {requestSent
+              ? "Tu solicitud para acceder al chat ha sido enviada. Espera aprobación."
+              : "No tienes acceso al chat."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="chat-page">
       <div className="chat-container">
@@ -120,7 +189,7 @@ function Chat() {
                 {message.audioUrl && (
                   <audio controls className="audio-player">
                     <source src={message.audioUrl} type="audio/wav" />
-                    Your browser does not support the audio element.
+                    Tu navegador no soporta audio.
                   </audio>
                 )}
               </div>
@@ -134,7 +203,6 @@ function Chat() {
             <button type="button" className="icon-button" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
               <FontAwesomeIcon icon={faSmile} />
             </button>
-
             <button type="button" className="icon-button" onClick={toggleRecording}>
               <FontAwesomeIcon icon={isRecording ? faStop : faMicrophone} />
             </button>

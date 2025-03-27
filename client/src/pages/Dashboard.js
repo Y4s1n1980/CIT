@@ -16,6 +16,7 @@ import JuntaManagement from '../components/JuntaManagement';
 import UploadSchoolDocument from '../components/UploadSchoolDocument';
 import ProgramWeeklySection from '../components/ProgramWeeklySection';
 import ConsentimientosCookiesSection from '../components/ConsentimientosCookiesSection.js';
+import ChatRequestsSection from '../components/ChatRequestsSection.js';
 import './Dashboard.css';
 
 
@@ -37,6 +38,7 @@ const Dashboard = () => {
         { name: 'Gestión de Socios', component: 'SociosSection' },
         { name: 'Tareas enviados por alumnos', component: 'SubmissionsSection' },
         { name: 'Solicitudes Escuela', component: 'PendingRequestsSection' },
+        { name: 'Solicitudes Chat', component: 'ChatRequestsSection' },
         { name: 'Gestión de Usuarios', component: 'UserManagementSection' },
         { name: 'Gestión de Artículos', component: 'ArticleManagementSection' },
         { name: 'Gestión de Servicios', component: 'ServiceManagementSection' },
@@ -61,6 +63,8 @@ const Dashboard = () => {
                 return <SubmissionsSection />;
             case 'PendingRequestsSection':
                 return <PendingRequestsSection />;
+            case 'ChatRequestsSection':
+                return <ChatRequestsSection />;
             case 'UserManagementSection':
                 return <UserManagementSection />;
             case 'ArticleManagementSection':
@@ -83,8 +87,6 @@ const Dashboard = () => {
                 return <ProgramWeeklySection />;
             case 'ConsentimientosCookiesSection':
                 return <ConsentimientosCookiesSection />;
-
-    
 
         }
     };

@@ -1,4 +1,4 @@
-// src/components/PendingRequestsSection.js
+// src/components/ChatRequestsSection.js
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
 import {
@@ -7,19 +7,20 @@ import {
     updateDoc,
     deleteDoc,
     doc,
+    getDoc
 } from 'firebase/firestore';
 import './PendingRequestsSection.css';
 
-const PendingRequestsSection = () => {
-    const [pendingRequests, setPendingRequests] = useState([]);
+const ChatRequestsSection = () => {
+    const [chatRequests, setChatRequests] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 7;
 
     useEffect(() => {
-        const fetchPendingRequests = async () => {
-            const requestsCollection = collection(db, 'schoolAccessRequests');
+        const fetchChatRequests = async () => {
+            const requestsCollection = collection(db, 'chatAccessRequests');
             const requestsSnapshot = await getDocs(requestsCollection);
-            setPendingRequests(
+            setChatRequests(
                 requestsSnapshot.docs
                     .map((doc) => ({
                         id: doc.id,
@@ -28,17 +29,20 @@ const PendingRequestsSection = () => {
                     .sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds)
             );
         };
-        fetchPendingRequests();
+        fetchChatRequests();
     }, []);
 
     const handleApproveRequest = async (requestId, userId) => {
         const userDocRef = doc(db, 'users', userId);
-        await updateDoc(userDocRef, { isApproved: true });
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+            await updateDoc(userDocRef, { chatApproved: true });
+        }
 
-        const requestDocRef = doc(db, 'schoolAccessRequests', requestId);
+        const requestDocRef = doc(db, 'chatAccessRequests', requestId);
         await updateDoc(requestDocRef, { estado: 'approved' });
 
-        setPendingRequests((prev) =>
+        setChatRequests((prev) =>
             prev.map((request) =>
                 request.id === requestId ? { ...request, estado: 'approved' } : request
             )
@@ -47,9 +51,12 @@ const PendingRequestsSection = () => {
 
     const handleDeactivateUser = async (userId) => {
         const userDocRef = doc(db, 'users', userId);
-        await updateDoc(userDocRef, { isApproved: false });
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+            await updateDoc(userDocRef, { chatApproved: false });
+        }
 
-        setPendingRequests((prev) =>
+        setChatRequests((prev) =>
             prev.map((request) =>
                 request.userId === userId ? { ...request, estado: 'deactivated' } : request
             )
@@ -57,17 +64,17 @@ const PendingRequestsSection = () => {
     };
 
     const handleRejectRequest = async (requestId) => {
-        await deleteDoc(doc(db, 'schoolAccessRequests', requestId));
-        setPendingRequests((prev) => prev.filter((request) => request.id !== requestId));
+        await deleteDoc(doc(db, 'chatAccessRequests', requestId));
+        setChatRequests((prev) => prev.filter((request) => request.id !== requestId));
     };
 
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentRequests = pendingRequests.slice(startIndex, startIndex + itemsPerPage);
-    const totalPages = Math.ceil(pendingRequests.length / itemsPerPage);
+    const currentRequests = chatRequests.slice(startIndex, startIndex + itemsPerPage);
+    const totalPages = Math.ceil(chatRequests.length / itemsPerPage);
 
     return (
         <section className="access-requests">
-            <h2>Solicitudes Escuela</h2>
+            <h2>Solicitudes Chat</h2>
             <table>
                 <thead>
                     <tr>
@@ -95,11 +102,26 @@ const PendingRequestsSection = () => {
                             </td>
                             <td>
                                 {request.estado === 'approved' ? (
-                                    <button className="deactivate-btn" onClick={() => handleDeactivateUser(request.userId)}>Desactivar</button>
+                                    <button
+                                        className="deactivate-btn"
+                                        onClick={() => handleDeactivateUser(request.userId)}
+                                    >
+                                        Desactivar
+                                    </button>
                                 ) : (
                                     <>
-                                        <button className="approve-btn" onClick={() => handleApproveRequest(request.id, request.userId)}>Aprobar</button>
-                                        <button className="reject-btn" onClick={() => handleRejectRequest(request.id)}>Rechazar</button>
+                                        <button
+                                            className="approve-btn"
+                                            onClick={() => handleApproveRequest(request.id, request.userId)}
+                                        >
+                                            Aprobar
+                                        </button>
+                                        <button
+                                            className="reject-btn"
+                                            onClick={() => handleRejectRequest(request.id)}
+                                        >
+                                            Rechazar
+                                        </button>
                                     </>
                                 )}
                             </td>
@@ -123,4 +145,4 @@ const PendingRequestsSection = () => {
     );
 };
 
-export default PendingRequestsSection;
+export default ChatRequestsSection;

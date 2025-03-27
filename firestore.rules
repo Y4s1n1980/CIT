@@ -67,6 +67,16 @@ service cloud.firestore {
     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
 }
 
+match /chatAccessRequests/{requestId} {
+  // Cualquier usuario autenticado puede crear su solicitud
+  allow create: if request.auth != null;
+
+  // Solo los administradores pueden leer y gestionar solicitudes
+  allow read, write: if request.auth != null &&
+    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+}
+
+
     
     
      // Regla para testimonios
