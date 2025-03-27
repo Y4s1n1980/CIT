@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../services/firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const AuthContext = createContext();
@@ -19,43 +19,48 @@ export const AuthProvider = ({ children }) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-    
+
             if (!user.emailVerified) {
-                await auth.signOut(); // Cerrar sesión inmediatamente
+                await auth.signOut();
                 throw new Error("Debes verificar tu correo antes de iniciar sesión.");
             }
-    
+
             return { success: true, user };
         } catch (error) {
             return { success: false, error: error.message };
         }
     };
-    
-    
-    
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            console.log("Usuario autenticado:", user); 
+            console.log("Usuario autenticado:", user);
             if (user) {
                 setCurrentUser(user);
-                
-                
+
                 const userDocRef = doc(db, 'users', user.uid);
 
-                // Escucha activa para actualizar en tiempo real si el usuario es admin o está aprobado
+                // Actualizar emailVerified en Firestore si cambió
+                if (user.emailVerified) {
+                    try {
+                        await updateDoc(userDocRef, {
+                            emailVerified: true
+                        });
+                    } catch (error) {
+                        console.error("Error actualizando emailVerified en Firestore:", error);
+                    }
+                }
+
                 onSnapshot(userDocRef, (snapshot) => {
                     if (snapshot.exists()) {
                         const userData = snapshot.data();
                         setIsAdmin(userData.role === 'admin');
                         setIsApproved(userData.isApproved === true);
                     } else {
-                        
                         setIsAdmin(false);
                         setIsApproved(false);
                     }
                 });
-                 
+
             } else {
                 setCurrentUser(null);
                 setIsAdmin(false);
