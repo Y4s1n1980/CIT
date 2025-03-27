@@ -1,15 +1,6 @@
 // src/pages/Chat.js
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  collection,
-  addDoc,
-  query,
-  onSnapshot,
-  orderBy,
-  doc,
-  getDoc,
-  setDoc
-} from "firebase/firestore";
+import {collection,addDoc,query,onSnapshot,orderBy,doc,getDoc,setDoc} from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from '../services/firebase';
 import Picker from '@emoji-mart/react';
@@ -51,10 +42,15 @@ function Chat() {
           setRequestSent(true);
         }
       } else {
-        await setDoc(requestRef, {
+
+        // Obtener el nombre desde la colección users
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const userData = userDoc.exists() ? userDoc.data() : null;
+      const fullName = userData?.name || "Desconocido";
+        await setDoc(doc(db, "chatAccessRequests", user.uid), {
           userId: user.uid,
           email: user.email,
-          name: user.displayName || "Desconocido",
+          name: fullName,
           estado: 'pending',
           createdAt: new Date(),
         });
