@@ -1,13 +1,7 @@
 // src/components/PendingRequestsSection.js
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
-import {
-    collection,
-    getDocs,
-    updateDoc,
-    deleteDoc,
-    doc,
-} from 'firebase/firestore';
+import {collection,getDocs,updateDoc,deleteDoc,doc,} from 'firebase/firestore';
 import './PendingRequestsSection.css';
 
 const PendingRequestsSection = () => {
@@ -25,7 +19,7 @@ const PendingRequestsSection = () => {
                         id: doc.id,
                         ...doc.data(),
                     }))
-                    .sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds)
+                    .sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds)
             );
         };
         fetchPendingRequests();
@@ -36,7 +30,7 @@ const PendingRequestsSection = () => {
         await updateDoc(userDocRef, { isApproved: true });
 
         const requestDocRef = doc(db, 'schoolAccessRequests', requestId);
-        await updateDoc(requestDocRef, { estado: 'approved' });
+        await updateDoc(requestDocRef, { estado: 'approved', status: 'approved' });
 
         setPendingRequests((prev) =>
             prev.map((request) =>
@@ -86,8 +80,8 @@ const PendingRequestsSection = () => {
                             <td>{request.name || 'Nombre desconocido'}</td>
                             <td>{request.email}</td>
                             <td>
-                                {request.createdAt?.seconds
-                                    ? new Date(request.createdAt.seconds * 1000).toLocaleString()
+                                {request.timestamp?.seconds
+                                    ? new Date(request.timestamp.seconds * 1000).toLocaleString()
                                     : 'Sin fecha'}
                             </td>
                             <td className={`status ${request.estado === 'approved' ? 'approved' : request.estado === 'deactivated' ? 'deactivated' : 'pending'}`}>

@@ -4,10 +4,15 @@ import { auth, db } from '../services/firebase';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification  } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom'; 
 import './Auth.css';
 
+
+
 const Auth = () => {
-    const { handleLogin } = useAuth(); // Importamos `handleLogin` correctamente
+    const { handleLogin } = useAuth();
+    const navigate = useNavigate(); 
+     // Importamos `handleLogin` correctamente
 
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
@@ -28,26 +33,30 @@ const Auth = () => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
     
-            // Enviar correo de verificación
             await sendEmailVerification(user);
     
-            // Guardar el usuario en Firestore
             await setDoc(doc(db, 'users', user.uid), {
-                userId: user.uid, 
+                userId: user.uid,
                 name,
                 email,
                 role: 'user',
-                isActive: true, 
-                isApproved: false, 
-                emailVerified: false,  // 🔹 Nuevo campo para verificarlo en Firestore
+                isActive: true,
+                isApproved: false,
+                emailVerified: false,
                 createdAt: new Date()
             });
     
             setMessage("Usuario registrado con éxito. Verifica tu correo antes de iniciar sesión.");
+    
+            // ✅ Redirige a la página de inicio tras 3 segundos
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);
         } catch (error) {
             setError(error.message);
         }
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
