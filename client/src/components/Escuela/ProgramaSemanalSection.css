@@ -1,0 +1,129 @@
+.programa-semanal-section {
+    background: var(--background-light);
+    padding: 30px 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    margin: 40px 0 50px;
+    transition: background 0.3s ease;
+  }
+  
+  .programa-semanal-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .programa-semanal-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+  }
+  
+  .documents-grid-programa {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .programa-semanal-item {
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .programa-semanal-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+  }
+  
+  .programa-semanal-item p {
+    margin: 4px 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+  
+  .programa-semanal-item.expanded {
+    grid-column: 1 / -1;
+  }
+  
+  .expanded-content {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--subtext-color);
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  
+  .programa-semanal-section .pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .programa-semanal-section .pagination-controls button {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .programa-semanal-section .pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .programa-semanal-section .pagination-controls span {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .documents-grid-programa {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .programa-semanal-item.expanded {
+      grid-column: 1 / 3;
+    }
+  }
+  
+  /* Móvil */
+  @media (max-width: 768px) {
+    .documents-grid-programa {
+      grid-template-columns: 1fr;
+    }
+  
+    .programa-semanal-item.expanded {
+      grid-column: 1 / 2;
+    }
+  
+    .pagination-controls {
+      flex-direction: column;
+    }
+  }
+  
