@@ -1,0 +1,107 @@
+.enviar-archivos-section {
+    padding: 30px 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+  }
+  
+  .enviar-archivos-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: var(--text-color);
+  }
+  
+  textarea,
+  select,
+  input[type="file"],
+  input[type="email"],
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    font-family: var(--font-base);
+    font-size: 1rem;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  button[type="submit"] {
+    padding: 12px 20px;
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: var(--success-color-dark);
+    transform: scale(1.03);
+  }
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .enviar-archivos-section {
+      padding: 25px 15px;
+    }
+  }
+  
+  /* Móvil */
+  @media (max-width: 768px) {
+    .enviar-archivos-section {
+      padding: 20px;
+    }
+  
+    textarea,
+    select,
+    input {
+      font-size: 0.95rem;
+    }
+  
+    button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+    }
+  }
+  
+  /* Pantallas muy pequeñas */
+  @media (max-width: 480px) {
+    form {
+      gap: 12px;
+    }
+  
+    textarea,
+    select,
+    input {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  
+    button[type="submit"] {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }
+  

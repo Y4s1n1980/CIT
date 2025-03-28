@@ -1,0 +1,154 @@
+.contacts-section {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .contacts-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+  }
+  
+  .contacts-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+  
+  .contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .contact-card {
+    background: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+  }
+  
+  .contact-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  
+  /* Agrupar nombre y rol */
+  .contact-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+  }
+  
+  .contact-card p {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: var(--subtext-color);
+  }
+  
+  .chat-button {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .chat-button:hover {
+    background-color: var(--primary-color-dark);
+    transform: scale(1.05);
+  }
+
+  .loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+  
+  .custom-loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--primary-color);
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 12px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loader-wrapper p {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+  
+  .chat-button {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .chat-button:hover {
+    background-color: var(--primary-color-dark);
+    transform: scale(1.05);
+  }
+  
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .contacts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contacts-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .contact-avatar {
+      width: 70px;
+      height: 70px;
+    }
+  
+    .chat-button {
+      width: 100%;
+    }
+  }
+  
