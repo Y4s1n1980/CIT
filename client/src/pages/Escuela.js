@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Escuela.css';
 import { db } from '../services/firebase';
 import { collection, query, orderBy, onSnapshot, where, getDoc, limit, doc, getDocs, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CalendarioSection from './CalendarioSection';
 import EnviarArchivosSection from '../components/EnviarArchivosSection';
 import { serverTimestamp } from 'firebase/firestore';
+import './Escuela.css';
 
 const ContactosSection = () => {
   const [contacts, setContacts] = useState([]);
