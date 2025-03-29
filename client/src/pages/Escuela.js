@@ -3,7 +3,7 @@ import { db } from '../services/firebase';
 import { collection, query, orderBy, onSnapshot, getDoc, limit, doc, getDocs, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import CalendarioSection from './CalendarioSection';
+import CalendarioSection from '../components/Escuela/CalendarioSection';
 import EnviarArchivosSection from '../components/EnviarArchivosSection';
 import { serverTimestamp } from 'firebase/firestore';
 import EscuelaNav from '../components/Escuela/EscuelaNav';
@@ -193,8 +193,10 @@ const Escuela = () => {
           handleWeeklyNextPage={handleWeeklyNextPage}
         />
       )}
+      
       <ContactosSection />
       <NoticiasSection />
+
     </>
   );
   
