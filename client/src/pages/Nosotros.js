@@ -1,3 +1,4 @@
+// src/pages/Nosotros.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../services/firebase';
@@ -10,8 +11,7 @@ const Nosotros = () => {
     const navigate = useNavigate();
     const [miembros, setMiembros] = useState([]);
 
-     // Obtener miembros desde Firestore
-     useEffect(() => {
+    useEffect(() => {
         const fetchMiembros = async () => {
             const querySnapshot = await getDocs(collection(db, "juntaDirectiva"));
             const miembrosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -20,16 +20,13 @@ const Nosotros = () => {
         fetchMiembros();
     }, []);
 
-      // 🔹 USEEFFECT para obtener datos en tiempo real
-      useEffect(() => {
+    useEffect(() => {
         const unsubscribe = onSnapshot(collection(db, "juntaDirectiva"), (querySnapshot) => {
             const miembrosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setMiembros(miembrosData);
         });
-
-        return () => unsubscribe(); // Se cancela la suscripción cuando se desmonta el componente
+        return () => unsubscribe();
     }, []);
-    
 
     const handleImageClick = (miembro) => {
         navigate(`/miembro/${miembro.nombre}`, { state: { miembro } });
@@ -37,34 +34,31 @@ const Nosotros = () => {
 
     return (
         <div className="nosotros">
-            {/* Primera Sección: Hero */}
+            {/* Hero con SEO */}
             <section className="hero">
                 <div className="hero-nosotros">
-                    <h1>Comunidad Islamica Tordera</h1>
-                    <p>Al Servicio De La Comunidad Desde Hace Mas De 15 Años</p>
+                    <h1>Comunitat Islàmica de Tordera</h1>
+                    <p>Una mezquita en Tordera al servicio de la comunidad musulmana desde hace más de 15 años.</p>
                 </div>
             </section>
 
-            {/* Sección 2: Historia de la Mezquita */}
+            {/* Historia */}
             <section className="about-history-section">
-        <div className="history-container">
-          <div className="history-text">
-          <div className="text-container">
-            <h2>La historia de nuestra mezquita</h2>
-            <p>
-              Nuestra mezquita ha estado al servicio de la comunidad desde finales del año 2001, llevamos mas de dos décadas. Estamos
-              dedicados a difundir la paz y apoyar a nuestra comunidad local musulmana y autoctona, nuestra comunidad se conforma por mas de 10 nacionaledades africanas europeas y asiatecas,
-              a través de diversas iniciativas y eventos hemos intentado dar a conocer la religion islamica y estar cerca de la gente.
-            </p>
-            <button onClick={() => navigate('/historia')}>Saber más</button>
-          </div>
-          </div>
-          <div className="history-image">
-            <img src="/hero1.jpeg" alt="Mosque History" />
-          </div>
-        </div>
-      </section>
-
+                <div className="history-container">
+                    <div className="history-text">
+                        <div className="text-container">
+                            <h2>La historia de nuestra mezquita en Tordera</h2>
+                            <p>
+                                Desde el año 2001, nuestra mezquita ha sido un pilar para los musulmanes de Tordera. La Comunitat Islàmica de Tordera está formada por personas de más de 10 nacionalidades, trabajando para fortalecer la fe, promover la educación islámica y ofrecer servicios religiosos y sociales para toda la comunidad.
+                            </p>
+                            <button onClick={() => navigate('/historia')}>Saber más sobre la historia</button>
+                        </div>
+                    </div>
+                    <div className="history-image">
+                        <img src="/hero1.jpeg" alt="Fachada mezquita Tordera" loading="lazy" />
+                    </div>
+                </div>
+            </section>
 
             {/* Junta Directiva */}
             <section className="junta-directiva">
@@ -73,11 +67,10 @@ const Nosotros = () => {
                     {miembros.length > 0 ? (
                         miembros.map((miembro) => (
                             <div key={miembro.id} className="miembro" onClick={() => handleImageClick(miembro)}>
-                                <img src={miembro.imagenUrl || '/default-profile.png'} alt={miembro.nombre}  loading="lazy" />
+                                <img src={miembro.imagenUrl || '/default-profile.png'} alt={`Miembro: ${miembro.nombre}`} loading="lazy" />
                                 <p>{miembro.puesto}</p>
                                 <p>{miembro.nombre}</p>
 
-                                {/* Verificar si tiene redes sociales */}
                                 {miembro.redes && (
                                     <div className="redes-sociales">
                                         {miembro.redes.youtube && (
@@ -100,51 +93,42 @@ const Nosotros = () => {
                             </div>
                         ))
                     ) : (
-                        <p>No hay miembros en la junta directiva.</p>
+                        <p>No hay miembros disponibles actualmente.</p>
                     )}
                 </div>
             </section>
 
-            {/* Cuarta Sección: Misión */}
+            {/* Misión */}
             <section className="mision">
-            <h2>Nuestra Misión</h2>
-            <p>Nuestra misión es promover el bienestar, la educación y el desarrollo en un ambiente de respeto y solidaridad.</p>
+                <h2>Nuestra Misión como Comunidad Islámica</h2>
+                <p>Promover el bienestar espiritual y social en Tordera a través de servicios religiosos, educación islámica y actividades culturales.</p>
 
-            <div className="mision-cards">
+                <div className="mision-cards">
+                    <div className="mision-card events" onClick={() => navigate('/eventos')}>
+                        <div className="card-content-mision">
+                            <h3>Eventos Islámicos</h3>
+                            <p>Consulta nuestros próximos eventos para la comunidad musulmana en Tordera.</p>
+                            <button>Ver eventos</button>
+                        </div>
+                    </div>
 
-            <div 
-                    className="mision-card events " 
-                    onClick={() => navigate('/eventos')}
-                >
-                    <div className="card-content-mision">
-                        <h3>Próximos Eventos</h3>
-                        <p>Descubre los nuevos eventos de la comunidad.</p>
-                        <button>Ver eventos</button>
+                    <div className="mision-card blog" onClick={() => navigate('/blog')}>
+                        <div className="card-content-mision">
+                            <h3>Blog Islámico</h3>
+                            <p>Reflexiones y artículos sobre el Islam y la vida comunitaria en Tordera.</p>
+                            <button>Leer más</button>
+                        </div>
+                    </div>
+
+                    <div className="mision-card multimedia" onClick={() => navigate('/multimedia')}>
+                        <div className="card-content-mision">
+                            <h3>Galería Multimedia</h3>
+                            <p>Revive nuestros eventos y actividades a través de fotos y vídeos.</p>
+                            <button>Ver galería</button>
+                        </div>
                     </div>
                 </div>
-                
-                <div 
-                    className="mision-card blog" 
-                    onClick={() => navigate('/blog')}
-                >
-                    <div className="card-content-mision">
-                        <h3>Blog de la Comunidad</h3>
-                        <p>Lee nuestros artículos sobre temas de interés para la comunidad.</p>
-                        <button>Leer más</button>
-                    </div>
-                </div>
-                <div 
-                    className="mision-card multimedia" 
-                    onClick={() => navigate('/multimedia')}
-                >
-                    <div className="card-content-mision">
-                        <h3>Galería Multimedia</h3>
-                        <p>Explora  videos de nuestros eventos y actividades comunitarias.</p>
-                        <button>Ver galería</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
         </div>
     );
 };

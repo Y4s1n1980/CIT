@@ -18,8 +18,16 @@
     position: relative;
     overflow: hidden;
     animation: backgroundSlide 50s infinite ease-in-out;
-    margin-top: 90px;
+    margin-top: 70px;
 }
+
+.seo-hidden-heading {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    visibility: hidden;
+  }
+  
 
 /* Animación para el cambio de fondo */
 @keyframes backgroundSlide {
@@ -484,7 +492,7 @@
 
     .hero-home {
         height: 50vh;
-        margin-top: 130px;
+        margin-top: 150px;
     }
 
     .hero-home h1 {

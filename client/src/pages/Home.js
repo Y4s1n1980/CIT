@@ -84,6 +84,12 @@ const Home = () => {
     return (
         <>
         <div className="home">
+
+             {/* H1 SEO OCULTO */}
+      <h1 className="seo-hidden-heading">
+        Comunitat Islàmica de Tordera | Mezquita, Oración y Servicios Islámicos
+      </h1>
+      
             {/* Hero Section */}
             <section className="hero-home">
             <h1 className="hero-text-home">{texts[currentIndex].title}</h1>

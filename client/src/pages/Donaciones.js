@@ -1,3 +1,4 @@
+// src/pages/Donaciones.js
 import React, { useState } from 'react';
 import './Donaciones.css';
 import { loadStripe } from '@stripe/stripe-js';
@@ -8,8 +9,6 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import axios from 'axios';
 import { sendDonationConfirmationToDonor, sendNotificationToAdmin } from "../services/emailService";
 
-
-
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
@@ -19,7 +18,6 @@ const CheckoutForm = () => {
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [paymentSucceeded, setPaymentSucceeded] = useState(false);
 
-  // Estado para manejar todos los campos adicionales de la donación
   const [donationDetails, setDonationDetails] = useState({
     donante_nombre: '',
     donante_email: '',
@@ -36,32 +34,29 @@ const CheckoutForm = () => {
     });
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setPaymentProcessing(true);
     setError(null);
-  
+
     if (!stripe || !elements) {
       setError("Stripe no está listo");
       setPaymentProcessing(false);
       return;
     }
-  
+
     try {
       let clientSecret;
-  
+
       if (process.env.REACT_APP_PAYMENTS_ENABLED === 'true') {
         const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/create-payment-intent`, {
           amount: donationDetails.monto,
         });
         clientSecret = response.data.clientSecret;
       } else {
-        // 🔧 Mock para pruebas locales
-        console.warn('⚠️ Stripe desactivado, usando mock clientSecret');
         clientSecret = 'mock_client_secret_test_123';
       }
-  
+
       const cardElement = elements.getElement(CardElement);
       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -72,28 +67,27 @@ const CheckoutForm = () => {
           },
         },
       });
-  
+
       if (error) {
         setError(error.message);
         setPaymentProcessing(false);
         return;
       }
-  
+
       setPaymentSucceeded(true);
-  
-      // Guardar datos localmente si Stripe está desactivado
+
       const reference = paymentIntent?.id || 'mock_tx_123';
-  
+
       await addDoc(collection(db, "donations"), {
         ...donationDetails,
         estado: "completada",
         referencia_transaccion: reference,
         fecha_donacion: Timestamp.now(),
       });
-  
+
       await sendDonationConfirmationToDonor(donationDetails);
       await sendNotificationToAdmin(donationDetails);
-  
+
       setDonationDetails({
         donante_nombre: "",
         donante_email: "",
@@ -101,7 +95,7 @@ const CheckoutForm = () => {
         metodo_pago: "Tarjeta de Crédito",
         comentarios: "",
       });
-  
+
       elements.getElement(CardElement).clear();
     } catch (err) {
       setError("Error al procesar el pago. Por favor, intenta nuevamente.");
@@ -110,7 +104,6 @@ const CheckoutForm = () => {
       setPaymentProcessing(false);
     }
   };
-
 
   return (
     <motion.form
@@ -131,22 +124,22 @@ const CheckoutForm = () => {
         disabled={paymentProcessing}
       />
 
-      <label>Nombre del titular de la tarjeta</label>
+      <label>Nombre del Donante</label>
       <input
         type="text"
         name="donante_nombre"
-        placeholder="Nombre completo"
+        placeholder="Tu nombre completo"
         value={donationDetails.donante_nombre}
         onChange={handleInputChange}
         required
         disabled={paymentProcessing}
       />
 
-      <label>Monto de la donación</label>
+      <label>Monto de la Donación (en EUR)</label>
       <input
         type="number"
         name="monto"
-        placeholder="Monto (en USD)"
+        placeholder="Cantidad en euros"
         value={donationDetails.monto}
         onChange={handleInputChange}
         required
@@ -156,13 +149,13 @@ const CheckoutForm = () => {
       <label>Comentarios</label>
       <textarea
         name="comentarios"
-        placeholder="Comentarios sobre la donación"
+        placeholder="¿Quieres dejar un mensaje para la comunidad?"
         value={donationDetails.comentarios}
         onChange={handleInputChange}
         disabled={paymentProcessing}
       />
 
-      <label>Número de tarjeta</label>
+      <label>Datos de la tarjeta</label>
       <CardElement
         options={{
           style: {
@@ -189,7 +182,7 @@ const CheckoutForm = () => {
         {paymentProcessing ? 'Procesando...' : 'Donar ahora'}
       </motion.button>
       {error && <div className="donation-error">{error}</div>}
-      {paymentSucceeded && <div className="donation-message">¡Gracias por tu donación!</div>}
+      {paymentSucceeded && <div className="donation-message">¡Gracias por tu apoyo a la Comunitat Islàmica de Tordera!</div>}
     </motion.form>
   );
 };
@@ -197,11 +190,10 @@ const CheckoutForm = () => {
 const Donation = () => {
   const paymentsEnabled = process.env.REACT_APP_PAYMENTS_ENABLED === 'true';
 
-if (!paymentsEnabled) {
-  return <p>🛑 Los pagos están temporalmente desactivados.</p>;
-}
+  if (!paymentsEnabled) {
+    return <p>🛑 Los pagos están temporalmente desactivados.</p>;
+  }
 
-  
   return (
     <div>
       <motion.section
@@ -212,15 +204,13 @@ if (!paymentsEnabled) {
       >
         <div className="donation-info-container">
           <div className="donation-text">
-            <h2>Apóyanos, Necesitamos Tu Ayuda.</h2>
+            <h1>Apoya nuestra Mezquita en Tordera</h1>
             <p>
-              Tus donaciones nos ayudarán a brindar recursos esenciales, mejorar instalaciones y continuar con nuestro proyecto.
+              Tu donación fortalece la labor de la Comunitat Islàmica de Tordera: mantenimiento de la mezquita, actividades sociales, clases islámicas y servicios para la comunidad musulmana.
             </p>
             <motion.button
               className="donate-button"
-              onClick={() =>
-                document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' })
-              }
+              onClick={() => document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' })}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

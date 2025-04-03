@@ -1,3 +1,4 @@
+// src/pages/Servicios.js
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -10,7 +11,7 @@ const Servicios = () => {
     const [selectedService, setSelectedService] = useState(null);
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
-    const servicesPerPage = 6; // Dos filas de 3
+    const servicesPerPage = 6;
 
     useEffect(() => {
         const fetchServicios = async () => {
@@ -22,10 +23,9 @@ const Servicios = () => {
                 const serviciosData = querySnapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data(),
-                    fechaCreacion: doc.data().fechaCreacion?.toDate() || new Date() // Convertir timestamp
+                    fechaCreacion: doc.data().fechaCreacion?.toDate() || new Date()
                 }));
 
-                // Ordenar los servicios por fecha de creación (del más reciente al más antiguo)
                 const sortedServicios = serviciosData.sort((a, b) => b.fechaCreacion - a.fechaCreacion);
 
                 setServicios(sortedServicios);
@@ -39,7 +39,6 @@ const Servicios = () => {
         fetchServicios();
     }, []);
 
-    // Paginación
     const indexOfLastService = currentPage * servicesPerPage;
     const indexOfFirstService = indexOfLastService - servicesPerPage;
     const currentServices = servicios.slice(indexOfFirstService, indexOfLastService);
@@ -58,25 +57,25 @@ const Servicios = () => {
         <div className="servicios">
             <div className="hero">
                 <div className="hero-content">
-                    <h2>Servicios</h2>
+                    <h1>Servicios Islámicos en Tordera</h1>
                     <p>
-                        Descubre cómo podemos ayudarte a través de una amplia gama de
-                        servicios dedicados a la comunidad.
+                        La Comunitat Islàmica de Tordera ofrece una amplia gama de servicios religiosos, educativos y sociales para musulmanes y vecinos de Tordera. Descubre nuestras clases de árabe, estudios coránicos, charlas islámicas, ceremonia de Chahada y más.
                     </p>
                 </div>
             </div>
-            
+
             <div className="explorar-servicios">
                 <div className="explorar-servicios-content">
-                    <h2>Explora Nuestros Servicios</h2>
-                    <p>Descubre en detalle los servicios que ofrecemos y cómo pueden ayudarte.</p>
-                    <button onClick={() => navigate('/nuestros-servicios')}>Explorar más</button>
+                    <h2>Explora los Servicios de la Mezquita</h2>
+                    <p>Conoce los servicios islámicos que ofrece nuestra comunidad musulmana en Tordera.</p>
+                    <button onClick={() => navigate('/nuestros-servicios')}>Ver todos los servicios</button>
                 </div>
             </div>
 
-            <h1>Servicios</h1>
+            <h2 className="servicios-heading">Listado de Servicios Comunitarios</h2>
+
             {loading ? (
-                <p className="loading-text">Cargando servicios...</p>
+                <p className="loading-text">Cargando servicios disponibles...</p>
             ) : (
                 <div className="servicios-list">
                     {currentServices.map((servicio, index) => (
@@ -91,7 +90,6 @@ const Servicios = () => {
                 <ModalService service={selectedService} onClose={closeModal} />
             )}
 
-            {/* Paginación */}
             <div className="pagination">
                 <button
                     onClick={() => setCurrentPage(currentPage - 1)}
@@ -121,7 +119,6 @@ const Servicios = () => {
     );
 };
 
-// Componente para el modal
 const ModalService = ({ service, onClose }) => (
     <div
         className="modal-overlay"
@@ -144,12 +141,12 @@ const ModalService = ({ service, onClose }) => (
             {service.imagenUrl ? (
                 <img
                     src={service.imagenUrl}
-                    alt={service.nombre}
+                    alt={`Servicio: ${service.nombre}`}
                     className="modal-image"
                     loading="lazy" 
                 />
             ) : (
-                <p>Sin imagen</p>
+                <p>Sin imagen disponible</p>
             )}
             <h2 id="modal-title">{service.nombre}</h2>
             <p id="modal-description">{service.descripcion}</p>
@@ -157,7 +154,6 @@ const ModalService = ({ service, onClose }) => (
     </div>
 );
 
-// Componente para cada tarjeta de servicio
 const ServicioCard = ({ servicio, onOpenModal }) => {
     return (
         <div className="servicio-card"
@@ -171,11 +167,11 @@ const ServicioCard = ({ servicio, onOpenModal }) => {
                 {servicio.imagenUrl ? (
                     <img
                         src={servicio.imagenUrl}
-                        alt={servicio.nombre}
+                        alt={`Imagen del servicio: ${servicio.nombre}`}
                         className="servicio-imagen"
                         loading="lazy"
                         onError={(e) => { 
-                            e.target.src = '/images/default-image.jpg'; // Imagen por defecto
+                            e.target.src = '/images/default-image.jpg';
                         }}
                     />
                 ) : (

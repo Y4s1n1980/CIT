@@ -1,6 +1,7 @@
 // src/components/MapComponent.js
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import './MapComponent.css';
 import "leaflet/dist/leaflet.css";
 
 const MapComponent = () => {
@@ -8,7 +9,7 @@ const MapComponent = () => {
   const googleMapsLink = "https://www.google.com/maps/place/Carrer+Sant+Antoni,+11,+08490+Tordera,+Barcelona/@41.7015725,2.7196943,20.5z/";
 
   return (
-    <MapContainer center={position} zoom={17} style={{ height: "200px", width: "100%", borderRadius: "10px" }}>
+    <MapContainer center={position} zoom={17} className="map-leaflet" scrollWheelZoom={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

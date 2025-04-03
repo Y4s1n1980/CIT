@@ -1,11 +1,11 @@
+// src/pages/Testimonios.js
 import React, { useState, useEffect } from 'react';
-import { db } from '../../services/firebase'; // Verifica que esta ruta sea correcta
+import { db } from '../../services/firebase';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import Slider from 'react-slick';
 import './Testimonios.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 
 const Testimonios = () => {
   const [testimonios, setTestimonios] = useState([]);
@@ -50,32 +50,44 @@ const Testimonios = () => {
 
   return (
     <section className="testimonios-section">
-      <h2 className="testimonios-title">Lo que dicen nuestros visitantes</h2>
+      <h1 className="testimonios-title">
+        Testimonios sobre la Comunitat Islàmica de Tordera
+      </h1>
+      <p className="testimonios-subtitle">
+        Conoce la experiencia de personas que han visitado nuestra mezquita en Tordera o participado en nuestros servicios islámicos y eventos comunitarios.
+      </p>
+
       <Slider {...settings}>
         {testimonios.map((testimonio, index) => (
           <div key={index} className="testimonio-container">
             <div className="testimonio-content">
-              <h3 className="testimonio-name">{testimonio.name}</h3>
-              <p className="testimonio-text">{testimonio.text}</p>
+              <h2 className="testimonio-name">{testimonio.name}</h2>
+              <p className="testimonio-text">"{testimonio.text}"</p>
             </div>
           </div>
         ))}
       </Slider>
 
       <form onSubmit={handleSubmit} className="testimonio-form">
-        <h3>Deja tu testimonio</h3>
+        <h2>Comparte tu experiencia</h2>
+        <p>
+          ¿Has visitado nuestra mezquita o participado en alguna actividad de la comunidad islámica de Tordera? ¡Cuéntanos!
+        </p>
         <input
           type="text"
-          placeholder="Tu nombre"
+          placeholder="Tu nombre (opcional)"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <textarea
-          placeholder="Tu testimonio"
+          placeholder="Escribe tu testimonio..."
           value={newTestimonio}
           onChange={(e) => setNewTestimonio(e.target.value)}
+          required
         />
-        <button type="submit" className="submit-testimonio-button">Enviar</button>
+        <button type="submit" className="submit-testimonio-button">
+          Enviar Testimonio
+        </button>
       </form>
     </section>
   );

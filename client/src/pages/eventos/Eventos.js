@@ -18,7 +18,6 @@ const Eventos = () => {
                 const q = query(eventosCollection, where('estado', '==', true));
                 const querySnapshot = await getDocs(q);
 
-                // Mapear los datos y ordenar por fecha más próxima
                 const eventosData = querySnapshot.docs.map(doc => { 
                     const data = doc.data();
                     return {
@@ -39,15 +38,15 @@ const Eventos = () => {
         fetchEventos();
     }, []);
 
-    // Lógica para mostrar solo 5 eventos o todos
     const eventosAMostrar = mostrarTodos ? eventos : eventos.slice(0, 5);
 
     return (
         <div className="eventos">
-            <h1>Próximos Eventos</h1>
-            <p>Explora nuestros próximos eventos y únete a nosotros </p>
+            <h1>Eventos Islámicos en Tordera</h1>
+            <p>Consulta los próximos eventos de la Comunitat Islàmica de Tordera: actividades religiosas, charlas educativas, eventos comunitarios y más.</p>
+
             {loading ? (
-                <p>Cargando eventos...</p>
+                <p>Cargando eventos de la comunidad musulmana...</p>
             ) : (
                 <ul className="eventos-list">
                     {eventosAMostrar.length > 0 ? (
@@ -79,23 +78,23 @@ const Eventos = () => {
                                 className="evento-button"
                                 onClick={() => navigate(`/eventos/${evento.id}`)}
                             >
-                                Ver Detalles
+                                Ver Detalles del Evento
                             </button>
                         </li>
                     ))
-                    
                     ) : (
-                        <p>No hay eventos próximos.</p>
+                        <p>No hay eventos programados en este momento.</p>
                     )}
                 </ul>
             )}
+
             {eventos.length > 5 && !loading && (
                 <div className="ver-mas-container">
                     <button 
                         className="ver-mas-button" 
                         onClick={() => setMostrarTodos(!mostrarTodos)}
                     >
-                        {mostrarTodos ? "Mostrar menos" : "Ver más"}
+                        {mostrarTodos ? "Mostrar menos eventos" : "Ver todos los eventos islámicos"}
                     </button>
                 </div>
             )}

@@ -1,3 +1,4 @@
+// src/components/Footer.js
 import React from 'react';
 import './Footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,53 +9,56 @@ import MapComponent from "../components/MapComponent";
 import Newsletter from './Newsletter';
 
 const Footer = () => {
-
     return (
         <footer className="footer">
             <div className="footer-container">
                 <div className="footer-section">
-                    <h3>Comunitat Islàmica Tordera</h3>
-                    <p><FontAwesomeIcon icon={faPhone} /> (+34) 630 630 630</p>
-                    <p>Tel: (+34) 630 630 630</p>
+                    <h3>Comunitat Islàmica Tordera - Mezquita</h3>
+                    <p><FontAwesomeIcon icon={faPhone} /> Teléfono: (+34) 617 45 94 76</p>
+                    <p>Dirección: Carrer Sant Antoni, 11, 08490 Tordera, Barcelona</p>
+                    <p>Centro religioso, educativo y comunitario musulmán.</p>
                     <div className="social-icons">
-                    <a href="https://www.facebook.com/profile.php?id=61574460066780" target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon icon={faFacebook} />
-                    </a>
-                    <a href="https://www.instagram.com/comunidadislamicatordera/" target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon icon={faInstagram} />
-                    </a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon icon={faTwitter} />
-                    </a>
-                    <a href="https://www.youtube.com/@comunidadislamicatordera" target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon icon={faYoutube} />
-                    </a>
+                        <a href="https://www.facebook.com/profile.php?id=61574460066780" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <FontAwesomeIcon icon={faFacebook} />
+                        </a>
+                        <a href="https://www.instagram.com/comunidadislamicatordera/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <FontAwesomeIcon icon={faInstagram} />
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                            <FontAwesomeIcon icon={faTwitter} />
+                        </a>
+                        <a href="https://www.youtube.com/@comunidadislamicatordera" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                            <FontAwesomeIcon icon={faYoutube} />
+                        </a>
                     </div>
                 </div>
 
                 <div className="footer-section">
-                    <h4>Links</h4>
+                    
                     <ul>
-                        <li><a href="/nosotros">Acerca de Nosotros</a></li>
+                        <li><a href="/nosotros">Sobre la Comunidad</a></li>
                         <li><Link to="/privacy">Política de Privacidad</Link></li>
                         <li><Link to="/terms">Condiciones de Uso</Link></li>
-                        <li><a href="/sitemap">Mapa del Sitio</a></li>
                     </ul>
                 </div>
 
                 <div className="footer-section">
-                    <h4>Mapa del Sitio</h4>
+                    
                     <MapComponent />
                 </div>
 
                 <div className="footer-section">
+                    
                     <Newsletter />
                 </div>
             </div>
 
             <div className="footer-bottom">
-                <p>© 2023 CIT. Todos los derechos reservados.</p>
-                <a href="https://wa.me/662031368" target="_blank" rel="noopener noreferrer" className="whatsapp-button">
+                <p>
+                    © {new Date().getFullYear()} Comunitat Islàmica de Tordera. Todos los derechos reservados.
+                    Centro Islámico, mezquita, oración y servicios comunitarios en Tordera.
+                </p>
+                <a href="https://wa.me/662031368" target="_blank" rel="noopener noreferrer" className="whatsapp-button" aria-label="WhatsApp">
                     WhatsApp
                 </a>
             </div>
