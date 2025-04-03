@@ -6,6 +6,23 @@
     overflow: hidden;
 }
 
+.video-seccion p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #444;
+    margin-top: 10px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 1.6;
+    background: linear-gradient(to right, #ffffff, #f0f4f8);
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    animation: fadeInUp 0.8s ease-in-out;
+  }
+
 .video-seccion video {
     width: 100%;
     max-width: 900px;

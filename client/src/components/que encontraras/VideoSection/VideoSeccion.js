@@ -3,8 +3,10 @@ import './VideoSection.css';
 
 const VideoSeccion = () => (
     <section className="video-seccion">
+          <p>Este breve video te da una idea de todo lo que hacemos</p>
         <video controls muted autoPlay loop>
-            <source src="/videos/intro.mp4" type="video/mp4" />
+        <source src="https://cit-backend-iuqy.onrender.com/uploads/video pagina.mp4" type="video/mp4" />
+
             Tu navegador no admite el video.
         </video>
     </section>
