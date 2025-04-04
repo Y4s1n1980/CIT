@@ -15,8 +15,8 @@ const Explora = () => {
     return (
         <div className="explora-page">
             <HeroExplora />
-            <ContadorInteractivo />
             <VideoSeccion />
+            <ContadorInteractivo />
             <Funcionalidades />
             <RamadanCountdown />
             <TestimoniosPrev />
