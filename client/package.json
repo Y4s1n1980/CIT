@@ -19,7 +19,7 @@
     "@testing-library/user-event": "^14.6.1",
     "ajv": "^8.17.1",
     "ajv-keywords": "^5.1.0",
-    "axios": "^1.8.2",
+    "axios": "^1.12.0",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.7",
     "emailjs-com": "^3.2.0",
