@@ -30,7 +30,17 @@ let serviceAccount;
 
 function validateServiceAccount(obj) {
   if (!obj || typeof obj !== 'object') return false;
-  const validEmail = obj.client_email?.includes('@') && obj.client_email?.includes('gserviceaccount.com');
+  const email = obj.client_email;
+  const validEmail =
+    typeof email === 'string' &&
+    email.includes('@') &&
+    (() => {
+      const parts = email.split('@');
+      if (parts.length !== 2 || !parts[0]) return false;
+      const domain = parts[1].toLowerCase();
+      const allowedDomains = ['gserviceaccount.com'];
+      return allowedDomains.includes(domain);
+    })();
   return validEmail && obj.private_key && obj.project_id && obj.type === 'service_account';
 }
 
