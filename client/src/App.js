@@ -1,6 +1,7 @@
 // src/App.js FINAL CORREGIDO Y SIN WARNINGS
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import NavbarLayout from './components/NavbarLayout';
@@ -110,6 +111,7 @@ function App() {
   return (
     <AuthProvider>
       <RouterProvider router={router} />
+      <SpeedInsights />
     </AuthProvider>
   );
 }
